@@ -19,9 +19,13 @@ namespace 便當
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Yes;
             this.Close();
-            LoginPage Login1 = new LoginPage();
-            Login1.Show();
+        }
+
+        private void LogOutCheck_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

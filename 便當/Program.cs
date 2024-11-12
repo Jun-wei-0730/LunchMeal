@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace 便當
-{
+{   
     internal static class Program
     {
         /// <summary>
@@ -18,5 +18,10 @@ namespace 便當
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginPage());
         }
+    }
+    public static class User
+    {
+        public static string UserName { get; set; }
+        public static string User_ID { get; }
     }
 }

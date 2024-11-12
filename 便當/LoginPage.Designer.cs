@@ -28,26 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.UserNameInput = new System.Windows.Forms.TextBox();
             this.Test = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.loginButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // UserNameInput
             // 
-            this.textBox1.Font = new System.Drawing.Font("微軟正黑體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox1.Location = new System.Drawing.Point(211, 237);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(370, 50);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.UserNameInput.BackColor = System.Drawing.SystemColors.Window;
+            this.UserNameInput.Font = new System.Drawing.Font("微軟正黑體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.UserNameInput.Location = new System.Drawing.Point(211, 237);
+            this.UserNameInput.Name = "UserNameInput";
+            this.UserNameInput.Size = new System.Drawing.Size(370, 50);
+            this.UserNameInput.TabIndex = 0;
+            this.UserNameInput.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Test
             // 
             this.Test.AutoSize = true;
             this.Test.Font = new System.Drawing.Font("微軟正黑體", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Test.Location = new System.Drawing.Point(227, 106);
+            this.Test.Location = new System.Drawing.Point(224, 104);
             this.Test.Name = "Test";
             this.Test.Size = new System.Drawing.Size(343, 47);
             this.Test.TabIndex = 1;
@@ -66,6 +67,7 @@
             // 
             // loginButton
             // 
+            this.loginButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.loginButton.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.loginButton.Location = new System.Drawing.Point(325, 306);
             this.loginButton.Name = "loginButton";
@@ -75,18 +77,20 @@
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
-            // Form1
+            // LoginPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkGray;
+            this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(800, 494);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Test);
-            this.Controls.Add(this.textBox1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.UserNameInput);
+            this.Name = "LoginPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "便當系統-登入";
+            this.Load += new System.EventHandler(this.LoginPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -94,7 +98,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox UserNameInput;
         private System.Windows.Forms.Label Test;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button loginButton;

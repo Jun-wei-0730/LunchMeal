@@ -31,15 +31,15 @@
             this.BeginOrderButton = new System.Windows.Forms.Button();
             this.Logout1 = new System.Windows.Forms.Label();
             this.UserNameLabel = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.itempic1 = new System.Windows.Forms.PictureBox();
+            this.itempic3 = new System.Windows.Forms.PictureBox();
+            this.itempic4 = new System.Windows.Forms.PictureBox();
+            this.itempic6 = new System.Windows.Forms.PictureBox();
+            this.itempic7 = new System.Windows.Forms.PictureBox();
+            this.itempic8 = new System.Windows.Forms.PictureBox();
+            this.itempic5 = new System.Windows.Forms.PictureBox();
+            this.itempic2 = new System.Windows.Forms.PictureBox();
+            this.itempic0 = new System.Windows.Forms.PictureBox();
             this.item2qty = new System.Windows.Forms.NumericUpDown();
             this.item5qty = new System.Windows.Forms.NumericUpDown();
             this.item8qty = new System.Windows.Forms.NumericUpDown();
@@ -70,15 +70,18 @@
             this.item6pricelbl = new System.Windows.Forms.Label();
             this.item7pricelbl = new System.Windows.Forms.Label();
             this.item8pricelbl = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.page2 = new System.Windows.Forms.Button();
+            this.page = new System.Windows.Forms.Label();
+            this.page1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item2qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item5qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item8qty)).BeginInit();
@@ -125,77 +128,77 @@
             this.UserNameLabel.TabIndex = 4;
             this.UserNameLabel.Text = "Username";
             // 
-            // pictureBox2
+            // itempic1
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(249, 73);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox2.TabIndex = 6;
-            this.pictureBox2.TabStop = false;
+            this.itempic1.Location = new System.Drawing.Point(249, 73);
+            this.itempic1.Name = "itempic1";
+            this.itempic1.Size = new System.Drawing.Size(149, 83);
+            this.itempic1.TabIndex = 6;
+            this.itempic1.TabStop = false;
             // 
-            // pictureBox3
+            // itempic3
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(49, 218);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox3.TabIndex = 7;
-            this.pictureBox3.TabStop = false;
+            this.itempic3.Location = new System.Drawing.Point(49, 218);
+            this.itempic3.Name = "itempic3";
+            this.itempic3.Size = new System.Drawing.Size(149, 83);
+            this.itempic3.TabIndex = 7;
+            this.itempic3.TabStop = false;
             // 
-            // pictureBox4
+            // itempic4
             // 
-            this.pictureBox4.Location = new System.Drawing.Point(249, 218);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox4.TabIndex = 8;
-            this.pictureBox4.TabStop = false;
+            this.itempic4.Location = new System.Drawing.Point(249, 218);
+            this.itempic4.Name = "itempic4";
+            this.itempic4.Size = new System.Drawing.Size(149, 83);
+            this.itempic4.TabIndex = 8;
+            this.itempic4.TabStop = false;
             // 
-            // pictureBox5
+            // itempic6
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(49, 364);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox5.TabIndex = 9;
-            this.pictureBox5.TabStop = false;
+            this.itempic6.Location = new System.Drawing.Point(49, 364);
+            this.itempic6.Name = "itempic6";
+            this.itempic6.Size = new System.Drawing.Size(149, 83);
+            this.itempic6.TabIndex = 9;
+            this.itempic6.TabStop = false;
             // 
-            // pictureBox6
+            // itempic7
             // 
-            this.pictureBox6.Location = new System.Drawing.Point(249, 364);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox6.TabIndex = 10;
-            this.pictureBox6.TabStop = false;
+            this.itempic7.Location = new System.Drawing.Point(249, 364);
+            this.itempic7.Name = "itempic7";
+            this.itempic7.Size = new System.Drawing.Size(149, 83);
+            this.itempic7.TabIndex = 10;
+            this.itempic7.TabStop = false;
             // 
-            // pictureBox7
+            // itempic8
             // 
-            this.pictureBox7.Location = new System.Drawing.Point(449, 364);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox7.TabIndex = 13;
-            this.pictureBox7.TabStop = false;
+            this.itempic8.Location = new System.Drawing.Point(449, 364);
+            this.itempic8.Name = "itempic8";
+            this.itempic8.Size = new System.Drawing.Size(149, 83);
+            this.itempic8.TabIndex = 13;
+            this.itempic8.TabStop = false;
             // 
-            // pictureBox8
+            // itempic5
             // 
-            this.pictureBox8.Location = new System.Drawing.Point(449, 218);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox8.TabIndex = 12;
-            this.pictureBox8.TabStop = false;
+            this.itempic5.Location = new System.Drawing.Point(449, 218);
+            this.itempic5.Name = "itempic5";
+            this.itempic5.Size = new System.Drawing.Size(149, 83);
+            this.itempic5.TabIndex = 12;
+            this.itempic5.TabStop = false;
             // 
-            // pictureBox9
+            // itempic2
             // 
-            this.pictureBox9.Location = new System.Drawing.Point(449, 73);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox9.TabIndex = 11;
-            this.pictureBox9.TabStop = false;
+            this.itempic2.Location = new System.Drawing.Point(449, 73);
+            this.itempic2.Name = "itempic2";
+            this.itempic2.Size = new System.Drawing.Size(149, 83);
+            this.itempic2.TabIndex = 11;
+            this.itempic2.TabStop = false;
             // 
-            // pictureBox1
+            // itempic0
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(49, 73);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(149, 83);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.itempic0.Location = new System.Drawing.Point(49, 73);
+            this.itempic0.Name = "itempic0";
+            this.itempic0.Size = new System.Drawing.Size(149, 83);
+            this.itempic0.TabIndex = 5;
+            this.itempic0.TabStop = false;
             // 
             // item2qty
             // 
@@ -471,12 +474,46 @@
             this.item8pricelbl.TabIndex = 58;
             this.item8pricelbl.Text = "80";
             // 
+            // page2
+            // 
+            this.page2.Location = new System.Drawing.Point(544, 18);
+            this.page2.Name = "page2";
+            this.page2.Size = new System.Drawing.Size(75, 23);
+            this.page2.TabIndex = 59;
+            this.page2.Text = "下一頁";
+            this.page2.UseVisualStyleBackColor = true;
+            this.page2.Click += new System.EventHandler(this.page2_Click);
+            // 
+            // page
+            // 
+            this.page.AutoSize = true;
+            this.page.Location = new System.Drawing.Point(626, 28);
+            this.page.Name = "page";
+            this.page.Size = new System.Drawing.Size(11, 12);
+            this.page.TabIndex = 60;
+            this.page.Text = "1";
+            this.page.Visible = false;
+            // 
+            // page1
+            // 
+            this.page1.Location = new System.Drawing.Point(449, 18);
+            this.page1.Name = "page1";
+            this.page1.Size = new System.Drawing.Size(75, 23);
+            this.page1.TabIndex = 61;
+            this.page1.Text = "上一頁";
+            this.page1.UseVisualStyleBackColor = true;
+            this.page1.Visible = false;
+            this.page1.Click += new System.EventHandler(this.page1_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.page1);
+            this.Controls.Add(this.page);
+            this.Controls.Add(this.page2);
             this.Controls.Add(this.item8pricelbl);
             this.Controls.Add(this.item7pricelbl);
             this.Controls.Add(this.item6pricelbl);
@@ -505,15 +542,15 @@
             this.Controls.Add(this.item8qty);
             this.Controls.Add(this.item5qty);
             this.Controls.Add(this.item2qty);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.pictureBox9);
-            this.Controls.Add(this.pictureBox7);
-            this.Controls.Add(this.pictureBox8);
-            this.Controls.Add(this.pictureBox6);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.itempic0);
+            this.Controls.Add(this.itempic2);
+            this.Controls.Add(this.itempic8);
+            this.Controls.Add(this.itempic5);
+            this.Controls.Add(this.itempic7);
+            this.Controls.Add(this.itempic6);
+            this.Controls.Add(this.itempic4);
+            this.Controls.Add(this.itempic3);
+            this.Controls.Add(this.itempic1);
             this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.Logout1);
             this.Controls.Add(this.BeginOrderButton);
@@ -521,15 +558,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "便當系統-訂購";
             this.Load += new System.EventHandler(this.Menu_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itempic0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.item2qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.item5qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.item8qty)).EndInit();
@@ -549,15 +586,15 @@
         private System.Windows.Forms.Button BeginOrderButton;
         private System.Windows.Forms.Label Logout1;
         private System.Windows.Forms.Label UserNameLabel;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox itempic1;
+        private System.Windows.Forms.PictureBox itempic3;
+        private System.Windows.Forms.PictureBox itempic4;
+        private System.Windows.Forms.PictureBox itempic6;
+        private System.Windows.Forms.PictureBox itempic7;
+        private System.Windows.Forms.PictureBox itempic8;
+        private System.Windows.Forms.PictureBox itempic5;
+        private System.Windows.Forms.PictureBox itempic2;
+        private System.Windows.Forms.PictureBox itempic0;
         private System.Windows.Forms.NumericUpDown item2qty;
         private System.Windows.Forms.NumericUpDown item5qty;
         private System.Windows.Forms.NumericUpDown item8qty;
@@ -588,5 +625,8 @@
         private System.Windows.Forms.Label item6pricelbl;
         private System.Windows.Forms.Label item7pricelbl;
         private System.Windows.Forms.Label item8pricelbl;
+        private System.Windows.Forms.Button page2;
+        private System.Windows.Forms.Label page;
+        private System.Windows.Forms.Button page1;
     }
 }

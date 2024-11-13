@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
@@ -14,7 +15,9 @@ namespace 便當
             public string 便當名稱 { get; set; }
             public string 價格 { get; set; }
         }
+        
         List<便當> 菜單 = new List<便當>();
+        
         public Menu()
         {
             InitializeComponent();
@@ -56,14 +59,20 @@ namespace 便當
         {
             LogOutCheck CheckWindow = new LogOutCheck();
             if (CheckWindow.ShowDialog() == DialogResult.Yes)
+            {
                 this.Close();
-            LoginPage LoginPage = new LoginPage();
-            LoginPage.Show();
+                LoginPage LoginPage = new LoginPage();
+                LoginPage.Show();
+            }
         }
 
         private void BeginOrderButton_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            OrderInfo order = new OrderInfo();
+            GetOrder();
+            if (order.ShowDialog() == DialogResult.Yes)
+                this.Show();           
         }
 
 
@@ -231,8 +240,8 @@ namespace 便當
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
-                var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name);
-                var lblP = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_price);
+                var lbl = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_name);
+                var lblP = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_price);
                 lbl.Text = 菜單[i].便當名稱.ToString();
                 lblP.Text = 菜單[i].價格.ToString();
                 string itemQty = "item" + i.ToString() + "qty";
@@ -251,6 +260,19 @@ namespace 便當
             page.Text = 1.ToString();
             page1.Visible = false;
             page2.Visible = true;
+        }
+        private void GetOrder()
+        {
+            
+            var item = OrderResult.Items.OfType<ListViewItem>();
+            orders.Orders.Clear();
+            foreach (var i in item)
+            {
+                String Order_name = i.SubItems[0].Text;
+                String Order_count = i.SubItems[1].Text;
+                String price = 菜單.OfType<便當>().FirstOrDefault(rs => rs.便當名稱 == Order_name).價格;
+                orders.Orders.Add(new order_meal() { 便當名稱 = Order_name, 數量 = Order_count ,便當價格 = price});               
+            }
         }
     }
 }

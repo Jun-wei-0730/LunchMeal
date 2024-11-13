@@ -25,6 +25,11 @@ namespace 便當
 
         private void LogOutCheck_Load(object sender, EventArgs e)
         {
+            UserNameLabel.Text = User.UserName;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
 
         }
     }

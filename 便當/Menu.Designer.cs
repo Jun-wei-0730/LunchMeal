@@ -476,7 +476,7 @@
             // 
             // page2
             // 
-            this.page2.Location = new System.Drawing.Point(544, 18);
+            this.page2.Location = new System.Drawing.Point(550, 9);
             this.page2.Name = "page2";
             this.page2.Size = new System.Drawing.Size(75, 23);
             this.page2.TabIndex = 59;
@@ -496,7 +496,7 @@
             // 
             // page1
             // 
-            this.page1.Location = new System.Drawing.Point(449, 18);
+            this.page1.Location = new System.Drawing.Point(550, 9);
             this.page1.Name = "page1";
             this.page1.Size = new System.Drawing.Size(75, 23);
             this.page1.TabIndex = 61;

@@ -49,21 +49,21 @@
             this.item0qty = new System.Windows.Forms.NumericUpDown();
             this.item3qty = new System.Windows.Forms.NumericUpDown();
             this.item6qty = new System.Windows.Forms.NumericUpDown();
-            this.item0lbl = new System.Windows.Forms.Label();
+            this.lbl0 = new System.Windows.Forms.Label();
             this.item0pricelbl = new System.Windows.Forms.Label();
             this.OrderResult = new System.Windows.Forms.ListView();
             this.listview_name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listview_qty = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.item1lbl = new System.Windows.Forms.Label();
-            this.item2lbl = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
+            this.lbl2 = new System.Windows.Forms.Label();
             this.item1pricelbl = new System.Windows.Forms.Label();
             this.item2pricelbl = new System.Windows.Forms.Label();
-            this.item3lbl = new System.Windows.Forms.Label();
-            this.item4lbl = new System.Windows.Forms.Label();
-            this.item5lbl = new System.Windows.Forms.Label();
-            this.item6lbl = new System.Windows.Forms.Label();
-            this.item7lbl = new System.Windows.Forms.Label();
-            this.item8lbl = new System.Windows.Forms.Label();
+            this.lbl3 = new System.Windows.Forms.Label();
+            this.lbl4 = new System.Windows.Forms.Label();
+            this.lbl5 = new System.Windows.Forms.Label();
+            this.lbl6 = new System.Windows.Forms.Label();
+            this.lbl7 = new System.Windows.Forms.Label();
+            this.lbl8 = new System.Windows.Forms.Label();
             this.item3pricelbl = new System.Windows.Forms.Label();
             this.item4pricelbl = new System.Windows.Forms.Label();
             this.item5pricelbl = new System.Windows.Forms.Label();
@@ -211,6 +211,7 @@
             this.item5qty.Name = "item5qty";
             this.item5qty.Size = new System.Drawing.Size(54, 22);
             this.item5qty.TabIndex = 15;
+            this.item5qty.ValueChanged += new System.EventHandler(this.item5數量控制);
             // 
             // item8qty
             // 
@@ -218,7 +219,7 @@
             this.item8qty.Name = "item8qty";
             this.item8qty.Size = new System.Drawing.Size(54, 22);
             this.item8qty.TabIndex = 16;
-            this.item8qty.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
+            this.item8qty.ValueChanged += new System.EventHandler(this.item8數量控制);
             // 
             // item7qty
             // 
@@ -226,7 +227,7 @@
             this.item7qty.Name = "item7qty";
             this.item7qty.Size = new System.Drawing.Size(54, 22);
             this.item7qty.TabIndex = 17;
-            this.item7qty.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
+            this.item7qty.ValueChanged += new System.EventHandler(this.item7數量控制);
             // 
             // item4qty
             // 
@@ -234,6 +235,7 @@
             this.item4qty.Name = "item4qty";
             this.item4qty.Size = new System.Drawing.Size(54, 22);
             this.item4qty.TabIndex = 18;
+            this.item4qty.ValueChanged += new System.EventHandler(this.item4數量控制);
             // 
             // item1qty
             // 
@@ -257,6 +259,7 @@
             this.item3qty.Name = "item3qty";
             this.item3qty.Size = new System.Drawing.Size(54, 22);
             this.item3qty.TabIndex = 21;
+            this.item3qty.ValueChanged += new System.EventHandler(this.item3數量控制);
             // 
             // item6qty
             // 
@@ -264,17 +267,17 @@
             this.item6qty.Name = "item6qty";
             this.item6qty.Size = new System.Drawing.Size(54, 22);
             this.item6qty.TabIndex = 22;
-            this.item6qty.ValueChanged += new System.EventHandler(this.numericUpDown9_ValueChanged);
+            this.item6qty.ValueChanged += new System.EventHandler(this.item6數量控制);
             // 
-            // item0lbl
+            // lbl0
             // 
-            this.item0lbl.AutoSize = true;
-            this.item0lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item0lbl.Location = new System.Drawing.Point(46, 52);
-            this.item0lbl.Name = "item0lbl";
-            this.item0lbl.Size = new System.Drawing.Size(55, 16);
-            this.item0lbl.TabIndex = 24;
-            this.item0lbl.Text = "雞腿飯";
+            this.lbl0.AutoSize = true;
+            this.lbl0.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl0.Location = new System.Drawing.Point(46, 52);
+            this.lbl0.Name = "lbl0";
+            this.lbl0.Size = new System.Drawing.Size(55, 16);
+            this.lbl0.TabIndex = 24;
+            this.lbl0.Text = "雞腿飯";
             // 
             // item0pricelbl
             // 
@@ -308,25 +311,25 @@
             // 
             this.listview_qty.Text = "數量";
             // 
-            // item1lbl
+            // lbl1
             // 
-            this.item1lbl.AutoSize = true;
-            this.item1lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item1lbl.Location = new System.Drawing.Point(246, 52);
-            this.item1lbl.Name = "item1lbl";
-            this.item1lbl.Size = new System.Drawing.Size(55, 16);
-            this.item1lbl.TabIndex = 43;
-            this.item1lbl.Text = "排骨飯";
+            this.lbl1.AutoSize = true;
+            this.lbl1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl1.Location = new System.Drawing.Point(246, 52);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(55, 16);
+            this.lbl1.TabIndex = 43;
+            this.lbl1.Text = "排骨飯";
             // 
-            // item2lbl
+            // lbl2
             // 
-            this.item2lbl.AutoSize = true;
-            this.item2lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item2lbl.Location = new System.Drawing.Point(446, 54);
-            this.item2lbl.Name = "item2lbl";
-            this.item2lbl.Size = new System.Drawing.Size(55, 16);
-            this.item2lbl.TabIndex = 44;
-            this.item2lbl.Text = "焢肉飯";
+            this.lbl2.AutoSize = true;
+            this.lbl2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl2.Location = new System.Drawing.Point(446, 54);
+            this.lbl2.Name = "lbl2";
+            this.lbl2.Size = new System.Drawing.Size(55, 16);
+            this.lbl2.TabIndex = 44;
+            this.lbl2.Text = "焢肉飯";
             // 
             // item1pricelbl
             // 
@@ -348,65 +351,65 @@
             this.item2pricelbl.TabIndex = 46;
             this.item2pricelbl.Text = "80";
             // 
-            // item3lbl
+            // lbl3
             // 
-            this.item3lbl.AutoSize = true;
-            this.item3lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item3lbl.Location = new System.Drawing.Point(46, 199);
-            this.item3lbl.Name = "item3lbl";
-            this.item3lbl.Size = new System.Drawing.Size(71, 16);
-            this.item3lbl.TabIndex = 47;
-            this.item3lbl.Text = "三杯雞飯";
+            this.lbl3.AutoSize = true;
+            this.lbl3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl3.Location = new System.Drawing.Point(46, 199);
+            this.lbl3.Name = "lbl3";
+            this.lbl3.Size = new System.Drawing.Size(71, 16);
+            this.lbl3.TabIndex = 47;
+            this.lbl3.Text = "三杯雞飯";
             // 
-            // item4lbl
+            // lbl4
             // 
-            this.item4lbl.AutoSize = true;
-            this.item4lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item4lbl.Location = new System.Drawing.Point(246, 199);
-            this.item4lbl.Name = "item4lbl";
-            this.item4lbl.Size = new System.Drawing.Size(55, 16);
-            this.item4lbl.TabIndex = 48;
-            this.item4lbl.Text = "蝦排飯";
+            this.lbl4.AutoSize = true;
+            this.lbl4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl4.Location = new System.Drawing.Point(246, 199);
+            this.lbl4.Name = "lbl4";
+            this.lbl4.Size = new System.Drawing.Size(55, 16);
+            this.lbl4.TabIndex = 48;
+            this.lbl4.Text = "蝦排飯";
             // 
-            // item5lbl
+            // lbl5
             // 
-            this.item5lbl.AutoSize = true;
-            this.item5lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item5lbl.Location = new System.Drawing.Point(446, 199);
-            this.item5lbl.Name = "item5lbl";
-            this.item5lbl.Size = new System.Drawing.Size(55, 16);
-            this.item5lbl.TabIndex = 49;
-            this.item5lbl.Text = "雞排飯";
+            this.lbl5.AutoSize = true;
+            this.lbl5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl5.Location = new System.Drawing.Point(446, 199);
+            this.lbl5.Name = "lbl5";
+            this.lbl5.Size = new System.Drawing.Size(55, 16);
+            this.lbl5.TabIndex = 49;
+            this.lbl5.Text = "雞排飯";
             // 
-            // item6lbl
+            // lbl6
             // 
-            this.item6lbl.AutoSize = true;
-            this.item6lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item6lbl.Location = new System.Drawing.Point(46, 345);
-            this.item6lbl.Name = "item6lbl";
-            this.item6lbl.Size = new System.Drawing.Size(55, 16);
-            this.item6lbl.TabIndex = 50;
-            this.item6lbl.Text = "香腸飯";
+            this.lbl6.AutoSize = true;
+            this.lbl6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl6.Location = new System.Drawing.Point(46, 345);
+            this.lbl6.Name = "lbl6";
+            this.lbl6.Size = new System.Drawing.Size(55, 16);
+            this.lbl6.TabIndex = 50;
+            this.lbl6.Text = "香腸飯";
             // 
-            // item7lbl
+            // lbl7
             // 
-            this.item7lbl.AutoSize = true;
-            this.item7lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item7lbl.Location = new System.Drawing.Point(246, 345);
-            this.item7lbl.Name = "item7lbl";
-            this.item7lbl.Size = new System.Drawing.Size(55, 16);
-            this.item7lbl.TabIndex = 51;
-            this.item7lbl.Text = "燒肉飯";
+            this.lbl7.AutoSize = true;
+            this.lbl7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl7.Location = new System.Drawing.Point(246, 345);
+            this.lbl7.Name = "lbl7";
+            this.lbl7.Size = new System.Drawing.Size(55, 16);
+            this.lbl7.TabIndex = 51;
+            this.lbl7.Text = "燒肉飯";
             // 
-            // item8lbl
+            // lbl8
             // 
-            this.item8lbl.AutoSize = true;
-            this.item8lbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item8lbl.Location = new System.Drawing.Point(446, 345);
-            this.item8lbl.Name = "item8lbl";
-            this.item8lbl.Size = new System.Drawing.Size(71, 16);
-            this.item8lbl.TabIndex = 52;
-            this.item8lbl.Text = "花枝排飯";
+            this.lbl8.AutoSize = true;
+            this.lbl8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl8.Location = new System.Drawing.Point(446, 345);
+            this.lbl8.Name = "lbl8";
+            this.lbl8.Size = new System.Drawing.Size(71, 16);
+            this.lbl8.TabIndex = 52;
+            this.lbl8.Text = "花枝排飯";
             // 
             // item3pricelbl
             // 
@@ -480,19 +483,19 @@
             this.Controls.Add(this.item5pricelbl);
             this.Controls.Add(this.item4pricelbl);
             this.Controls.Add(this.item3pricelbl);
-            this.Controls.Add(this.item8lbl);
-            this.Controls.Add(this.item7lbl);
-            this.Controls.Add(this.item6lbl);
-            this.Controls.Add(this.item5lbl);
-            this.Controls.Add(this.item4lbl);
-            this.Controls.Add(this.item3lbl);
+            this.Controls.Add(this.lbl8);
+            this.Controls.Add(this.lbl7);
+            this.Controls.Add(this.lbl6);
+            this.Controls.Add(this.lbl5);
+            this.Controls.Add(this.lbl4);
+            this.Controls.Add(this.lbl3);
             this.Controls.Add(this.item2pricelbl);
             this.Controls.Add(this.item1pricelbl);
-            this.Controls.Add(this.item2lbl);
-            this.Controls.Add(this.item1lbl);
+            this.Controls.Add(this.lbl2);
+            this.Controls.Add(this.lbl1);
             this.Controls.Add(this.OrderResult);
             this.Controls.Add(this.item0pricelbl);
-            this.Controls.Add(this.item0lbl);
+            this.Controls.Add(this.lbl0);
             this.Controls.Add(this.item6qty);
             this.Controls.Add(this.item3qty);
             this.Controls.Add(this.item0qty);
@@ -564,21 +567,21 @@
         private System.Windows.Forms.NumericUpDown item0qty;
         private System.Windows.Forms.NumericUpDown item3qty;
         private System.Windows.Forms.NumericUpDown item6qty;
-        private System.Windows.Forms.Label item0lbl;
+        private System.Windows.Forms.Label lbl0;
         private System.Windows.Forms.Label item0pricelbl;
         private System.Windows.Forms.ListView OrderResult;
         private System.Windows.Forms.ColumnHeader listview_name;
         private System.Windows.Forms.ColumnHeader listview_qty;
-        private System.Windows.Forms.Label item1lbl;
-        private System.Windows.Forms.Label item2lbl;
+        private System.Windows.Forms.Label lbl1;
+        private System.Windows.Forms.Label lbl2;
         private System.Windows.Forms.Label item1pricelbl;
         private System.Windows.Forms.Label item2pricelbl;
-        private System.Windows.Forms.Label item3lbl;
-        private System.Windows.Forms.Label item4lbl;
-        private System.Windows.Forms.Label item5lbl;
-        private System.Windows.Forms.Label item6lbl;
-        private System.Windows.Forms.Label item7lbl;
-        private System.Windows.Forms.Label item8lbl;
+        private System.Windows.Forms.Label lbl3;
+        private System.Windows.Forms.Label lbl4;
+        private System.Windows.Forms.Label lbl5;
+        private System.Windows.Forms.Label lbl6;
+        private System.Windows.Forms.Label lbl7;
+        private System.Windows.Forms.Label lbl8;
         private System.Windows.Forms.Label item3pricelbl;
         private System.Windows.Forms.Label item4pricelbl;
         private System.Windows.Forms.Label item5pricelbl;

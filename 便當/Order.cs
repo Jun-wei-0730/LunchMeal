@@ -46,7 +46,6 @@ namespace 便當
                 dataGridView1.Columns["數量"].DisplayIndex = 2;
                 dataGridView1.Columns["小計"].DisplayIndex = 3;
             }
-
             //dataGridView1.Columns["數量"].SortMode = DataGridViewColumnSortMode.Automatic;
             //dataGridView1.Sort(dataGridView1.Columns["數量"], ListSortDirection.Descending);
             ;

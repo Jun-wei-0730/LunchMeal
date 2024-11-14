@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace 便當
 {
     public partial class OrderInfo : Form
     {
+        Decimal Total;
         private BindingSource bindingSource1 = new BindingSource();
         public OrderInfo()
         {
@@ -47,11 +42,17 @@ namespace 便當
                 dataGridView1.Columns["數量"].DisplayIndex = 2;
                 dataGridView1.Columns["小計"].DisplayIndex = 3;
             }
-
-            //dataGridView1.Columns["數量"].SortMode = DataGridViewColumnSortMode.Automatic;
-            //dataGridView1.Sort(dataGridView1.Columns["數量"], ListSortDirection.Descending);
             ;
-
+            Total_lbl.Text = Total.ToString();
+            getMealTime_box.Text = (DateTime.Now.AddMinutes(20).ToString("HH:mm"));
+            DateTime fixedTime = DateTime.Today.AddHours(14);
+            for (int i = 2; i < 8; i++)
+            {
+                if (DateTime.Now.AddMinutes(i * 20).CompareTo(fixedTime) < 0)
+                    getMealTime_box.Items.Add(DateTime.Now.AddMinutes(i*20).ToString("HH:mm"));
+            }
+            if (!getMealTime_box.Items.Contains(fixedTime))
+                getMealTime_box.Items.Add(fixedTime.ToString("HH:mm"));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -81,17 +82,18 @@ namespace 便當
 
                     });
             }
+
+            foreach (var item in UnsortdData)
+            {
+                Total += Convert.ToDecimal(item.小計);
+            }
             bindingSource1.DataSource = UnsortdData;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void carriercheck_CheckedChanged(object sender, EventArgs e)
         {
-            if (!carriercheck.Checked) 
+            if (!carriercheck.Checked)
                 carrier.Visible = false;
             else
                 carrier.Visible = true;
@@ -101,7 +103,7 @@ namespace 便當
             Regex carrierRe = new Regex("^\\/[A-Za-z0-9]{7}$");
             Match carrierMatch = carrierRe.Match(carrier.Text);
             if (!carrierMatch.Success)
-               carrier_warning.Visible = true;
+                carrier_warning.Visible = true;
             else carrier_warning.Visible = false;
         }
 
@@ -114,6 +116,21 @@ namespace 便當
         private void getMeal_Box_DropDown(object sender, EventArgs e)
         {
             getMeal_Box.ForeColor = Color.Black;
+        }
+
+        private void plasticBagcheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (plasticBagcheck.Checked)
+            {
+                Total += 1;
+                Total_lbl.Text = Total.ToString();
+            }
+            else
+            {
+                Total -= 1;
+                Total_lbl.Text = Total.ToString();
+            }
+
         }
         // IComparer 做了發現沒有排序，先換別的方法
 
@@ -145,4 +162,5 @@ namespace 便當
         //}               
     }
 }
+
 

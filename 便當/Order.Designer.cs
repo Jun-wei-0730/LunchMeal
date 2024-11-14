@@ -34,14 +34,18 @@
             this.Logout1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.plasticBagcheck = new System.Windows.Forms.CheckBox();
             this.carriercheck = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.tablewarecheck = new System.Windows.Forms.CheckBox();
             this.carrier = new System.Windows.Forms.TextBox();
             this.getMeal_Box = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.取餐時間 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.carrier_warning = new System.Windows.Forms.Label();
+            this.Total_lbl = new System.Windows.Forms.Label();
+            this.總價 = new System.Windows.Forms.Label();
+            this.元 = new System.Windows.Forms.Label();
+            this.getMealTime_box = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,17 +114,17 @@
             this.dataGridView1.Size = new System.Drawing.Size(456, 350);
             this.dataGridView1.TabIndex = 9;
             // 
-            // checkBox1
+            // plasticBagcheck
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("微軟正黑體", 15F);
-            this.checkBox1.Location = new System.Drawing.Point(481, 85);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(180, 29);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "加購塑膠袋 (1元)";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.plasticBagcheck.AutoSize = true;
+            this.plasticBagcheck.Font = new System.Drawing.Font("微軟正黑體", 15F);
+            this.plasticBagcheck.Location = new System.Drawing.Point(481, 85);
+            this.plasticBagcheck.Name = "plasticBagcheck";
+            this.plasticBagcheck.Size = new System.Drawing.Size(180, 29);
+            this.plasticBagcheck.TabIndex = 10;
+            this.plasticBagcheck.Text = "加購塑膠袋 (1元)";
+            this.plasticBagcheck.UseVisualStyleBackColor = true;
+            this.plasticBagcheck.CheckedChanged += new System.EventHandler(this.plasticBagcheck_CheckedChanged);
             // 
             // carriercheck
             // 
@@ -134,16 +138,16 @@
             this.carriercheck.UseVisualStyleBackColor = true;
             this.carriercheck.CheckedChanged += new System.EventHandler(this.carriercheck_CheckedChanged);
             // 
-            // checkBox3
+            // tablewarecheck
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Font = new System.Drawing.Font("微軟正黑體", 15F);
-            this.checkBox3.Location = new System.Drawing.Point(481, 50);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(111, 29);
-            this.checkBox3.TabIndex = 12;
-            this.checkBox3.Text = "提供餐具";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.tablewarecheck.AutoSize = true;
+            this.tablewarecheck.Font = new System.Drawing.Font("微軟正黑體", 15F);
+            this.tablewarecheck.Location = new System.Drawing.Point(481, 50);
+            this.tablewarecheck.Name = "tablewarecheck";
+            this.tablewarecheck.Size = new System.Drawing.Size(111, 29);
+            this.tablewarecheck.TabIndex = 12;
+            this.tablewarecheck.Text = "提供餐具";
+            this.tablewarecheck.UseVisualStyleBackColor = true;
             // 
             // carrier
             // 
@@ -169,17 +173,17 @@
             this.getMeal_Box.Size = new System.Drawing.Size(121, 24);
             this.getMeal_Box.TabIndex = 14;
             this.getMeal_Box.Text = "選擇取餐方式";
-            this.getMeal_Box.DropDown += new System.EventHandler(this.getMeal_Box_DropDown);            // 
-            // label1
+            this.getMeal_Box.DropDown += new System.EventHandler(this.getMeal_Box_DropDown);
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微軟正黑體", 15F);
-            this.label1.Location = new System.Drawing.Point(476, 284);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 25);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "選擇取餐時間 : ";
-            this.label1.Visible = false;
+            // 取餐時間
+            // 
+            this.取餐時間.AutoSize = true;
+            this.取餐時間.Font = new System.Drawing.Font("微軟正黑體", 15F);
+            this.取餐時間.Location = new System.Drawing.Point(476, 284);
+            this.取餐時間.Name = "取餐時間";
+            this.取餐時間.Size = new System.Drawing.Size(299, 25);
+            this.取餐時間.TabIndex = 15;
+            this.取餐時間.Text = "選擇取餐時間 : (最晚為下午兩點)";
             // 
             // carrier_warning
             // 
@@ -194,6 +198,44 @@
             this.carrier_warning.Text = "載具格式不符合";
             this.carrier_warning.Visible = false;
             // 
+            // Total_lbl
+            // 
+            this.Total_lbl.AutoSize = true;
+            this.Total_lbl.Font = new System.Drawing.Font("微軟正黑體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Total_lbl.Location = new System.Drawing.Point(663, 366);
+            this.Total_lbl.Name = "Total_lbl";
+            this.Total_lbl.Size = new System.Drawing.Size(79, 34);
+            this.Total_lbl.TabIndex = 17;
+            this.Total_lbl.Text = "9999";
+            // 
+            // 總價
+            // 
+            this.總價.AutoSize = true;
+            this.總價.Font = new System.Drawing.Font("微軟正黑體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.總價.Location = new System.Drawing.Point(562, 366);
+            this.總價.Name = "總價";
+            this.總價.Size = new System.Drawing.Size(89, 34);
+            this.總價.TabIndex = 18;
+            this.總價.Text = "總價 : ";
+            // 
+            // 元
+            // 
+            this.元.AutoSize = true;
+            this.元.Font = new System.Drawing.Font("微軟正黑體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.元.Location = new System.Drawing.Point(748, 366);
+            this.元.Name = "元";
+            this.元.Size = new System.Drawing.Size(42, 34);
+            this.元.TabIndex = 19;
+            this.元.Text = "元";
+            // 
+            // getMealTime_box
+            // 
+            this.getMealTime_box.FormattingEnabled = true;
+            this.getMealTime_box.Location = new System.Drawing.Point(481, 313);
+            this.getMealTime_box.Name = "getMealTime_box";
+            this.getMealTime_box.Size = new System.Drawing.Size(141, 24);
+            this.getMealTime_box.TabIndex = 20;
+            // 
             // OrderInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -201,13 +243,17 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.getMealTime_box);
+            this.Controls.Add(this.元);
+            this.Controls.Add(this.總價);
+            this.Controls.Add(this.Total_lbl);
             this.Controls.Add(this.carrier_warning);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.取餐時間);
             this.Controls.Add(this.getMeal_Box);
             this.Controls.Add(this.carrier);
-            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.tablewarecheck);
             this.Controls.Add(this.carriercheck);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.plasticBagcheck);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Logout1);
@@ -231,13 +277,17 @@
         private System.Windows.Forms.Label Logout1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox plasticBagcheck;
         private System.Windows.Forms.CheckBox carriercheck;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox tablewarecheck;
         private System.Windows.Forms.TextBox carrier;
         private System.Windows.Forms.ComboBox getMeal_Box;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label 取餐時間;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label carrier_warning;
+        private System.Windows.Forms.Label Total_lbl;
+        private System.Windows.Forms.Label 總價;
+        private System.Windows.Forms.Label 元;
+        private System.Windows.Forms.ComboBox getMealTime_box;
     }
 }

@@ -31,10 +31,18 @@ namespace 便當
             //SqlDataReader reader = command.ExecuteReader();
             //Console.WriteLine(result);
             DataRow[] data = result.Select();
-            User.UserName = data[0]["CustomerName"].ToString();
-            this.Hide();
-            Menu menu = new Menu();
-            menu.Show();
+            if (data.Length != 0)
+            {
+                User.UserName = data[0]["CustomerName"].ToString();
+                this.Hide();
+                Menu menu = new Menu();
+                menu.Show();
+            }
+            else
+            {
+                MessageBox.Show("查詢不到該使用者!");
+            }
+
         }
         
             

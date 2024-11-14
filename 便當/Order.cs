@@ -132,6 +132,13 @@ namespace 便當
             }
 
         }
+
+        private void PS_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (PS.Text == "在此輸入備註")
+                PS.Text = "";
+            PS.ForeColor = Color.Black;
+        }
         // IComparer 做了發現沒有排序，先換別的方法
 
         //private class RowComparer : System.Collections.IComparer

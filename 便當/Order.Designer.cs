@@ -46,6 +46,7 @@
             this.總價 = new System.Windows.Forms.Label();
             this.元 = new System.Windows.Forms.Label();
             this.getMealTime_box = new System.Windows.Forms.ComboBox();
+            this.PS = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -236,6 +237,18 @@
             this.getMealTime_box.Size = new System.Drawing.Size(141, 24);
             this.getMealTime_box.TabIndex = 20;
             // 
+            // PS
+            // 
+            this.PS.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.PS.ForeColor = System.Drawing.Color.Gray;
+            this.PS.Location = new System.Drawing.Point(19, 406);
+            this.PS.Multiline = true;
+            this.PS.Name = "PS";
+            this.PS.Size = new System.Drawing.Size(456, 76);
+            this.PS.TabIndex = 21;
+            this.PS.Text = "在此輸入備註";
+            this.PS.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PS_MouseClick);
+            // 
             // OrderInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -243,6 +256,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.PS);
             this.Controls.Add(this.getMealTime_box);
             this.Controls.Add(this.元);
             this.Controls.Add(this.總價);
@@ -289,5 +303,6 @@
         private System.Windows.Forms.Label 總價;
         private System.Windows.Forms.Label 元;
         private System.Windows.Forms.ComboBox getMealTime_box;
+        private System.Windows.Forms.TextBox PS;
     }
 }

@@ -269,8 +269,8 @@ namespace 便當
             foreach (var i in item)
             {
                 String Order_name = i.SubItems[0].Text;
-                int Order_count = Convert.ToInt32(i.SubItems[1].Text);
-                Decimal price = Convert.ToDecimal(菜單.OfType<便當>().FirstOrDefault(rs => rs.便當名稱 == Order_name).價格);
+                String Order_count = i.SubItems[1].Text;
+                String price = 菜單.OfType<便當>().FirstOrDefault(rs => rs.便當名稱 == Order_name).價格;
                 orders.Orders.Add(new order_meal() { 便當名稱 = Order_name, 數量 = Order_count ,便當價格 = price});               
             }
         }

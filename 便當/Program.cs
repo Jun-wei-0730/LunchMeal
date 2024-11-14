@@ -32,24 +32,19 @@ namespace 便當
     public class order_meal
     {
         public string 便當名稱 { get; set; }
-
-        //int 
-        public int 數量 { get; set; }
-
-        // Decimal
-        public Decimal 便當價格 { get; set; }
+        public string 數量 { get; set; }
+        public string 便當價格 { get; set; }
     }
     public class Data : order_meal
     {
 
         public string 小計 { get; set; }
-
-        public Data(string 便當名稱, int 數量, Decimal 價格)
+        public Data(string n, int num, int p)
         {
-            this.便當名稱 = 便當名稱;
-            this.數量 = 數量;
-            this.便當價格 = 價格;
-            小計 = (數量 * 價格).ToString();
+            便當名稱 = n;
+            數量 = num.ToString();
+            便當價格 = p.ToString();
+            小計 = (num * p).ToString();
         }
 
     }

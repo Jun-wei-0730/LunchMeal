@@ -130,7 +130,7 @@
             // 
             // itempic1
             // 
-            this.itempic1.Location = new System.Drawing.Point(249, 73);
+            this.itempic1.Location = new System.Drawing.Point(243, 73);
             this.itempic1.Name = "itempic1";
             this.itempic1.Size = new System.Drawing.Size(149, 83);
             this.itempic1.TabIndex = 6;
@@ -146,7 +146,7 @@
             // 
             // itempic4
             // 
-            this.itempic4.Location = new System.Drawing.Point(249, 218);
+            this.itempic4.Location = new System.Drawing.Point(243, 218);
             this.itempic4.Name = "itempic4";
             this.itempic4.Size = new System.Drawing.Size(149, 83);
             this.itempic4.TabIndex = 8;
@@ -162,7 +162,7 @@
             // 
             // itempic7
             // 
-            this.itempic7.Location = new System.Drawing.Point(249, 364);
+            this.itempic7.Location = new System.Drawing.Point(243, 364);
             this.itempic7.Name = "itempic7";
             this.itempic7.Size = new System.Drawing.Size(149, 83);
             this.itempic7.TabIndex = 10;
@@ -170,7 +170,7 @@
             // 
             // itempic8
             // 
-            this.itempic8.Location = new System.Drawing.Point(449, 364);
+            this.itempic8.Location = new System.Drawing.Point(444, 364);
             this.itempic8.Name = "itempic8";
             this.itempic8.Size = new System.Drawing.Size(149, 83);
             this.itempic8.TabIndex = 13;
@@ -178,7 +178,7 @@
             // 
             // itempic5
             // 
-            this.itempic5.Location = new System.Drawing.Point(449, 218);
+            this.itempic5.Location = new System.Drawing.Point(444, 218);
             this.itempic5.Name = "itempic5";
             this.itempic5.Size = new System.Drawing.Size(149, 83);
             this.itempic5.TabIndex = 12;
@@ -186,7 +186,7 @@
             // 
             // itempic2
             // 
-            this.itempic2.Location = new System.Drawing.Point(449, 73);
+            this.itempic2.Location = new System.Drawing.Point(444, 73);
             this.itempic2.Name = "itempic2";
             this.itempic2.Size = new System.Drawing.Size(149, 83);
             this.itempic2.TabIndex = 11;
@@ -202,7 +202,7 @@
             // 
             // item2qty
             // 
-            this.item2qty.Location = new System.Drawing.Point(544, 162);
+            this.item2qty.Location = new System.Drawing.Point(539, 162);
             this.item2qty.Name = "item2qty";
             this.item2qty.Size = new System.Drawing.Size(54, 22);
             this.item2qty.TabIndex = 14;
@@ -210,7 +210,7 @@
             // 
             // item5qty
             // 
-            this.item5qty.Location = new System.Drawing.Point(544, 307);
+            this.item5qty.Location = new System.Drawing.Point(539, 307);
             this.item5qty.Name = "item5qty";
             this.item5qty.Size = new System.Drawing.Size(54, 22);
             this.item5qty.TabIndex = 15;
@@ -218,7 +218,7 @@
             // 
             // item8qty
             // 
-            this.item8qty.Location = new System.Drawing.Point(544, 453);
+            this.item8qty.Location = new System.Drawing.Point(539, 453);
             this.item8qty.Name = "item8qty";
             this.item8qty.Size = new System.Drawing.Size(54, 22);
             this.item8qty.TabIndex = 16;
@@ -226,7 +226,7 @@
             // 
             // item7qty
             // 
-            this.item7qty.Location = new System.Drawing.Point(344, 453);
+            this.item7qty.Location = new System.Drawing.Point(338, 453);
             this.item7qty.Name = "item7qty";
             this.item7qty.Size = new System.Drawing.Size(54, 22);
             this.item7qty.TabIndex = 17;
@@ -234,7 +234,7 @@
             // 
             // item4qty
             // 
-            this.item4qty.Location = new System.Drawing.Point(344, 307);
+            this.item4qty.Location = new System.Drawing.Point(338, 307);
             this.item4qty.Name = "item4qty";
             this.item4qty.Size = new System.Drawing.Size(54, 22);
             this.item4qty.TabIndex = 18;
@@ -242,7 +242,7 @@
             // 
             // item1qty
             // 
-            this.item1qty.Location = new System.Drawing.Point(344, 162);
+            this.item1qty.Location = new System.Drawing.Point(338, 162);
             this.item1qty.Name = "item1qty";
             this.item1qty.Size = new System.Drawing.Size(54, 22);
             this.item1qty.TabIndex = 19;
@@ -318,7 +318,7 @@
             // 
             this.lbl1.AutoSize = true;
             this.lbl1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl1.Location = new System.Drawing.Point(246, 52);
+            this.lbl1.Location = new System.Drawing.Point(240, 52);
             this.lbl1.Name = "lbl1";
             this.lbl1.Size = new System.Drawing.Size(55, 16);
             this.lbl1.TabIndex = 43;
@@ -328,7 +328,7 @@
             // 
             this.lbl2.AutoSize = true;
             this.lbl2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl2.Location = new System.Drawing.Point(446, 54);
+            this.lbl2.Location = new System.Drawing.Point(441, 54);
             this.lbl2.Name = "lbl2";
             this.lbl2.Size = new System.Drawing.Size(55, 16);
             this.lbl2.TabIndex = 44;
@@ -338,7 +338,7 @@
             // 
             this.item1pricelbl.AutoSize = true;
             this.item1pricelbl.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item1pricelbl.Location = new System.Drawing.Point(366, 48);
+            this.item1pricelbl.Location = new System.Drawing.Point(360, 48);
             this.item1pricelbl.Name = "item1pricelbl";
             this.item1pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item1pricelbl.TabIndex = 45;
@@ -348,7 +348,7 @@
             // 
             this.item2pricelbl.AutoSize = true;
             this.item2pricelbl.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item2pricelbl.Location = new System.Drawing.Point(566, 48);
+            this.item2pricelbl.Location = new System.Drawing.Point(561, 48);
             this.item2pricelbl.Name = "item2pricelbl";
             this.item2pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item2pricelbl.TabIndex = 46;
@@ -368,7 +368,7 @@
             // 
             this.lbl4.AutoSize = true;
             this.lbl4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl4.Location = new System.Drawing.Point(246, 199);
+            this.lbl4.Location = new System.Drawing.Point(240, 199);
             this.lbl4.Name = "lbl4";
             this.lbl4.Size = new System.Drawing.Size(55, 16);
             this.lbl4.TabIndex = 48;
@@ -378,7 +378,7 @@
             // 
             this.lbl5.AutoSize = true;
             this.lbl5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl5.Location = new System.Drawing.Point(446, 199);
+            this.lbl5.Location = new System.Drawing.Point(441, 199);
             this.lbl5.Name = "lbl5";
             this.lbl5.Size = new System.Drawing.Size(55, 16);
             this.lbl5.TabIndex = 49;
@@ -398,7 +398,7 @@
             // 
             this.lbl7.AutoSize = true;
             this.lbl7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl7.Location = new System.Drawing.Point(246, 345);
+            this.lbl7.Location = new System.Drawing.Point(240, 345);
             this.lbl7.Name = "lbl7";
             this.lbl7.Size = new System.Drawing.Size(55, 16);
             this.lbl7.TabIndex = 51;
@@ -408,7 +408,7 @@
             // 
             this.lbl8.AutoSize = true;
             this.lbl8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl8.Location = new System.Drawing.Point(446, 345);
+            this.lbl8.Location = new System.Drawing.Point(441, 345);
             this.lbl8.Name = "lbl8";
             this.lbl8.Size = new System.Drawing.Size(71, 16);
             this.lbl8.TabIndex = 52;
@@ -428,7 +428,7 @@
             // 
             this.item4pricelbl.AutoSize = true;
             this.item4pricelbl.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item4pricelbl.Location = new System.Drawing.Point(366, 193);
+            this.item4pricelbl.Location = new System.Drawing.Point(360, 193);
             this.item4pricelbl.Name = "item4pricelbl";
             this.item4pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item4pricelbl.TabIndex = 54;
@@ -438,7 +438,7 @@
             // 
             this.item5pricelbl.AutoSize = true;
             this.item5pricelbl.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item5pricelbl.Location = new System.Drawing.Point(555, 193);
+            this.item5pricelbl.Location = new System.Drawing.Point(550, 193);
             this.item5pricelbl.Name = "item5pricelbl";
             this.item5pricelbl.Size = new System.Drawing.Size(43, 24);
             this.item5pricelbl.TabIndex = 55;
@@ -458,7 +458,7 @@
             // 
             this.item7pricelbl.AutoSize = true;
             this.item7pricelbl.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item7pricelbl.Location = new System.Drawing.Point(366, 339);
+            this.item7pricelbl.Location = new System.Drawing.Point(360, 339);
             this.item7pricelbl.Name = "item7pricelbl";
             this.item7pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item7pricelbl.TabIndex = 57;
@@ -468,7 +468,7 @@
             // 
             this.item8pricelbl.AutoSize = true;
             this.item8pricelbl.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.item8pricelbl.Location = new System.Drawing.Point(566, 339);
+            this.item8pricelbl.Location = new System.Drawing.Point(561, 339);
             this.item8pricelbl.Name = "item8pricelbl";
             this.item8pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item8pricelbl.TabIndex = 58;

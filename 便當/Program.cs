@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static 便當.Menu;
 
 namespace 便當
-{   
+{
     internal static class Program
     {
         /// <summary>
@@ -51,6 +53,21 @@ namespace 便當
             this.便當價格 = 價格;
             小計 = (數量 * 價格).ToString();
         }
-
+    }
+    public class SQLconn
+    {
+        DataTable dataTable = new DataTable();
+        public string connstr = "Data Source = localhost; Initial Catalog = MealDB; Integrated Security = SSPI";
+        public DataTable conn(string command)
+        {
+            SqlConnection conn = new SqlConnection(connstr);
+            conn.Open();
+            string selectstr = command;
+            SqlCommand commandobj = new SqlCommand(selectstr, conn);
+            SqlDataReader reader = commandobj.ExecuteReader();
+            dataTable.Load(reader);
+            conn.Close();
+            return dataTable;
+        }
     }
 }

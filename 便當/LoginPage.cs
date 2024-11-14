@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -13,33 +14,33 @@ namespace 便當
 {
     public partial class LoginPage : Form
     {
+        SQLconn conn;
+        //SqlConnection conn = new SqlConnection("Data Source = localhost; Initial Catalog = MealDB; Integrated Security = SSPI");
         public LoginPage()
         {
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         public void loginButton_Click(object sender, EventArgs e)
-        {
-            User.UserName = UserNameInput.Text;
+        {                                           
+            conn = new SQLconn();            
+            string ID = UserNameInput.Text;
+            string selectstr = $"select * from Customers where CustomerID = {ID}";
+            DataTable result= conn.conn(selectstr);
+            //SqlCommand command = new SqlCommand(selectstr, conn);
+            //SqlDataReader reader = command.ExecuteReader();
+            //Console.WriteLine(result);
+            DataRow[] data = result.Select();
+            User.UserName = data[0]["CustomerName"].ToString();
             this.Hide();
             Menu menu = new Menu();
             menu.Show();
-
         }
+        
+            
 
         private void LoginPage_Load(object sender, EventArgs e)
         {
-
-        }
+        }        
     }
 }

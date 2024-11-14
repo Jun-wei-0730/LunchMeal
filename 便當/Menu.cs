@@ -19,26 +19,18 @@ namespace 便當
         List<便當> 菜單 = new List<便當>();
         
         public Menu()
-        {
+        {           
             InitializeComponent();
-            菜單.Add(new 便當() { 便當名稱 = "雞腿飯", 價格 = "90" }); // 0
-            菜單.Add(new 便當() { 便當名稱 = "排骨飯", 價格 = "80" });
-            菜單.Add(new 便當() { 便當名稱 = "焢肉飯", 價格 = "80" });
-            菜單.Add(new 便當() { 便當名稱 = "三杯雞飯", 價格 = "85" });
-            菜單.Add(new 便當() { 便當名稱 = "蝦排飯", 價格 = "80" });
-            菜單.Add(new 便當() { 便當名稱 = "雞排飯", 價格 = "100" });
-            菜單.Add(new 便當() { 便當名稱 = "香腸飯", 價格 = "80" });
-            菜單.Add(new 便當() { 便當名稱 = "燒肉飯", 價格 = "80" });
-            菜單.Add(new 便當() { 便當名稱 = "花枝排飯", 價格 = "80" }); // 8
-            菜單.Add(new 便當() { 便當名稱 = "魚排飯", 價格 = "95" }); // 9
+            SQLconn conn = new SQLconn();
+            string selectstr = $"select * from Meals";
+            DataTable result = conn.conn(selectstr);
+            DataRow[] data = result.Select();
+            for (int i = 0; i < data.Length; i++)
+            {
+               菜單.Add(new 便當() { 便當名稱 = data[i]["MealName"].ToString(), 價格 = data[i]["PricePerMeal"].ToString() }); // 0
+            }
             菜單.Add(new 便當() { 便當名稱 = "白飯", 價格 = "10" });
             菜單.Add(new 便當() { 便當名稱 = "飲料", 價格 = "0" });
-            菜單.Add(new 便當() { 便當名稱 = "", 價格 = "" });
-            菜單.Add(new 便當() { 便當名稱 = "", 價格 = "" });
-            菜單.Add(new 便當() { 便當名稱 = "", 價格 = "" });
-            菜單.Add(new 便當() { 便當名稱 = "", 價格 = "" });
-            菜單.Add(new 便當() { 便當名稱 = "", 價格 = "" });
-            菜單.Add(new 便當() { 便當名稱 = "", 價格 = "" }); // 17
             for (int i = 0; i <= 8; i++)
             {
                 string lbl_name = "lbl" + i.ToString();
@@ -213,15 +205,23 @@ namespace 便當
                 string lbl_price = "item" + i.ToString() + "pricelbl";
                 var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name);
                 var lblP = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_price);
-                lbl.Text = 菜單[i+9].便當名稱.ToString();
-                lblP.Text = 菜單[i+9].價格.ToString();
+                if (i + 9 < 菜單.Count)
+                {
+                    lbl.Text = 菜單[i + 9].便當名稱.ToString();
+                    lblP.Text = 菜單[i + 9].價格.ToString();                   
+                }
+                else
+                {
+                    lbl.Text = "";
+                    lblP.Text = "";
+                }
                 string itemQty = "item" + i.ToString() + "qty";
                 var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
                 var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
                 if (lbl.Text == "")
                     qty.Visible = false;
                 else qty.Visible = true;
-                
+
                 qty.Enabled = false;
                 if (item != null)
                     qty.Value = Convert.ToDecimal(item.SubItems[1].Text);

@@ -35,11 +35,16 @@ namespace 便當
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
+                string pic_ = "itempic" + i.ToString(); 
                 var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name );
                 var lblP = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_price);
+                var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
                 lbl.Text = 菜單[i].便當名稱.ToString();
                 lblP.Text = 菜單[i].價格.ToString();
+                pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i+1}.jpg";
+                pic.SizeMode = PictureBoxSizeMode.StretchImage;
             }
+            
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -203,25 +208,30 @@ namespace 便當
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
+                string pic_ = "itempic" + i.ToString();
                 var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name);
                 var lblP = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_price);
+                var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
                 if (i + 9 < 菜單.Count)
                 {
                     lbl.Text = 菜單[i + 9].便當名稱.ToString();
-                    lblP.Text = 菜單[i + 9].價格.ToString();                   
+                    lblP.Text = 菜單[i + 9].價格.ToString();
+                    pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i + 10}.jpg";
                 }
                 else
                 {
                     lbl.Text = "";
                     lblP.Text = "";
+                    pic.ImageLocation = "";
                 }
                 string itemQty = "item" + i.ToString() + "qty";
                 var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
                 var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
                 if (lbl.Text == "")
                     qty.Visible = false;
+                if (pic.ImageLocation == "")
+                    pic.Visible = false;
                 else qty.Visible = true;
-
                 qty.Enabled = false;
                 if (item != null)
                     qty.Value = Convert.ToDecimal(item.SubItems[1].Text);
@@ -240,10 +250,13 @@ namespace 便當
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
+                string pic_ = "itempic" + i.ToString();
                 var lbl = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_name);
                 var lblP = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_price);
+                var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
                 lbl.Text = 菜單[i].便當名稱.ToString();
                 lblP.Text = 菜單[i].價格.ToString();
+                pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i + 1}.jpg";
                 string itemQty = "item" + i.ToString() + "qty";
                 var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
                 var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
@@ -256,6 +269,7 @@ namespace 便當
                 else
                     qty.Value = 0;
                 qty.Enabled = true;
+                pic.Visible = true;
             }
             page.Text = 1.ToString();
             page1.Visible = false;

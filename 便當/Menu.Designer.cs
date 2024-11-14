@@ -197,6 +197,7 @@
             this.itempic0.Location = new System.Drawing.Point(49, 73);
             this.itempic0.Name = "itempic0";
             this.itempic0.Size = new System.Drawing.Size(149, 83);
+            this.itempic0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.itempic0.TabIndex = 5;
             this.itempic0.TabStop = false;
             // 

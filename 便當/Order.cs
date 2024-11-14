@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -81,6 +82,38 @@ namespace 便當
                     });
             }
             bindingSource1.DataSource = UnsortdData;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void carriercheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!carriercheck.Checked) 
+                carrier.Visible = false;
+            else
+                carrier.Visible = true;
+        }
+        private void carrier_TextChanged(object sender, EventArgs e)
+        {
+            Regex carrierRe = new Regex("^\\/[A-Za-z0-9]{7}$");
+            Match carrierMatch = carrierRe.Match(carrier.Text);
+            if (!carrierMatch.Success)
+               carrier_warning.Visible = true;
+            else carrier_warning.Visible = false;
+        }
+
+        private void carrier_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (carrier.Text == "在此輸入載具條碼")
+                carrier.Text = "";
+            carrier.ForeColor = Color.Black;
+        }
+        private void getMeal_Box_DropDown(object sender, EventArgs e)
+        {
+            getMeal_Box.ForeColor = Color.Black;
         }
         // IComparer 做了發現沒有排序，先換別的方法
 

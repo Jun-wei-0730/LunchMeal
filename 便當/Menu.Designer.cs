@@ -555,6 +555,7 @@
             this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.Logout1);
             this.Controls.Add(this.BeginOrderButton);
+            this.MaximizeBox = false;
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "便當系統-訂購";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -10,6 +11,7 @@ namespace 便當
     {
         Decimal Total;
         private BindingSource bindingSource1 = new BindingSource();
+        List<MealData> SortedOrder;
         public OrderInfo()
         {
             InitializeComponent();
@@ -33,7 +35,7 @@ namespace 便當
             dataGridView1.Columns.Clear();
             // 排序未生效
             //dataGridView1.Sort(new RowComparer(SortOrder.Descending));
-            OrderData(orders.Orders);
+            List<MealData> SortedOrder = OrderData(orders.Orders);
             dataGridView1.DataSource = bindingSource1;
             if (dataGridView1.Columns["便當名稱"] != null)
             {
@@ -49,14 +51,14 @@ namespace 便當
             for (int i = 2; i < 8; i++)
             {
                 if (DateTime.Now.AddMinutes(i * 20).CompareTo(fixedTime) < 0)
-                    getMealTime_box.Items.Add(DateTime.Now.AddMinutes(i*20).ToString("HH:mm"));
+                    getMealTime_box.Items.Add(DateTime.Now.AddMinutes(i * 20).ToString("HH:mm"));
             }
             if (!getMealTime_box.Items.Contains(fixedTime))
                 getMealTime_box.Items.Add(fixedTime.ToString("HH:mm"));
             if (User.User_Carrier != "")
             {
                 carrier.Visible = true;
-                carrier.Text = User.User_Carrier.ToString();
+                carrier.Text = User.User_Carrier as string;
                 carrier.ForeColor = Color.Black;
                 carriercheck.Checked = true;
                 carrierrm_check.Visible = true;
@@ -69,34 +71,31 @@ namespace 便當
             DialogResult = DialogResult.Yes;
             this.Close();
         }
-        private void OrderData(List<order_meal> order_Meals)
+        private List<MealData> OrderData(List<order_meal> order_Meals)
         {
-            List<Data> UnsortdData = new List<Data>();
+            List<MealData> UnsortedData = new List<MealData>();
             foreach (var item in order_Meals)
             {
-                order_meal order = item;
                 // DataTable
                 // IComparer
-
-
                 // 1. DataGridView 排序
-                // 2. 資料來源：先把資料來源整理好再塞進去 # 現在用這個
-                UnsortdData.Add(new Data(item.便當名稱, Convert.ToInt32(item.數量), Convert.ToInt32(item.便當價格)));
-                UnsortdData.Sort((Data D1, Data D2) =>
+                // 2. 資料來源：先把資料來源整理好再塞進去 <= 現在用這個
+                UnsortedData.Add(new MealData(item.便當名稱, Convert.ToInt32(item.數量), Convert.ToInt32(item.便當價格)));
+                UnsortedData.Sort((MealData D1, MealData D2) =>
                     {
                         if (D1.數量 != D2.數量)
                             return D1.數量.CompareTo(D2.數量);
                         else
                             return 0;
-
                     });
             }
 
-            foreach (var item in UnsortdData)
+            foreach (var item in UnsortedData)
             {
                 Total += Convert.ToDecimal(item.小計);
             }
-            bindingSource1.DataSource = UnsortdData;
+            bindingSource1.DataSource = UnsortedData;
+            return UnsortedData;
         }
 
 
@@ -157,7 +156,37 @@ namespace 便當
 
         private void CompleteOrderButton_Click(object sender, EventArgs e)
         {
-
+            if (carrierrm_check.Checked)
+            {
+                User.User_Carrier = carrier.Text;
+            }
+            SQLconn Orderconn = new SQLconn();
+            DateTime UnsortedOrderTime = DateTime.Now;
+            string UserID_fixed = User.User_ID.Substring(User.User_ID.Length - 4);
+            string OrderTime_fixed = UnsortedOrderTime.ToString("yyMMddHHmms");
+            string OrderID = UserID_fixed + "-" + OrderTime_fixed;
+            string OrderTime = UnsortedOrderTime.ToString("yy-MM-dd HH:mm");
+            int Total = Convert.ToInt32(Total_lbl.Text);
+            string str = "";
+            string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_ID}','{OrderTime}',{Total});";
+            MessageBox.Show(insertstrOrder);
+            Orderconn.connOrder(insertstrOrder);
+            //foreach (var item in orders.Orders)
+            //{
+            //    str += $"({OrderID},{item.便當ID}, {item.數量}),";
+            //}
+            for (int i = 0; i <= orders.Orders.Count -1; i++)
+            {
+                if (i == orders.Orders.Count - 1)
+                    str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量})";
+                else
+                    str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量}),";
+            }
+                    string insertstrInfo = $"Insert into OrderInfo values{str};";
+            MessageBox.Show(insertstrInfo);
+            Orderconn.connOrder(insertstrInfo);
+            
+            MessageBox.Show("訂單儲存完成。");
         }
         // IComparer 做了發現沒有排序，先換別的方法
 

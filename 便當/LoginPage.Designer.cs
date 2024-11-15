@@ -85,6 +85,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Test);
             this.Controls.Add(this.UserNameInput);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "LoginPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "便當系統-登入";

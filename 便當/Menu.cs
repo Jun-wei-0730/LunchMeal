@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace 便當
 {
@@ -14,29 +13,31 @@ namespace 便當
         {
             public string 便當名稱 { get; set; }
             public string 價格 { get; set; }
+            public int 便當ID { get; set; }
         }
-        
+
         List<便當> 菜單 = new List<便當>();
-        
+
         public Menu()
-        {           
+        {
             InitializeComponent();
             SQLconn conn = new SQLconn();
             string selectstr = $"select * from Meals";
             DataTable result = conn.conn(selectstr);
             DataRow[] data = result.Select();
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < data.Length; i++)               
             {
-               菜單.Add(new 便當() { 便當名稱 = data[i]["MealName"].ToString(), 價格 = data[i]["PricePerMeal"].ToString() }); // 0
+                if (Convert.ToInt32(data[i]["MealID"]) != 998 && Convert.ToInt32(data[i]["MealID"]) != 999)
+                    菜單.Add(new 便當() { 便當名稱 = data[i]["MealName"].ToString(), 價格 = data[i]["PricePerMeal"].ToString(),便當ID = Convert.ToInt32(data[i]["MealID"]) }); // 0
             }
-            菜單.Add(new 便當() { 便當名稱 = "白飯", 價格 = "10" });
-            菜單.Add(new 便當() { 便當名稱 = "飲料", 價格 = "0" });
+            菜單.Add(new 便當() { 便當名稱 = "白飯", 價格 = "10", 便當ID = 998 });
+            菜單.Add(new 便當() { 便當名稱 = "飲料", 價格 = "0", 便當ID = 999 });
             for (int i = 0; i <= 8; i++)
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
-                string pic_ = "itempic" + i.ToString(); 
-                var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name );
+                string pic_ = "itempic" + i.ToString();
+                var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name);
                 var lblP = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_price);
                 var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
                 lbl.Text = 菜單[i].便當名稱.ToString();
@@ -46,10 +47,10 @@ namespace 便當
                 else if (lbl.Text == "飲料")
                     pic.ImageLocation = "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\BlackTea.jpg";
                 else
-                    pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i+1}.jpg";
+                    pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i + 1}.jpg";
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            
+
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -74,7 +75,7 @@ namespace 便當
             OrderInfo order = new OrderInfo();
             GetOrder();
             if (order.ShowDialog() == DialogResult.Yes)
-                this.Show();           
+                this.Show();
         }
 
 
@@ -287,7 +288,7 @@ namespace 便當
         }
         private void GetOrder()
         {
-            
+
             var item = OrderResult.Items.OfType<ListViewItem>();
             orders.Orders.Clear();
             foreach (var i in item)
@@ -295,7 +296,8 @@ namespace 便當
                 String Order_name = i.SubItems[0].Text;
                 int Order_count = Convert.ToInt32(i.SubItems[1].Text);
                 Decimal price = Convert.ToDecimal(菜單.OfType<便當>().FirstOrDefault(rs => rs.便當名稱 == Order_name).價格);
-                orders.Orders.Add(new order_meal() { 便當名稱 = Order_name, 數量 = Order_count ,便當價格 = price});               
+                int MealID = (菜單.OfType<便當>().FirstOrDefault(rs => rs.便當名稱 == Order_name).便當ID);
+                orders.Orders.Add(new order_meal() { 便當ID = MealID, 便當名稱 = Order_name, 數量 = Order_count, 便當價格 = price });
             }
         }
     }

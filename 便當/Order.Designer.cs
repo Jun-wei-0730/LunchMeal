@@ -191,12 +191,12 @@
             // carrier_warning
             // 
             this.carrier_warning.AutoSize = true;
-            this.carrier_warning.BackColor = System.Drawing.Color.Gray;
-            this.carrier_warning.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.carrier_warning.BackColor = System.Drawing.Color.CadetBlue;
+            this.carrier_warning.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.carrier_warning.ForeColor = System.Drawing.Color.OrangeRed;
-            this.carrier_warning.Location = new System.Drawing.Point(481, 212);
+            this.carrier_warning.Location = new System.Drawing.Point(481, 215);
             this.carrier_warning.Name = "carrier_warning";
-            this.carrier_warning.Size = new System.Drawing.Size(89, 12);
+            this.carrier_warning.Size = new System.Drawing.Size(98, 13);
             this.carrier_warning.TabIndex = 16;
             this.carrier_warning.Text = "載具格式不符合";
             this.carrier_warning.Visible = false;
@@ -255,7 +255,7 @@
             // 
             this.carrierrm_check.AutoSize = true;
             this.carrierrm_check.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.carrierrm_check.Location = new System.Drawing.Point(589, 211);
+            this.carrierrm_check.Location = new System.Drawing.Point(589, 214);
             this.carrierrm_check.Name = "carrierrm_check";
             this.carrierrm_check.Size = new System.Drawing.Size(72, 16);
             this.carrierrm_check.TabIndex = 22;
@@ -290,6 +290,7 @@
             this.Controls.Add(this.UserNameLabel);
             this.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "OrderInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "訂單詳細";

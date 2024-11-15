@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static 便當.Menu;
 
 namespace 便當
 {
@@ -25,7 +22,7 @@ namespace 便當
     public static class User
     {
         public static string UserName { get; set; }
-        public static string User_ID { get; }
+        public static string User_ID { get; set; }
         public static string User_Carrier { get; set; }
     }
     public class orders
@@ -41,18 +38,24 @@ namespace 便當
 
         // Decimal
         public Decimal 便當價格 { get; set; }
+
+        public int 便當ID { get; set; }
     }
-    public class Data : order_meal
+    public class MealData : order_meal
     {
 
         public string 小計 { get; set; }
 
-        public Data(string 便當名稱, int 數量, Decimal 價格)
+        public MealData(string 便當名稱, int 數量, Decimal 價格)
         {
             this.便當名稱 = 便當名稱;
             this.數量 = 數量;
             this.便當價格 = 價格;
             小計 = (數量 * 價格).ToString();
+        }
+        public void MealID(int ID)
+        {
+            this.便當ID = ID;
         }
     }
     public class SQLconn
@@ -69,6 +72,21 @@ namespace 便當
             dataTable.Load(reader);
             conn.Close();
             return dataTable;
+        }
+        public void connOrder(string command)
+        {
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                Console.WriteLine("已連線");
+                using (SqlCommand commandobj = new SqlCommand(command, conn))
+                {
+                    commandobj.ExecuteNonQuery();  // 執行 SQL 插入命令
+                    Console.WriteLine("資料匯入成功");
+                }
+                conn.Close();
+                Console.WriteLine("關閉連線");
+            }
         }
     }
 }

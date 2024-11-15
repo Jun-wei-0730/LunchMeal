@@ -41,7 +41,12 @@ namespace 便當
                 var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
                 lbl.Text = 菜單[i].便當名稱.ToString();
                 lblP.Text = 菜單[i].價格.ToString();
-                pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i+1}.jpg";
+                if (lbl.Text == "白飯")
+                    pic.ImageLocation = "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\Rice.jpg";
+                else if (lbl.Text == "飲料")
+                    pic.ImageLocation = "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\BlackTea.jpg";
+                else
+                    pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i+1}.jpg";
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             
@@ -216,7 +221,12 @@ namespace 便當
                 {
                     lbl.Text = 菜單[i + 9].便當名稱.ToString();
                     lblP.Text = 菜單[i + 9].價格.ToString();
-                    pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i + 10}.jpg";
+                    if (lbl.Text == "白飯")
+                        pic.ImageLocation = "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\Rice.jpg";
+                    else if (lbl.Text == "飲料")
+                        pic.ImageLocation = "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\BlackTea.jpg";
+                    else
+                        pic.ImageLocation = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{i + 10}.jpg";
                 }
                 else
                 {

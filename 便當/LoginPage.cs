@@ -31,6 +31,7 @@ namespace 便當
             //SqlDataReader reader = command.ExecuteReader();
             //Console.WriteLine(result);
             DataRow[] data = result.Select();
+            User.User_Carrier = data[0]["Carrier"].ToString();
             if (data.Length != 0)
             {
                 User.UserName = data[0]["CustomerName"].ToString();

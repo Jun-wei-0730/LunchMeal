@@ -26,6 +26,7 @@ namespace 便當
     {
         public static string UserName { get; set; }
         public static string User_ID { get; }
+        public static string User_Carrier { get; set; }
     }
     public class orders
     {

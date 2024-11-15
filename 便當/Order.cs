@@ -53,6 +53,15 @@ namespace 便當
             }
             if (!getMealTime_box.Items.Contains(fixedTime))
                 getMealTime_box.Items.Add(fixedTime.ToString("HH:mm"));
+            if (User.User_Carrier != "")
+            {
+                carrier.Visible = true;
+                carrier.Text = User.User_Carrier.ToString();
+                carrier.ForeColor = Color.Black;
+                carriercheck.Checked = true;
+                carrierrm_check.Visible = true;
+                carrierrm_check.Checked = true;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -71,7 +80,7 @@ namespace 便當
 
 
                 // 1. DataGridView 排序
-                // 2. 資料來源：先把資料來源整理好再塞進去
+                // 2. 資料來源：先把資料來源整理好再塞進去 # 現在用這個
                 UnsortdData.Add(new Data(item.便當名稱, Convert.ToInt32(item.數量), Convert.ToInt32(item.便當價格)));
                 UnsortdData.Sort((Data D1, Data D2) =>
                     {
@@ -94,9 +103,16 @@ namespace 便當
         private void carriercheck_CheckedChanged(object sender, EventArgs e)
         {
             if (!carriercheck.Checked)
+            {
                 carrier.Visible = false;
+                carrierrm_check.Visible = false;
+            }
             else
+            {
                 carrier.Visible = true;
+                carrierrm_check.Visible = true;
+                carrierrm_check.Checked = true;
+            }
         }
         private void carrier_TextChanged(object sender, EventArgs e)
         {
@@ -132,12 +148,16 @@ namespace 便當
             }
 
         }
-
         private void PS_MouseClick(object sender, MouseEventArgs e)
         {
             if (PS.Text == "在此輸入備註")
                 PS.Text = "";
             PS.ForeColor = Color.Black;
+        }
+
+        private void CompleteOrderButton_Click(object sender, EventArgs e)
+        {
+
         }
         // IComparer 做了發現沒有排序，先換別的方法
 

@@ -47,6 +47,7 @@
             this.元 = new System.Windows.Forms.Label();
             this.getMealTime_box = new System.Windows.Forms.ComboBox();
             this.PS = new System.Windows.Forms.TextBox();
+            this.carrierrm_check = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,6 +74,7 @@
             this.CompleteOrderButton.TabIndex = 6;
             this.CompleteOrderButton.Text = "訂購";
             this.CompleteOrderButton.UseVisualStyleBackColor = false;
+            this.CompleteOrderButton.Click += new System.EventHandler(this.CompleteOrderButton_Click);
             // 
             // Logout1
             // 
@@ -190,11 +192,11 @@
             // 
             this.carrier_warning.AutoSize = true;
             this.carrier_warning.BackColor = System.Drawing.Color.Gray;
-            this.carrier_warning.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.carrier_warning.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.carrier_warning.ForeColor = System.Drawing.Color.OrangeRed;
-            this.carrier_warning.Location = new System.Drawing.Point(481, 211);
+            this.carrier_warning.Location = new System.Drawing.Point(481, 212);
             this.carrier_warning.Name = "carrier_warning";
-            this.carrier_warning.Size = new System.Drawing.Size(99, 17);
+            this.carrier_warning.Size = new System.Drawing.Size(89, 12);
             this.carrier_warning.TabIndex = 16;
             this.carrier_warning.Text = "載具格式不符合";
             this.carrier_warning.Visible = false;
@@ -249,13 +251,26 @@
             this.PS.Text = "在此輸入備註";
             this.PS.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PS_MouseClick);
             // 
+            // carrierrm_check
+            // 
+            this.carrierrm_check.AutoSize = true;
+            this.carrierrm_check.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.carrierrm_check.Location = new System.Drawing.Point(589, 211);
+            this.carrierrm_check.Name = "carrierrm_check";
+            this.carrierrm_check.Size = new System.Drawing.Size(72, 16);
+            this.carrierrm_check.TabIndex = 22;
+            this.carrierrm_check.Text = "記住載具";
+            this.carrierrm_check.UseVisualStyleBackColor = true;
+            this.carrierrm_check.Visible = false;
+            // 
             // OrderInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.Gray;
+            this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.carrierrm_check);
             this.Controls.Add(this.PS);
             this.Controls.Add(this.getMealTime_box);
             this.Controls.Add(this.元);
@@ -304,5 +319,6 @@
         private System.Windows.Forms.Label 元;
         private System.Windows.Forms.ComboBox getMealTime_box;
         private System.Windows.Forms.TextBox PS;
+        private System.Windows.Forms.CheckBox carrierrm_check;
     }
 }

@@ -73,6 +73,7 @@
             this.page2 = new System.Windows.Forms.Button();
             this.page = new System.Windows.Forms.Label();
             this.page1 = new System.Windows.Forms.Button();
+            this.DrinkCount_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itempic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic4)).BeginInit();
@@ -301,7 +302,7 @@
             this.OrderResult.HideSelection = false;
             this.OrderResult.Location = new System.Drawing.Point(642, 73);
             this.OrderResult.Name = "OrderResult";
-            this.OrderResult.Size = new System.Drawing.Size(146, 337);
+            this.OrderResult.Size = new System.Drawing.Size(146, 288);
             this.OrderResult.TabIndex = 42;
             this.OrderResult.UseCompatibleStateImageBehavior = false;
             this.OrderResult.View = System.Windows.Forms.View.Details;
@@ -506,12 +507,23 @@
             this.page1.Visible = false;
             this.page1.Click += new System.EventHandler(this.page1_Click);
             // 
+            // DrinkCount_button
+            // 
+            this.DrinkCount_button.Location = new System.Drawing.Point(642, 367);
+            this.DrinkCount_button.Name = "DrinkCount_button";
+            this.DrinkCount_button.Size = new System.Drawing.Size(146, 30);
+            this.DrinkCount_button.TabIndex = 63;
+            this.DrinkCount_button.Text = "飲料數量與便當一致";
+            this.DrinkCount_button.UseVisualStyleBackColor = true;
+            this.DrinkCount_button.Click += new System.EventHandler(this.DrinkCount_button_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.DrinkCount_button);
             this.Controls.Add(this.page1);
             this.Controls.Add(this.page);
             this.Controls.Add(this.page2);
@@ -630,5 +642,6 @@
         private System.Windows.Forms.Button page2;
         private System.Windows.Forms.Label page;
         private System.Windows.Forms.Button page1;
+        private System.Windows.Forms.Button DrinkCount_button;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace 便當
 {
@@ -299,6 +300,27 @@ namespace 便當
                 int MealID = (菜單.OfType<便當>().FirstOrDefault(rs => rs.便當名稱 == Order_name).便當ID);
                 orders.Orders.Add(new order_meal() { 便當ID = MealID, 便當名稱 = Order_name, 數量 = Order_count, 便當價格 = price });
             }
+        }
+        private void DrinkCount_button_Click(object sender, EventArgs e)
+        {
+            var item = OrderResult.Items.OfType<ListViewItem>();
+            int Drink_count = 0;
+            foreach (var i in item)
+            {
+                String Order_name = i.SubItems[0].Text;
+                int Order_count = Convert.ToInt32(i.SubItems[1].Text);
+                if (Order_name != "白飯" && Order_name != "飲料")
+                    Drink_count += Order_count;
+            }
+            var Drink = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(rs => rs.SubItems[0].Text == "飲料");
+            if (Drink != null)
+                Drink.SubItems[1].Text = Drink_count.ToString();
+            else
+            {
+                Drink = new ListViewItem("飲料");
+                Drink.SubItems.Add(Drink_count.ToString());
+                OrderResult.Items.Add(Drink);
+            }    
         }
     }
 }

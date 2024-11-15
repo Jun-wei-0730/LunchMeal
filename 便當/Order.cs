@@ -169,7 +169,6 @@ namespace 便當
             int Total = Convert.ToInt32(Total_lbl.Text);
             string str = "";
             string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_ID}','{OrderTime}',{Total});";
-            MessageBox.Show(insertstrOrder);
             Orderconn.connOrder(insertstrOrder);
             //foreach (var item in orders.Orders)
             //{
@@ -183,10 +182,9 @@ namespace 便當
                     str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量}),";
             }
                     string insertstrInfo = $"Insert into OrderInfo values{str};";
-            MessageBox.Show(insertstrInfo);
             Orderconn.connOrder(insertstrInfo);
-            
             MessageBox.Show("訂單儲存完成。");
+            this.Close();
         }
         // IComparer 做了發現沒有排序，先換別的方法
 

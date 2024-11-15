@@ -55,7 +55,7 @@ namespace 便當
             }
             if (!getMealTime_box.Items.Contains(fixedTime))
                 getMealTime_box.Items.Add(fixedTime.ToString("HH:mm"));
-            if (User.User_Carrier != "")
+            if (!string.IsNullOrWhiteSpace(User.User_Carrier))
             {
                 carrier.Visible = true;
                 carrier.Text = User.User_Carrier as string;
@@ -105,12 +105,18 @@ namespace 便當
             {
                 carrier.Visible = false;
                 carrierrm_check.Visible = false;
+                carrier_warning.Visible = false;
             }
             else
             {
                 carrier.Visible = true;
                 carrierrm_check.Visible = true;
                 carrierrm_check.Checked = true;
+                Regex carrierRe = new Regex("^\\/[A-Za-z0-9]{7}$");
+                Match carrierMatch = carrierRe.Match(carrier.Text);
+                if (!carrierMatch.Success)
+                    carrier_warning.Visible = true;
+                else carrier_warning.Visible = false;
             }
         }
         private void carrier_TextChanged(object sender, EventArgs e)
@@ -156,35 +162,36 @@ namespace 便當
 
         private void CompleteOrderButton_Click(object sender, EventArgs e)
         {
-            if (carrierrm_check.Checked)
+            if (!carrier_warning.Visible)
             {
-                User.User_Carrier = carrier.Text;
+                SQLconn Orderconn = new SQLconn();
+                DateTime UnsortedOrderTime = DateTime.Now;
+                string UserID_fixed = User.User_ID.Substring(User.User_ID.Length - 4);
+                string OrderTime_fixed = UnsortedOrderTime.ToString("yyMMddHHmms");
+                string OrderID = UserID_fixed + "-" + OrderTime_fixed;
+                string OrderTime = UnsortedOrderTime.ToString("yy-MM-dd HH:mm");
+                int Total = Convert.ToInt32(Total_lbl.Text);
+                string str = "";
+                string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_ID}','{OrderTime}',{Total});";
+                Orderconn.connOrder(insertstrOrder);
+                for (int i = 0; i <= orders.Orders.Count - 1; i++)
+                {
+                    if (i == orders.Orders.Count - 1)
+                        str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量})";
+                    else
+                        str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量}),";
+                }
+                string insertstrInfo = $"Insert into OrderInfo values{str};";
+                Orderconn.connOrder(insertstrInfo);
+                if (carrier.Text != User.User_Carrier && carrierrm_check.Checked)
+                {
+                    string UpdateUsercarrier = $"Update Customers set Carrier ='{carrier.Text}' where CustomerID = '{User.User_ID}'";
+                    Orderconn.connOrder(UpdateUsercarrier);
+                }
+                MessageBox.Show("訂單儲存完成。");
+                this.Close();
             }
-            SQLconn Orderconn = new SQLconn();
-            DateTime UnsortedOrderTime = DateTime.Now;
-            string UserID_fixed = User.User_ID.Substring(User.User_ID.Length - 4);
-            string OrderTime_fixed = UnsortedOrderTime.ToString("yyMMddHHmms");
-            string OrderID = UserID_fixed + "-" + OrderTime_fixed;
-            string OrderTime = UnsortedOrderTime.ToString("yy-MM-dd HH:mm");
-            int Total = Convert.ToInt32(Total_lbl.Text);
-            string str = "";
-            string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_ID}','{OrderTime}',{Total});";
-            Orderconn.connOrder(insertstrOrder);
-            //foreach (var item in orders.Orders)
-            //{
-            //    str += $"({OrderID},{item.便當ID}, {item.數量}),";
-            //}
-            for (int i = 0; i <= orders.Orders.Count -1; i++)
-            {
-                if (i == orders.Orders.Count - 1)
-                    str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量})";
-                else
-                    str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量}),";
-            }
-                    string insertstrInfo = $"Insert into OrderInfo values{str};";
-            Orderconn.connOrder(insertstrInfo);
-            MessageBox.Show("訂單儲存完成。");
-            this.Close();
+            else MessageBox.Show("載具格式不對!");
         }
         // IComparer 做了發現沒有排序，先換別的方法
 

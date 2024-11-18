@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace 便當
 {
@@ -26,10 +25,10 @@ namespace 便當
             string selectstr = $"select * from Meals";
             DataTable result = conn.conn(selectstr);
             DataRow[] data = result.Select();
-            for (int i = 0; i < data.Length; i++)               
+            for (int i = 0; i < data.Length; i++)
             {
                 if (Convert.ToInt32(data[i]["MealID"]) != 998 && Convert.ToInt32(data[i]["MealID"]) != 999)
-                    菜單.Add(new 便當() { 便當名稱 = data[i]["MealName"].ToString(), 價格 = data[i]["PricePerMeal"].ToString(),便當ID = Convert.ToInt32(data[i]["MealID"]) }); // 0
+                    菜單.Add(new 便當() { 便當名稱 = data[i]["MealName"].ToString(), 價格 = data[i]["PricePerMeal"].ToString(), 便當ID = Convert.ToInt32(data[i]["MealID"]) }); // 0
             }
             菜單.Add(new 便當() { 便當名稱 = "白飯", 價格 = "10", 便當ID = 998 });
             菜單.Add(new 便當() { 便當名稱 = "飲料", 價格 = "0", 便當ID = 999 });
@@ -64,7 +63,7 @@ namespace 便當
             LogOutCheck CheckWindow = new LogOutCheck();
             if (CheckWindow.ShowDialog() == DialogResult.Yes)
             {
-                this.Close();
+                this.Hide();
                 LoginPage LoginPage = new LoginPage();
                 LoginPage.Show();
             }
@@ -320,7 +319,16 @@ namespace 便當
                 Drink = new ListViewItem("飲料");
                 Drink.SubItems.Add(Drink_count.ToString());
                 OrderResult.Items.Add(Drink);
-            }    
+            }
+        }
+
+        private void Menu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                FormControl Menu = new FormControl();
+                Menu.Form_Close(sender, e);
+            }
         }
     }
 }

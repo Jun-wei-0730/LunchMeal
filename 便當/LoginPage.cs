@@ -24,7 +24,7 @@ namespace 便當
                 //SqlCommand command = new SqlCommand(selectstr, conn);
                 //SqlDataReader reader = command.ExecuteReader();
                 //Console.WriteLine(result);
-                DataRow[] data = result.Select();                
+                DataRow[] data = result.Select();
                 if (data.Length != 0 && data[0]["CustomerID"].ToString() == ID)
                 {
                     User.UserName = data[0]["CustomerName"] as string;
@@ -48,6 +48,12 @@ namespace 便當
 
         private void LoginPage_Load(object sender, EventArgs e)
         {
+        }
+
+        private void LoginPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FormControl Login = new FormControl();
+            Login.Form_Close(sender, e);
         }
     }
 }

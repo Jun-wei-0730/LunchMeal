@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -11,7 +10,8 @@ namespace 便當
     {
         Decimal Total;
         private BindingSource bindingSource1 = new BindingSource();
-        List<MealData> SortedOrder;
+        bool programclose = false;
+        // List<MealData> SortedOrder;
         public OrderInfo()
         {
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace 便當
             LogOutCheck CheckWindow = new LogOutCheck();
             if (CheckWindow.ShowDialog() == DialogResult.Yes)
             {
-                this.Close();
+                this.Hide();
                 LoginPage LoginPage = new LoginPage();
                 LoginPage.Show();
             }
@@ -66,10 +66,10 @@ namespace 便當
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void backtomenu_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Yes;
-            this.Close();
+            this.Hide();
         }
         private List<MealData> OrderData(List<order_meal> order_Meals)
         {
@@ -155,14 +155,22 @@ namespace 便當
         }
         private void PS_MouseClick(object sender, MouseEventArgs e)
         {
-            if (PS.Text == "在此輸入備註")
-                PS.Text = "";
-            PS.ForeColor = Color.Black;
+            if (note.Text == "在此輸入備註(限制50字)")
+                note.Text = "";
+            note.ForeColor = Color.Black;
         }
 
         private void CompleteOrderButton_Click(object sender, EventArgs e)
         {
-            if (!carrier_warning.Visible)
+            if (carrier_warning.Visible)
+            {
+                MessageBox.Show("載具格式不對!");
+            }
+            else if (getMeal_Box.Text == "選擇取餐方式")
+            {
+                MessageBox.Show("請選擇取餐方式!");
+            }
+            else
             {
                 SQLconn Orderconn = new SQLconn();
                 DateTime UnsortedOrderTime = DateTime.Now;
@@ -171,8 +179,13 @@ namespace 便當
                 string OrderID = UserID_fixed + "-" + OrderTime_fixed;
                 string OrderTime = UnsortedOrderTime.ToString("yy-MM-dd HH:mm");
                 int Total = Convert.ToInt32(Total_lbl.Text);
+                int tableware = check(tablewarecheck);
+                int plasticbag = check(plasticBagcheck);
+                string getMeal = getMeal_Box.Text;
+                string getMealTime = getMealTime_box.Text;
+                string _note = note.Text;
                 string str = "";
-                string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_ID}','{OrderTime}',{Total});";
+                string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_ID}','{OrderTime}',{Total},{tableware},{plasticbag},'{getMeal}','{getMealTime}','{_note}');";
                 Orderconn.connOrder(insertstrOrder);
                 for (int i = 0; i <= orders.Orders.Count - 1; i++)
                 {
@@ -189,9 +202,25 @@ namespace 便當
                     Orderconn.connOrder(UpdateUsercarrier);
                 }
                 MessageBox.Show("訂單儲存完成。");
+                programclose = true;
                 this.Close();
+            } 
+        }
+
+        private void OrderInfo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Console.WriteLine(e.CloseReason);
+            if (e.CloseReason == CloseReason.UserClosing && programclose == false)
+            {
+                FormControl Order = new FormControl();
+                Order.Form_Close(sender, e);
             }
-            else MessageBox.Show("載具格式不對!");
+        }
+        public int check(CheckBox Box)
+        {
+            if (!Box.Checked)
+                return 0;
+            else return 1;
         }
         // IComparer 做了發現沒有排序，先換別的方法
 

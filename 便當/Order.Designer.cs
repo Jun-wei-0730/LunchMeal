@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.UserNameLabel = new System.Windows.Forms.Label();
             this.CompleteOrderButton = new System.Windows.Forms.Button();
             this.Logout1 = new System.Windows.Forms.Label();
@@ -40,13 +39,12 @@
             this.carrier = new System.Windows.Forms.TextBox();
             this.getMeal_Box = new System.Windows.Forms.ComboBox();
             this.取餐時間 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.carrier_warning = new System.Windows.Forms.Label();
             this.Total_lbl = new System.Windows.Forms.Label();
             this.總價 = new System.Windows.Forms.Label();
             this.元 = new System.Windows.Forms.Label();
             this.getMealTime_box = new System.Windows.Forms.ComboBox();
-            this.PS = new System.Windows.Forms.TextBox();
+            this.note = new System.Windows.Forms.TextBox();
             this.carrierrm_check = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -98,7 +96,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "回上頁";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.backtomenu_Click);
             // 
             // dataGridView1
             // 
@@ -239,17 +237,18 @@
             this.getMealTime_box.Size = new System.Drawing.Size(141, 24);
             this.getMealTime_box.TabIndex = 20;
             // 
-            // PS
+            // note
             // 
-            this.PS.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.PS.ForeColor = System.Drawing.Color.Gray;
-            this.PS.Location = new System.Drawing.Point(19, 406);
-            this.PS.Multiline = true;
-            this.PS.Name = "PS";
-            this.PS.Size = new System.Drawing.Size(456, 76);
-            this.PS.TabIndex = 21;
-            this.PS.Text = "在此輸入備註";
-            this.PS.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PS_MouseClick);
+            this.note.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.note.ForeColor = System.Drawing.Color.Gray;
+            this.note.Location = new System.Drawing.Point(19, 406);
+            this.note.MaxLength = 50;
+            this.note.Multiline = true;
+            this.note.Name = "note";
+            this.note.Size = new System.Drawing.Size(456, 76);
+            this.note.TabIndex = 21;
+            this.note.Text = "在此輸入備註(限制50字)";
+            this.note.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PS_MouseClick);
             // 
             // carrierrm_check
             // 
@@ -271,7 +270,7 @@
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
             this.Controls.Add(this.carrierrm_check);
-            this.Controls.Add(this.PS);
+            this.Controls.Add(this.note);
             this.Controls.Add(this.getMealTime_box);
             this.Controls.Add(this.元);
             this.Controls.Add(this.總價);
@@ -294,6 +293,7 @@
             this.Name = "OrderInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "訂單詳細";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OrderInfo_FormClosing);
             this.Load += new System.EventHandler(this.OrderInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -313,13 +313,12 @@
         private System.Windows.Forms.TextBox carrier;
         private System.Windows.Forms.ComboBox getMeal_Box;
         private System.Windows.Forms.Label 取餐時間;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label carrier_warning;
         private System.Windows.Forms.Label Total_lbl;
         private System.Windows.Forms.Label 總價;
         private System.Windows.Forms.Label 元;
         private System.Windows.Forms.ComboBox getMealTime_box;
-        private System.Windows.Forms.TextBox PS;
+        private System.Windows.Forms.TextBox note;
         private System.Windows.Forms.CheckBox carrierrm_check;
     }
 }

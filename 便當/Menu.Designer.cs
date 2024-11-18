@@ -571,6 +571,7 @@
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "便當系統-訂購";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
             this.Load += new System.EventHandler(this.Menu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.itempic1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic3)).EndInit();

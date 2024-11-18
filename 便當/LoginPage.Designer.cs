@@ -90,6 +90,7 @@
             this.Name = "LoginPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "便當系統-登入";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginPage_FormClosing);
             this.Load += new System.EventHandler(this.LoginPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -17,7 +17,7 @@ namespace 便當
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginPage());
-        }
+        }   
     }
     public static class User
     {
@@ -87,6 +87,21 @@ namespace 便當
                 conn.Close();
                 Console.WriteLine("關閉連線");
             }
+        }
+    }
+    public class FormControl
+    {
+        public void Form_Close(object sender, FormClosingEventArgs e)
+        {
+            string message = "是否關閉程式？";
+            string caption = "關閉提醒";
+            var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+
         }
     }
 }

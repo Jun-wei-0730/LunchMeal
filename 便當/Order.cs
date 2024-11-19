@@ -204,7 +204,7 @@ namespace 便當
                 MessageBox.Show("訂單儲存完成。");
                 programclose = true;
                 this.Close();
-            } 
+            }
         }
 
         private void OrderInfo_FormClosing(object sender, FormClosingEventArgs e)

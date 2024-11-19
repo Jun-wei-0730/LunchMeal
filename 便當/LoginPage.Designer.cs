@@ -32,6 +32,8 @@
             this.Test = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.loginButton = new System.Windows.Forms.Button();
+            this.MenuChange = new System.Windows.Forms.Button();
+            this.NewUser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UserNameInput
@@ -75,12 +77,32 @@
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
+            // MenuChange
+            // 
+            this.MenuChange.Location = new System.Drawing.Point(665, 447);
+            this.MenuChange.Name = "MenuChange";
+            this.MenuChange.Size = new System.Drawing.Size(123, 35);
+            this.MenuChange.TabIndex = 4;
+            this.MenuChange.Text = "更改菜單";
+            this.MenuChange.UseVisualStyleBackColor = true;
+            // 
+            // NewUser
+            // 
+            this.NewUser.Location = new System.Drawing.Point(665, 406);
+            this.NewUser.Name = "NewUser";
+            this.NewUser.Size = new System.Drawing.Size(123, 35);
+            this.NewUser.TabIndex = 5;
+            this.NewUser.Text = "創建新使用者";
+            this.NewUser.UseVisualStyleBackColor = true;
+            // 
             // LoginPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.NewUser);
+            this.Controls.Add(this.MenuChange);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Test);
@@ -103,6 +125,8 @@
         private System.Windows.Forms.Label Test;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.Button MenuChange;
+        private System.Windows.Forms.Button NewUser;
     }
 }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-
+using System.Configuration;
 namespace 便當
 {
     internal static class Program
@@ -17,14 +17,14 @@ namespace 便當
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginPage());
-        }   
+        }
     }
     public static class User
     {
         public static string UserName { get; set; }
         public static string User_ID { get; set; }
         public static string User_Carrier { get; set; }
-        public static int User_Seq {  get; set; }
+        public static int User_Seq { get; set; }
     }
     public class orders
     {
@@ -62,7 +62,8 @@ namespace 便當
     public class SQLconn
     {
         DataTable dataTable = new DataTable();
-        public string connstr = "Data Source = localhost; Initial Catalog = MealDB; Integrated Security = SSPI";
+        //public string  = "Data Source = localhost; Initial Catalog = MealDB; Integrated Security = SSPI";
+        public string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
         public DataTable conn(string command)
         {
             SqlConnection conn = new SqlConnection(connstr);

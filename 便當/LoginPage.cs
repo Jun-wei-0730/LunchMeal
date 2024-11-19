@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace 便當
@@ -18,34 +20,34 @@ namespace 便當
             conn = new SQLconn();
             if (!string.IsNullOrEmpty(UserNameInput.Text))
             {
+                string selectstr = "";
                 string ID = UserNameInput.Text;
-                string selectstr = $"select * from Customers where CustomerID = {ID}";
-                DataTable result = conn.conn(selectstr);
-                //SqlCommand command = new SqlCommand(selectstr, conn);
-                //SqlDataReader reader = command.ExecuteReader();
-                //Console.WriteLine(result);
-                DataRow[] data = result.Select();
-                if (data.Length != 0 && data[0]["CustomerID"].ToString() == ID)
+                if (Login_query(ID) != "0")
                 {
-                    User.UserName = data[0]["CustomerName"] as string;
-                    User.User_Carrier = data[0]["Carrier"] as string;
-                    User.User_ID = ID;
-                    User.User_Seq = Convert.ToInt32(data[0]["CustomerSeq"]);
-                    this.Hide();
-                    Menu menu = new Menu();
-                    menu.Show();
+                    selectstr = Login_query(ID);
+                    DataTable result = conn.conn(selectstr);
+                    DataRow[] data = result.Select();
+                    if (data.Length != 0 && data[0]["CustomerID"].ToString() == ID)
+                    {
+                        User.UserName = data[0]["CustomerName"] as string;
+                        User.User_Carrier = data[0]["Carrier"] as string;
+                        User.User_ID = ID;
+                        User.User_Seq = Convert.ToInt32(data[0]["CustomerSeq"]);
+                        this.Hide();
+                        Menu menu = new Menu();
+                        menu.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("查詢不到該使用者!");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("查詢不到該使用者!");
-                }
+                else MessageBox.Show("ID不得包含空白!"); 
             }
             else
                 MessageBox.Show("名稱不得為空!");
 
         }
-
-
 
         private void LoginPage_Load(object sender, EventArgs e)
         {
@@ -55,6 +57,14 @@ namespace 便當
         {
             FormControl Login = new FormControl();
             Login.Form_Close(sender, e);
+        }
+        private string Login_query(string ID)
+        {
+            Regex IDRe = new Regex("\\s$");
+            Match IDMatch = IDRe.Match(ID);
+            if (IDMatch.Success)
+                return "0";
+            else return $"select * from Customers where CustomerID = {ID}";
         }
     }
 }

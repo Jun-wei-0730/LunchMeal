@@ -30,6 +30,7 @@ namespace 便當
                     User.UserName = data[0]["CustomerName"] as string;
                     User.User_Carrier = data[0]["Carrier"] as string;
                     User.User_ID = ID;
+                    User.User_Seq = Convert.ToInt32(data[0]["CustomerSeq"]);
                     this.Hide();
                     Menu menu = new Menu();
                     menu.Show();

@@ -185,7 +185,7 @@ namespace 便當
                 string getMealTime = getMealTime_box.Text;
                 string _note = note.Text;
                 string str = "";
-                string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_ID}','{OrderTime}',{Total},{tableware},{plasticbag},'{getMeal}','{getMealTime}','{_note}');";
+                string insertstrOrder = $"Insert into Orders values('{OrderID}','{User.User_Seq}','{OrderTime}',{Total},{tableware},{plasticbag},'{getMeal}','{getMealTime}','{_note}');";
                 Orderconn.connOrder(insertstrOrder);
                 for (int i = 0; i <= orders.Orders.Count - 1; i++)
                 {

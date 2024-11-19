@@ -24,6 +24,7 @@ namespace 便當
         public static string UserName { get; set; }
         public static string User_ID { get; set; }
         public static string User_Carrier { get; set; }
+        public static int User_Seq {  get; set; }
     }
     public class orders
     {
@@ -89,6 +90,7 @@ namespace 便當
             }
         }
     }
+
     public class FormControl
     {
         public void Form_Close(object sender, FormClosingEventArgs e)

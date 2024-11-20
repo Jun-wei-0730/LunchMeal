@@ -68,7 +68,7 @@ namespace 便當
 
         private void BeginOrderButton_Click(object sender, EventArgs e)
         {
-            this.Hide(); // ==  this.Visible = false;
+            this.Hide(); //this.Visible = false;
             OrderInfo order = new OrderInfo();
             GetOrder();
             if (order.ShowDialog() == DialogResult.Yes)

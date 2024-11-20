@@ -85,6 +85,7 @@
             this.MenuChange.TabIndex = 4;
             this.MenuChange.Text = "更改菜單";
             this.MenuChange.UseVisualStyleBackColor = true;
+            this.MenuChange.Click += new System.EventHandler(this.MenuChange_Click);
             // 
             // NewUser
             // 

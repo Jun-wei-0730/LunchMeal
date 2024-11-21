@@ -70,9 +70,9 @@
             this.item6pricelbl = new System.Windows.Forms.Label();
             this.item7pricelbl = new System.Windows.Forms.Label();
             this.item8pricelbl = new System.Windows.Forms.Label();
-            this.page2 = new System.Windows.Forms.Button();
+            this.NextPage = new System.Windows.Forms.Button();
             this.page = new System.Windows.Forms.Label();
-            this.page1 = new System.Windows.Forms.Button();
+            this.PrePage = new System.Windows.Forms.Button();
             this.DrinkCount_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itempic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic3)).BeginInit();
@@ -476,36 +476,35 @@
             this.item8pricelbl.TabIndex = 58;
             this.item8pricelbl.Text = "80";
             // 
-            // page2
+            // NextPage
             // 
-            this.page2.Location = new System.Drawing.Point(550, 9);
-            this.page2.Name = "page2";
-            this.page2.Size = new System.Drawing.Size(75, 23);
-            this.page2.TabIndex = 59;
-            this.page2.Text = "下一頁";
-            this.page2.UseVisualStyleBackColor = true;
-            this.page2.Click += new System.EventHandler(this.page2_Click);
+            this.NextPage.Location = new System.Drawing.Point(642, 9);
+            this.NextPage.Name = "NextPage";
+            this.NextPage.Size = new System.Drawing.Size(75, 23);
+            this.NextPage.TabIndex = 59;
+            this.NextPage.Text = "下一頁";
+            this.NextPage.UseVisualStyleBackColor = true;
+            this.NextPage.Click += new System.EventHandler(this.NextPageBtn);
             // 
             // page
             // 
             this.page.AutoSize = true;
-            this.page.Location = new System.Drawing.Point(626, 28);
+            this.page.Location = new System.Drawing.Point(649, 48);
             this.page.Name = "page";
             this.page.Size = new System.Drawing.Size(11, 12);
             this.page.TabIndex = 60;
             this.page.Text = "1";
-            this.page.Visible = false;
             // 
-            // page1
+            // PrePage
             // 
-            this.page1.Location = new System.Drawing.Point(550, 9);
-            this.page1.Name = "page1";
-            this.page1.Size = new System.Drawing.Size(75, 23);
-            this.page1.TabIndex = 61;
-            this.page1.Text = "上一頁";
-            this.page1.UseVisualStyleBackColor = true;
-            this.page1.Visible = false;
-            this.page1.Click += new System.EventHandler(this.page1_Click);
+            this.PrePage.Location = new System.Drawing.Point(561, 9);
+            this.PrePage.Name = "PrePage";
+            this.PrePage.Size = new System.Drawing.Size(75, 23);
+            this.PrePage.TabIndex = 61;
+            this.PrePage.Text = "上一頁";
+            this.PrePage.UseVisualStyleBackColor = true;
+            this.PrePage.Visible = false;
+            this.PrePage.Click += new System.EventHandler(this.PrePageBtn);
             // 
             // DrinkCount_button
             // 
@@ -524,9 +523,9 @@
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
             this.Controls.Add(this.DrinkCount_button);
-            this.Controls.Add(this.page1);
+            this.Controls.Add(this.PrePage);
             this.Controls.Add(this.page);
-            this.Controls.Add(this.page2);
+            this.Controls.Add(this.NextPage);
             this.Controls.Add(this.item8pricelbl);
             this.Controls.Add(this.item7pricelbl);
             this.Controls.Add(this.item6pricelbl);
@@ -640,9 +639,9 @@
         private System.Windows.Forms.Label item6pricelbl;
         private System.Windows.Forms.Label item7pricelbl;
         private System.Windows.Forms.Label item8pricelbl;
-        private System.Windows.Forms.Button page2;
+        private System.Windows.Forms.Button NextPage;
         private System.Windows.Forms.Label page;
-        private System.Windows.Forms.Button page1;
+        private System.Windows.Forms.Button PrePage;
         private System.Windows.Forms.Button DrinkCount_button;
     }
 }

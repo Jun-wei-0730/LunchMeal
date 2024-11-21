@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuDataGridView = new System.Windows.Forms.DataGridView();
             this.ChangeUpload = new System.Windows.Forms.Button();
             this.NewRow = new System.Windows.Forms.Button();
             this.DeleteRowBtn = new System.Windows.Forms.Button();
             this.SortBtn = new System.Windows.Forms.Button();
+            this.Logout1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,7 +47,23 @@
             this.MenuDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.MenuDataGridView.BackgroundColor = System.Drawing.Color.Teal;
             this.MenuDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.MenuDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
             this.MenuDataGridView.Location = new System.Drawing.Point(12, 65);
             this.MenuDataGridView.Name = "MenuDataGridView";
             this.MenuDataGridView.RowTemplate.Height = 24;
@@ -92,12 +111,25 @@
             this.SortBtn.UseVisualStyleBackColor = true;
             this.SortBtn.Click += new System.EventHandler(this.SortBtn_Click);
             // 
+            // Logout1
+            // 
+            this.Logout1.AutoSize = true;
+            this.Logout1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Logout1.ForeColor = System.Drawing.Color.Black;
+            this.Logout1.Location = new System.Drawing.Point(759, 9);
+            this.Logout1.Name = "Logout1";
+            this.Logout1.Size = new System.Drawing.Size(29, 12);
+            this.Logout1.TabIndex = 6;
+            this.Logout1.Text = "登出";
+            this.Logout1.Click += new System.EventHandler(this.Logout1_Click);
+            // 
             // MenuEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Logout1);
             this.Controls.Add(this.SortBtn);
             this.Controls.Add(this.DeleteRowBtn);
             this.Controls.Add(this.NewRow);
@@ -110,6 +142,7 @@
             this.Load += new System.EventHandler(this.MenuEdit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -120,5 +153,6 @@
         private System.Windows.Forms.Button NewRow;
         private System.Windows.Forms.Button DeleteRowBtn;
         private System.Windows.Forms.Button SortBtn;
+        private System.Windows.Forms.Label Logout1;
     }
 }

@@ -79,101 +79,47 @@ namespace 便當
 
         private void item0數量控制(object sender, EventArgs e)
         {
-            if (item0qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[0].便當名稱, item0qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[9].便當名稱, item0qty.Value);
-            }
+            NumericControl(item0qty, 0);
         }
 
         private void item1數量控制(object sender, EventArgs e)
         {
-            if (item1qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[1].便當名稱, item1qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[10].便當名稱, item1qty.Value);
-            }
+            NumericControl(item1qty, 1);
         }
 
         private void item2數量控制(object sender, EventArgs e)
         {
-            if (item2qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[2].便當名稱, item2qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[11].便當名稱, item2qty.Value);
-            }
+            NumericControl(item2qty, 2);
         }
 
         private void item3數量控制(object sender, EventArgs e)
         {
-            if (item3qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[3].便當名稱, item3qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[12].便當名稱, item3qty.Value);
-            }
+            NumericControl(item3qty, 3);
         }
 
         private void item4數量控制(object sender, EventArgs e)
         {
-            if (item4qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[4].便當名稱, item4qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[13].便當名稱, item4qty.Value);
-            }
+            NumericControl(item4qty, 4);
         }
 
         private void item5數量控制(object sender, EventArgs e)
         {
-            if (item5qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[5].便當名稱, item5qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[14].便當名稱, item5qty.Value);
-            }
+            NumericControl(item5qty, 5);
         }
 
         private void item6數量控制(object sender, EventArgs e)
         {
-            if (item6qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[6].便當名稱, item6qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[15].便當名稱, item6qty.Value);
-            }
+            NumericControl(item6qty, 6);
         }
 
         private void item7數量控制(object sender, EventArgs e)
         {
-            if (item7qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[7].便當名稱, item7qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[16].便當名稱, item7qty.Value);
-            }
+            NumericControl(item7qty, 7);
         }
 
         private void item8數量控制(object sender, EventArgs e)
         {
-            if (item8qty.Enabled == true)
-            {
-                if (page.Text == "1")
-                    表單數量控制(菜單[8].便當名稱, item8qty.Value);
-                else if (page.Text == "2")
-                    表單數量控制(菜單[17].便當名稱, item8qty.Value);
-            }
+            NumericControl(item8qty, 8);
         }
 
         private void 表單數量控制(string text, decimal qty)
@@ -205,78 +151,24 @@ namespace 便當
             }
         }
 
-        private void page2_Click(object sender, EventArgs e)
+        private void NextPageBtn(object sender, EventArgs e)
         {
-            for (int i = 0; i <= 8; i++)
-            {
-                string lbl_name = "lbl" + i.ToString();
-                string lbl_price = "item" + i.ToString() + "pricelbl";
-                string pic_ = "itempic" + i.ToString();
-                var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name);
-                var lblP = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_price);
-                var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
-                if (i + 9 < 菜單.Count)
-                {
-                    lbl.Text = 菜單[i + 9].便當名稱.ToString();
-                    lblP.Text = 菜單[i + 9].價格.ToString();
-                    pic.ImageLocation = ImgUrlGet(lbl.Text, 菜單[i + 9].便當ID);
-                }
-                else
-                {
-                    lbl.Text = "";
-                    lblP.Text = "";
-                    pic.ImageLocation = "";
-                }
-                string itemQty = "item" + i.ToString() + "qty";
-                var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
-                var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
-                if (lbl.Text == "")
-                    qty.Visible = false;
-                if (pic.ImageLocation == "")
-                    pic.Visible = false;
-                else qty.Visible = true;
-                qty.Enabled = false;
-                if (item != null)
-                    qty.Value = Convert.ToDecimal(item.SubItems[1].Text);
-                else
-                    qty.Value = 0;
-                qty.Enabled = true;
-            }
-            page.Text = 2.ToString();
-            page1.Visible = true;
-            page2.Visible = false;
+            int _page = Convert.ToInt32(page.Text);
+            page.Text = (_page + 1).ToString();
+            PageMenuGet(_page + 1);
+            PrePage.Visible = true;
         }
 
-        private void page1_Click(object sender, EventArgs e)
+        private void PrePageBtn(object sender, EventArgs e)
         {
-            for (int i = 0; i <= 8; i++)
+            int _page = Convert.ToInt32(page.Text);
+            page.Text = (_page - 1).ToString();
+            PageMenuGet(_page - 1);
+            if (_page == 2)
             {
-                string lbl_name = "lbl" + i.ToString();
-                string lbl_price = "item" + i.ToString() + "pricelbl";
-                string pic_ = "itempic" + i.ToString();
-                var lbl = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_name);
-                var lblP = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_price);
-                var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
-                lbl.Text = 菜單[i].便當名稱.ToString();
-                lblP.Text = 菜單[i].價格.ToString();
-                pic.ImageLocation = ImgUrlGet(lbl.Text, 菜單[i].便當ID);
-                string itemQty = "item" + i.ToString() + "qty";
-                var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
-                var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
-                if (lbl.Text == "")
-                    qty.Visible = false;
-                else qty.Visible = true;
-                qty.Enabled = false;
-                if (item != null)
-                    qty.Value = Convert.ToDecimal(item.SubItems[1].Text);
-                else
-                    qty.Value = 0;
-                qty.Enabled = true;
-                pic.Visible = true;
+                PrePage.Visible = false;
             }
-            page.Text = 1.ToString();
-            page1.Visible = false;
-            page2.Visible = true;
+            NextPage.Visible = true;
         }
         private void GetOrder()
         {
@@ -330,6 +222,58 @@ namespace 便當
                 return "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\BlackTea.jpg";
             else
                 return $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{num}.jpg";
+        }
+        private void PageMenuGet(int page)
+        {
+            int Menu_index = (page - 1) * 9;
+            for (int i = 0; i <= 8; i++)
+            {
+                string lbl_name = "lbl" + i.ToString();
+                string lbl_price = "item" + i.ToString() + "pricelbl";
+                string pic_ = "itempic" + i.ToString();
+                var lbl = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_name);
+                var lblP = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_price);
+                var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
+                if (i + Menu_index < 菜單.Count)
+                {
+                    lbl.Text = 菜單[i + Menu_index].便當名稱.ToString();
+                    lblP.Text = 菜單[i + Menu_index].價格.ToString();
+                    pic.ImageLocation = ImgUrlGet(lbl.Text, 菜單[i + Menu_index].便當ID);
+                    pic.Visible = true;
+                }
+                else
+                {
+                    lbl.Text = "";
+                    lblP.Text = "";
+                    pic.ImageLocation = "";
+                    pic.Visible = false;
+                }
+                string itemQty = "item" + i.ToString() + "qty";
+                var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
+                var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
+                if (lbl.Text == "")
+                {
+                    qty.Visible = false;
+                    NextPage.Visible = false;
+                }
+                else 
+                    qty.Visible = true;
+
+                qty.Enabled = false;
+                if (item != null)
+                    qty.Value = Convert.ToDecimal(item.SubItems[1].Text);
+                else
+                    qty.Value = 0;
+                qty.Enabled = true;
+            }
+        }
+        private void NumericControl(NumericUpDown NUD,int NUDnum)
+        {
+            if (NUD.Enabled == true)
+            {
+                int MenuNum = (Convert.ToInt32(page.Text) - 1) * 9;
+                表單數量控制(菜單[NUDnum + MenuNum].便當名稱, NUD.Value);
+            }
         }
     }
 }

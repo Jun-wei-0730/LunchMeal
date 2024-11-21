@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
-using System.Drawing;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace 便當
 {
-    
+
     public partial class MenuEdit : Form
     {
+        int MealID = 10;
         DataTable DTbase = new DataTable();
-        DataRow row;
         public MenuEdit()
         {
             InitializeComponent();
@@ -25,8 +23,8 @@ namespace 便當
             SQLconn conn = new SQLconn();
             string select = "select * from Meals;";
             DTbase = conn.conn(select);
-            dataGridView1.DataSource = DTbase;
-            foreach (DataGridViewColumn Column in dataGridView1.Columns)
+            MenuDataGridView.DataSource = DTbase;
+            foreach (DataGridViewColumn Column in MenuDataGridView.Columns)
             {
                 if (Column.HeaderCell.Value.ToString() == "MealID")
                 {
@@ -37,29 +35,95 @@ namespace 便當
 
         private void ChangeUpload_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i <= dataGridView1.RowCount-2; i++)
+            SortID();
+            SQLconn conn = new SQLconn();
+            conn.BackupDB();
+            string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
+            string UpdateCmd = "Update Meals set MealName = @Name,PricePerMeal = @Price,Enabled = @Enable where MealID = @ID ;";
+            string InsertCmd = "Insert into Meals values (@ID,@Name,@Price,@Enable)";
+            using (SqlConnection connection = new SqlConnection(connstr))
             {
-                row = DTbase.Rows[i];
-                row.ItemArray = row.ItemArray.ToArray();
-                Console.WriteLine(row.ItemArray[2]);
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(UpdateCmd,connection))
+                {
+                    foreach (DataGridViewRow Row in MenuDataGridView.Rows)
+                    {
+                        ParameterAdd(cmd, Row);
+                        int rs = cmd.ExecuteNonQuery();
+                        if (rs == 0)
+                        {
+                            using (SqlCommand Insertcmd = new SqlCommand(InsertCmd,connection))
+                            {
+                                ParameterAdd(Insertcmd, Row);
+                                Insertcmd.ExecuteNonQuery();
+                            }
+                        }
+                        
+                    }
+                }
+                connection.Close();
             }
+            MessageBox.Show("變更已儲存。");
         }
 
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void MenuDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            
-            
+            var Chose = MenuDataGridView.CurrentCell;
+            string Location = MenuDataGridView.Columns[MenuDataGridView.CurrentCell.ColumnIndex].HeaderText;
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void NewRowBtn_Click(object sender, EventArgs e)
         {
-            var Chose = dataGridView1.CurrentCell;
-            string Location = dataGridView1.Columns[dataGridView1.CurrentCell.ColumnIndex].HeaderText;
-            if (Location == "MealID")
+            DTbase.Rows.Add(++MealID, "名稱", "0", 1);
+        }
+
+        private void DeleteRowBtn_Click(object sender, EventArgs e)
+        {
+            if (MenuDataGridView.CurrentRow != null)
             {
-                MessageBox.Show("ID不得更改!");
-                Chose.Value = dataGridView1.CurrentCell.Value;
+                var ChoseIndex = MenuDataGridView.CurrentRow.Index;
+                MenuDataGridView.Rows.RemoveAt(ChoseIndex);
             }
+        }
+        private void SortBtn_Click(object sender, EventArgs e)
+        {
+            SortID();
+        }
+
+        private void MenuEdit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FormControl MenuEdit = new FormControl();
+            MenuEdit.Form_Close(sender, e);
+        }
+        private void SortID()
+        {
+            int i = 1;
+            foreach (DataGridViewRow Row in MenuDataGridView.Rows)
+            {
+                if (!Row.IsNewRow)
+                {
+                    if (Row.Cells["MealName"].Value.ToString() == "白飯")
+                        Row.Cells["MealID"].Value = 998;
+                    else if (Row.Cells["MealName"].Value.ToString() == "飲料")
+                        Row.Cells["MealID"].Value = 999;
+                    else Row.Cells["MealID"].Value = i++;
+                }
+            }
+            var ColumnMealID = MenuDataGridView.Columns.OfType<DataGridViewColumn>().First(rs => rs.HeaderText == "MealID");
+            MenuDataGridView.Sort(ColumnMealID, ListSortDirection.Ascending);
+        }
+
+        private void MenuDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("數據格式錯誤!");
+        }
+        private void ParameterAdd(SqlCommand cmd, DataGridViewRow Row)
+        {
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@ID", Row.Cells["MealID"].Value.ToString());
+            cmd.Parameters.AddWithValue("@Name", Row.Cells["MealName"].Value.ToString());
+            cmd.Parameters.AddWithValue("@Price", Convert.ToDecimal(Row.Cells["PricePerMeal"].Value));
+            cmd.Parameters.AddWithValue("@Enable", Convert.ToBoolean(Row.Cells["Enabled"].Value));
         }
     }
 }

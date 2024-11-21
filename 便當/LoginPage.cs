@@ -13,7 +13,6 @@ namespace 便當
     public partial class LoginPage : Form
     {
         SQLconn conn;
-        //SqlConnection conn = new SqlConnection("Data Source = localhost; Initial Catalog = MealDB; Integrated Security = SSPI");
         public LoginPage()
         {
             InitializeComponent();
@@ -25,17 +24,9 @@ namespace 便當
             string ID = UserNameInput.Text;
             if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
             {
-                //string selectstr = Login_query(ID);
-                //DataTable result = conn.conn(selectstr);
-                //DataRow[] data = result.Select();
                 List<string> Query_result = conn2(ID);
-                //if (data.Length != 0 && data[0]["CustomerID"].ToString() == ID)
                 if (conn2(ID) != null)
                 {
-                    //User.UserName = data[0]["CustomerName"] as string;
-                    //User.User_Carrier = data[0]["Carrier"] as string;
-                    //User.User_ID = ID;
-                    //User.User_Seq = Convert.ToInt32(data[0]["CustomerSeq"]);
                     User.User_Seq = Convert.ToInt32(Query_result[0]);
                     User.User_ID = Query_result[1];
                     User.UserName = Query_result[2];
@@ -87,7 +78,6 @@ namespace 便當
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        // Obtain a row from the query result.
                         while (reader.Read())
                         {
                             ResultList.Add(reader.GetInt32(0).ToString());

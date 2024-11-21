@@ -37,8 +37,8 @@ namespace 便當
         //int 
         public int 數量 { get; set; }
 
-        // Decimal
-        public Decimal 便當價格 { get; set; }
+        // decimal
+        public decimal 便當價格 { get; set; }
 
         public int 便當ID { get; set; }
     }
@@ -62,7 +62,6 @@ namespace 便當
     public class SQLconn
     {
         DataTable dataTable = new DataTable();
-        //public string  = "Data Source = localhost; Initial Catalog = MealDB; Integrated Security = SSPI";
         public string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
         public DataTable conn(string command)
         {
@@ -83,12 +82,30 @@ namespace 便當
                 Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(command, conn))
                 {
-                    commandobj.ExecuteNonQuery();  // 執行 SQL 插入命令
-                    Console.WriteLine("資料匯入成功");
+                    commandobj.ExecuteNonQuery();  // 執行 SQL 命令
+                    Console.WriteLine("執行成功");
                 }
                 conn.Close();
                 Console.WriteLine("關閉連線");
             }
+        }
+        public void BackupDB()
+        {
+            string BackupLocation = ConfigurationManager.ConnectionStrings["BackUpLocation"].ConnectionString;
+            string BackupCommand = $"backup database MealDB to Disk = '{BackupLocation}'";
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                Console.WriteLine("已連線");
+                using (SqlCommand commandobj = new SqlCommand(BackupCommand, conn))
+                {
+                    commandobj.ExecuteNonQuery();  // 執行 SQL 命令
+                    Console.WriteLine("執行成功");
+                }
+                conn.Close();
+                Console.WriteLine("關閉連線");
+            }
+        }
         }
     }
 
@@ -107,4 +124,3 @@ namespace 便當
 
         }
     }
-}

@@ -49,7 +49,7 @@
             // 
             this.Test.AutoSize = true;
             this.Test.Font = new System.Drawing.Font("微軟正黑體", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Test.Location = new System.Drawing.Point(224, 104);
+            this.Test.Location = new System.Drawing.Point(225, 87);
             this.Test.Name = "Test";
             this.Test.Size = new System.Drawing.Size(343, 47);
             this.Test.TabIndex = 1;
@@ -59,7 +59,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(302, 192);
+            this.label1.Location = new System.Drawing.Point(309, 173);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(190, 24);
             this.label1.TabIndex = 2;
@@ -67,14 +67,17 @@
             // 
             // loginButton
             // 
+            this.loginButton.BackColor = System.Drawing.Color.CadetBlue;
             this.loginButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.loginButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.loginButton.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.loginButton.ForeColor = System.Drawing.Color.Black;
             this.loginButton.Location = new System.Drawing.Point(325, 306);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(153, 59);
             this.loginButton.TabIndex = 3;
             this.loginButton.Text = "確認";
-            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.UseVisualStyleBackColor = false;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // MenuChange
@@ -95,6 +98,7 @@
             this.NewUser.TabIndex = 5;
             this.NewUser.Text = "創建新使用者";
             this.NewUser.UseVisualStyleBackColor = true;
+            this.NewUser.Click += new System.EventHandler(this.NewUser_Click);
             // 
             // LoginPage
             // 

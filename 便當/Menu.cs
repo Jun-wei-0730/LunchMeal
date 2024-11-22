@@ -68,11 +68,15 @@ namespace 便當
 
         private void BeginOrderButton_Click(object sender, EventArgs e)
         {
-            this.Hide(); //this.Visible = false;
             OrderInfo order = new OrderInfo();
             GetOrder();
-            if (order.ShowDialog() == DialogResult.Yes)
-                this.Show();
+            if (OrderResult.Items.Count != 0)
+            {
+                this.Hide();//this.Visible = false;
+                if (order.ShowDialog() == DialogResult.Yes)
+                    this.Show();
+            }
+            else { MessageBox.Show("訂單是空的!");}
         }
 
 
@@ -172,7 +176,6 @@ namespace 便當
         }
         private void GetOrder()
         {
-
             var item = OrderResult.Items.OfType<ListViewItem>();
             orders.Orders.Clear();
             foreach (var i in item)

@@ -22,6 +22,7 @@ namespace 便當
 
         private void MenuEdit_Load(object sender, EventArgs e)
         {
+            UserNameLabel.Text = "使用者 : " + User.UserName;
             SQLconn conn = new SQLconn();
             string select = "select * from Meals;";
             DTbase = conn.conn(select);

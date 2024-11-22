@@ -12,7 +12,6 @@ namespace 便當
 {
     public partial class LoginPage : Form
     {
-        SQLconn conn;
         public LoginPage()
         {
             InitializeComponent();
@@ -20,12 +19,12 @@ namespace 便當
 
         public void loginButton_Click(object sender, EventArgs e)
         {
-            conn = new SQLconn();
+            CustomerID customerID  = new CustomerID();
             string ID = UserNameInput.Text;
             if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
             {
-                List<string> Query_result = conn2(ID);
-                if (conn2(ID) != null)
+                List<string> Query_result = customerID.ConnByParameter(ID);
+                if (customerID.ConnByParameter(ID) != null)
                 {
                     User.User_Seq = Convert.ToInt32(Query_result[0]);
                     User.User_ID = Query_result[1];
@@ -53,58 +52,22 @@ namespace 便當
         }
         private string Login_query(string ID)
         {
-            
             Regex IDRe = new Regex("\\s$");
             Match IDMatch = IDRe.Match(ID);
             if (IDMatch.Success)
                 return "0";
-
-            else
-            {
-                return "1";
-            }
+            else return "1";
         }
-        private List<string> conn2(string ID)
-        {
-            List<string> ResultList = new List<string>();
-            string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connstr))
-            {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand("Select * from Customers where CustomerID = @ID", conn))
-                {
-                    cmd.Parameters.AddWithValue("@ID", ID);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            ResultList.Add(reader.GetInt32(0).ToString());
-                            for (int i = 1; i < 5; i++)
-                            {
-                                ResultList.Add(reader.GetValue(i).ToString());
-                            }
-                        }
-                        conn.Close();
-                        return ResultList;
-                    }
-                    else
-                    {
-                        conn.Close();
-                        return null;
-                    }
-                }
-            }
-        }
+        
 
         private void MenuChange_Click(object sender, EventArgs e)
         {
-            conn = new SQLconn();
+            CustomerID customerID = new CustomerID();
             string ID = UserNameInput.Text;
             if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
             {
-                List<string> Query_result = conn2(ID);
-                if (conn2(ID) != null)
+                List<string> Query_result = customerID.ConnByParameter(ID);
+                if (customerID.ConnByParameter(ID) != null)
                 {
                     User.User_Seq = Convert.ToInt32(Query_result[0]);
                     User.User_ID = Query_result[1];
@@ -124,6 +87,16 @@ namespace 便當
             }
             else
                 MessageBox.Show("ID格式不對!");
+        }
+
+        private void NewUser_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            NewID newID = new NewID();
+            if (newID.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
     }
 }

@@ -35,6 +35,7 @@
             this.NewRow = new System.Windows.Forms.Button();
             this.DeleteRowBtn = new System.Windows.Forms.Button();
             this.Logout1 = new System.Windows.Forms.Label();
+            this.UserNameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,12 +113,23 @@
             this.Logout1.Text = "登出";
             this.Logout1.Click += new System.EventHandler(this.Logout1_Click);
             // 
+            // UserNameLabel
+            // 
+            this.UserNameLabel.AutoSize = true;
+            this.UserNameLabel.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.UserNameLabel.Location = new System.Drawing.Point(12, 6);
+            this.UserNameLabel.Name = "UserNameLabel";
+            this.UserNameLabel.Size = new System.Drawing.Size(114, 27);
+            this.UserNameLabel.TabIndex = 7;
+            this.UserNameLabel.Text = "Username";
+            // 
             // MenuEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.Logout1);
             this.Controls.Add(this.DeleteRowBtn);
             this.Controls.Add(this.NewRow);
@@ -141,5 +153,6 @@
         private System.Windows.Forms.Button NewRow;
         private System.Windows.Forms.Button DeleteRowBtn;
         private System.Windows.Forms.Label Logout1;
+        private System.Windows.Forms.Label UserNameLabel;
     }
 }

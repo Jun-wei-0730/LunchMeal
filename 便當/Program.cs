@@ -100,7 +100,7 @@ namespace 便當
                 Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(BackupCommand, conn))
                 {
-                    commandobj.ExecuteNonQuery();  // 執行 SQL 命令
+                    commandobj.ExecuteNonQuery();  
                     Console.WriteLine("執行成功");
                 }
                 conn.Close();
@@ -116,7 +116,7 @@ namespace 便當
                 Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(CleanupCommand, conn))
                 {
-                    commandobj.ExecuteNonQuery();  // 執行 SQL 命令
+                    commandobj.ExecuteNonQuery();  
                     Console.WriteLine("執行成功");
                 }
                 conn.Close();
@@ -142,3 +142,39 @@ namespace 便當
 
         }
     }
+    public class CustomerID
+    {
+    public List<string> ConnByParameter(string ID)
+    {
+        List<string> ResultList = new List<string>();
+        string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
+        using (SqlConnection conn = new SqlConnection(connstr))
+        {
+            conn.Open();
+            using (SqlCommand cmd = new SqlCommand("Select * from Customers where CustomerID = @ID", conn))
+            {
+                cmd.Parameters.AddWithValue("@ID", ID);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ResultList.Add(reader.GetInt32(0).ToString());
+                        for (int i = 1; i < 5; i++)
+                        {
+                            ResultList.Add(reader.GetValue(i).ToString());
+                        }
+                    }
+                    conn.Close();
+                    return ResultList;
+                }
+                else
+                {
+                    conn.Close();
+                    return null;
+                }
+            }
+        }
+    }
+}
+

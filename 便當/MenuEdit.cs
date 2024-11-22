@@ -13,8 +13,8 @@ namespace 便當
     public partial class MenuEdit : Form
     {
         List<int> list = new List<int>();
-        int MealID = 10;
         DataTable DTbase = new DataTable();
+        int MealIDSeq;
         public MenuEdit()
         {
             InitializeComponent();
@@ -26,6 +26,7 @@ namespace 便當
             string select = "select * from Meals;";
             DTbase = conn.conn(select);
             MenuDataGridView.DataSource = DTbase;
+            MealIDSeq = DTbase.Rows.Count - 2;
             foreach (DataGridViewColumn Column in MenuDataGridView.Columns)
             {
                 if (Column.HeaderText == "MealID")
@@ -50,7 +51,6 @@ namespace 便當
             SQLconn conn = new SQLconn();
             conn.BackupDB();
             FKColumn("Meals", "OrderInfo", "MealID");
-            //conn.CleanTable("Meals", "OrderInfo", "MealID");
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
             string UpdateCmd = "Update Meals set MealName = @Name,PricePerMeal = @Price,Enabled = @Enable where MealID = @ID ;";
             string InsertCmd = "Insert into Meals values (@ID,@Name,@Price,@Enable)";
@@ -64,7 +64,8 @@ namespace 便當
                         DataGridViewID.Add(Convert.ToInt32(row.Cells["MealID"].Value));
                     bool allOK = list.All(ID => DataGridViewID.Contains(ID));
                     if (allOK)
-                        {UploadConfirm(cmd, InsertCmd, connection);
+                    {
+                        UploadConfirm(cmd, InsertCmd, connection);
                         MessageBox.Show("變更已儲存。");
                     }
                     else
@@ -105,7 +106,7 @@ namespace 便當
 
         private void NewRowBtn_Click(object sender, EventArgs e)
         {
-            DTbase.Rows.Add(++MealID, "名稱", "0", 1);
+            DTbase.Rows.Add(++MealIDSeq, "名稱", "0", 1);
         }
 
         private void DeleteRowBtn_Click(object sender, EventArgs e)
@@ -116,10 +117,6 @@ namespace 便當
                 MenuDataGridView.Rows.RemoveAt(ChoseIndex);
             }
         }
-        private void SortBtn_Click(object sender, EventArgs e)
-        {
-            SortID();
-        }
 
         private void MenuEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -128,7 +125,6 @@ namespace 便當
         }
         private void SortID()
         {
-            int i = 1;
             foreach (DataGridViewRow Row in MenuDataGridView.Rows)
             {
                 if (!Row.IsNewRow)
@@ -137,7 +133,6 @@ namespace 便當
                         Row.Cells["MealID"].Value = 998;
                     else if (Row.Cells["MealName"].Value.ToString() == "飲料")
                         Row.Cells["MealID"].Value = 999;
-                    else Row.Cells["MealID"].Value = i++;
                 }
             }
             var ColumnMealID = MenuDataGridView.Columns.OfType<DataGridViewColumn>().First(rs => rs.HeaderText == "MealID");

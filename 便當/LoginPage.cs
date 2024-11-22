@@ -61,7 +61,6 @@ namespace 便當
 
             else
             {
-                //string str = String.Format("declare @ID varchar(50);select @ID = '{0}' select * from Customers where CustomerID = @ID;", ID);
                 return "1";
             }
         }
@@ -81,9 +80,9 @@ namespace 便當
                         while (reader.Read())
                         {
                             ResultList.Add(reader.GetInt32(0).ToString());
-                            for (int i = 1; i < 4; i++)
+                            for (int i = 1; i < 5; i++)
                             {
-                                ResultList.Add(reader.GetString(i));
+                                ResultList.Add(reader.GetValue(i).ToString());
                             }
                         }
                         conn.Close();
@@ -91,7 +90,6 @@ namespace 便當
                     }
                     else
                     {
-                        Console.WriteLine("No rows found.");
                         conn.Close();
                         return null;
                     }
@@ -101,9 +99,31 @@ namespace 便當
 
         private void MenuChange_Click(object sender, EventArgs e)
         {
-            MenuEdit menuEdit = new MenuEdit();
-            this.Hide();
-            menuEdit.Show();
+            conn = new SQLconn();
+            string ID = UserNameInput.Text;
+            if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
+            {
+                List<string> Query_result = conn2(ID);
+                if (conn2(ID) != null)
+                {
+                    User.User_Seq = Convert.ToInt32(Query_result[0]);
+                    User.User_ID = Query_result[1];
+                    User.UserName = Query_result[2];
+                    User.User_Carrier = Query_result[3];
+                    User.User_Admin = Convert.ToBoolean(Query_result[4]);
+                    if (User.User_Admin)
+                    {
+                        MenuEdit menuEdit = new MenuEdit();
+                        this.Hide();
+                        menuEdit.Show();
+                    }
+                    else MessageBox.Show("只有管理員可以修改菜單!");
+                }
+                else
+                    MessageBox.Show("查詢不到該使用者!");
+            }
+            else
+                MessageBox.Show("ID格式不對!");
         }
     }
 }

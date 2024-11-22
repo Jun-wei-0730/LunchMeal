@@ -81,12 +81,14 @@ namespace 便當
                             conn.CleanTable("Meals", "OrderInfo", "MealID");
                             UploadConfirm(cmd, InsertCmd, connection);
                             MessageBox.Show("變更已儲存。");
+                            this.Show();
                         }
                         else if (result == DialogResult.No)
                         {
                             conn.CleanTable("Meals", "OrderInfo", "MealID");
                             UploadConfirm(cmd, InsertCmd, connection);
                             MessageBox.Show("變更已儲存。");
+                            this.Show();
                         }
                         else
                         {

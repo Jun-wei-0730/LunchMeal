@@ -25,6 +25,7 @@ namespace 便當
         public static string User_ID { get; set; }
         public static string User_Carrier { get; set; }
         public static int User_Seq { get; set; }
+        public static bool User_Admin { get; set;}
     }
     public class orders
     {

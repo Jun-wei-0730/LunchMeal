@@ -151,6 +151,7 @@ namespace 便當
         using (SqlConnection conn = new SqlConnection(connstr))
         {
             conn.Open();
+            // TODO using 了解
             using (SqlCommand cmd = new SqlCommand("Select * from Customers where CustomerID = @ID", conn))
             {
                 cmd.Parameters.AddWithValue("@ID", ID);
@@ -159,18 +160,18 @@ namespace 便當
                 {
                     while (reader.Read())
                     {
-                        ResultList.Add(reader.GetInt32(0).ToString());
-                        for (int i = 1; i < 5; i++)
+                        //ResultList.Add(reader.GetInt32(0).ToString());
+                        for (int i = 0; i < 5; i++)
                         {
                             ResultList.Add(reader.GetValue(i).ToString());
                         }
                     }
-                    conn.Close();
+                    // conn.Close();
                     return ResultList;
                 }
                 else
                 {
-                    conn.Close();
+                    // conn.Close();
                     return null;
                 }
             }

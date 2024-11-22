@@ -77,6 +77,7 @@ namespace 便當
                             "警告", MessageBoxButtons.YesNoCancel);
                         if (result == DialogResult.Yes)
                         {
+                            // TODO TSQL Delete 和 Truncate 差異
                             string Truncate = "truncate table OrderInfo;";
                             conn.conn(Truncate);
                             conn.CleanTable("Meals", "OrderInfo", "MealID");

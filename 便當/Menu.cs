@@ -14,7 +14,9 @@ namespace 便當
             public string 便當名稱 { get; set; }
             public string 價格 { get; set; }
             public int 便當ID { get; set; }
+
         }
+
 
         List<便當> 菜單 = new List<便當>();
 
@@ -33,7 +35,7 @@ namespace 便當
                     菜單.Add(new 便當() { 便當名稱 = "白飯", 價格 = "10", 便當ID = 998 });
                 else if (Convert.ToInt32(data[i]["MealID"]) == 999 && Convert.ToInt32(data[i]["Enabled"]) == 1)
                     菜單.Add(new 便當() { 便當名稱 = "飲料", 價格 = "0", 便當ID = 999 });
-            } 
+            }
             for (int i = 0; i <= 8; i++)
             {
                 string lbl_name = "lbl" + i.ToString();
@@ -76,7 +78,7 @@ namespace 便當
                 if (order.ShowDialog() == DialogResult.Yes)
                     this.Show();
             }
-            else { MessageBox.Show("訂單是空的!");}
+            else { MessageBox.Show("訂單是空的!"); }
         }
 
 
@@ -165,6 +167,7 @@ namespace 便當
 
         private void PrePageBtn(object sender, EventArgs e)
         {
+
             int _page = Convert.ToInt32(page.Text);
             page.Text = (_page - 1).ToString();
             PageMenuGet(_page - 1);
@@ -217,15 +220,19 @@ namespace 便當
                 Menu.Form_Close(sender, e);
             }
         }
-        private string ImgUrlGet(string lbl_Text ,int num)
+        private string ImgUrlGet(string lbl_Text, int num)
         {
+            string Key = "";
             if (lbl_Text == "白飯")
-                return "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\Rice.jpg";
+                Key = "Rice";
             else if (lbl_Text == "飲料")
-                return "C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\BlackTea.jpg";
+                Key = "BlackTea";
             else
-                return $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{num}.jpg";
+                Key = num.ToString();
+            string Location = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{Key}.jpg";
+            return Location;
         }
+
         private void PageMenuGet(int page)
         {
             int Menu_index = (page - 1) * 9;
@@ -259,7 +266,7 @@ namespace 便當
                     qty.Visible = false;
                     NextPage.Visible = false;
                 }
-                else 
+                else
                     qty.Visible = true;
 
                 qty.Enabled = false;
@@ -270,7 +277,7 @@ namespace 便當
                 qty.Enabled = true;
             }
         }
-        private void NumericControl(NumericUpDown NUD,int NUDnum)
+        private void NumericControl(NumericUpDown NUD, int NUDnum)
         {
             if (NUD.Enabled == true)
             {

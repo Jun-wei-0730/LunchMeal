@@ -30,9 +30,20 @@ namespace 便當
                     User.User_ID = Query_result[1];
                     User.UserName = Query_result[2];
                     User.User_Carrier = Query_result[3];
-                    this.Hide();
-                    Menu menu = new Menu();
-                    menu.Show();
+                    User.User_Birth = Query_result[4].ToString();
+                    User.User_Admin = Convert.ToBoolean(Query_result[5]);
+                    if (User.User_Admin)
+                    {
+                        MenuEdit menuEdit = new MenuEdit();
+                        this.Hide();
+                        menuEdit.Show();
+                    }
+                    else
+                    {
+                        this.Hide();
+                        Menu menu = new Menu();
+                        menu.Show();
+                    }
                 }
                 else
                     MessageBox.Show("查詢不到該使用者!");

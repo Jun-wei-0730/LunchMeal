@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuDataGridView = new System.Windows.Forms.DataGridView();
             this.ChangeUpload = new System.Windows.Forms.Button();
             this.NewRow = new System.Windows.Forms.Button();
@@ -47,6 +47,7 @@
             this.Addbtn = new System.Windows.Forms.Button();
             this.EditBtn = new System.Windows.Forms.Button();
             this.DisableBtn = new System.Windows.Forms.Button();
+            this.Menubtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,23 +59,23 @@
             this.MenuDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.MenuDataGridView.BackgroundColor = System.Drawing.Color.Teal;
             this.MenuDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.MenuDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.MenuDataGridView.Location = new System.Drawing.Point(12, 65);
             this.MenuDataGridView.Name = "MenuDataGridView";
             this.MenuDataGridView.RowTemplate.Height = 24;
@@ -94,7 +95,7 @@
             // 
             // NewRow
             // 
-            this.NewRow.Location = new System.Drawing.Point(12, 36);
+            this.NewRow.Location = new System.Drawing.Point(17, 36);
             this.NewRow.Name = "NewRow";
             this.NewRow.Size = new System.Drawing.Size(75, 23);
             this.NewRow.TabIndex = 3;
@@ -144,6 +145,7 @@
             this.MealIDBox.Size = new System.Drawing.Size(150, 29);
             this.MealIDBox.TabIndex = 8;
             this.MealIDBox.Text = "MealID";
+            this.MealIDBox.Visible = false;
             // 
             // MealNameBox
             // 
@@ -154,6 +156,7 @@
             this.MealNameBox.Size = new System.Drawing.Size(150, 29);
             this.MealNameBox.TabIndex = 9;
             this.MealNameBox.Text = "MealName";
+            this.MealNameBox.Visible = false;
             // 
             // PricePerMealBox
             // 
@@ -164,6 +167,7 @@
             this.PricePerMealBox.Size = new System.Drawing.Size(150, 29);
             this.PricePerMealBox.TabIndex = 11;
             this.PricePerMealBox.Text = "PricePerMeal";
+            this.PricePerMealBox.Visible = false;
             // 
             // EnabledBox
             // 
@@ -175,6 +179,7 @@
             this.EnabledBox.Size = new System.Drawing.Size(120, 32);
             this.EnabledBox.TabIndex = 12;
             this.EnabledBox.Text = "Enabled";
+            this.EnabledBox.Visible = false;
             // 
             // MealIDlbl
             // 
@@ -185,6 +190,7 @@
             this.MealIDlbl.Size = new System.Drawing.Size(82, 24);
             this.MealIDlbl.TabIndex = 13;
             this.MealIDlbl.Text = "品項ID";
+            this.MealIDlbl.Visible = false;
             // 
             // label1
             // 
@@ -195,6 +201,7 @@
             this.label1.Size = new System.Drawing.Size(58, 24);
             this.label1.TabIndex = 14;
             this.label1.Text = "品名";
+            this.label1.Visible = false;
             // 
             // label2
             // 
@@ -205,6 +212,7 @@
             this.label2.Size = new System.Drawing.Size(58, 24);
             this.label2.TabIndex = 15;
             this.label2.Text = "價格";
+            this.label2.Visible = false;
             // 
             // label3
             // 
@@ -215,6 +223,7 @@
             this.label3.Size = new System.Drawing.Size(58, 24);
             this.label3.TabIndex = 16;
             this.label3.Text = "狀態";
+            this.label3.Visible = false;
             // 
             // Addbtn
             // 
@@ -246,12 +255,23 @@
             this.DisableBtn.Text = "封存";
             this.DisableBtn.UseVisualStyleBackColor = true;
             // 
+            // Menubtn
+            // 
+            this.Menubtn.Location = new System.Drawing.Point(729, 36);
+            this.Menubtn.Name = "Menubtn";
+            this.Menubtn.Size = new System.Drawing.Size(59, 23);
+            this.Menubtn.TabIndex = 20;
+            this.Menubtn.Text = "訂餐";
+            this.Menubtn.UseVisualStyleBackColor = true;
+            this.Menubtn.Click += new System.EventHandler(this.Menubtn_Click);
+            // 
             // MenuEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Menubtn);
             this.Controls.Add(this.DisableBtn);
             this.Controls.Add(this.EditBtn);
             this.Controls.Add(this.Addbtn);
@@ -299,5 +319,6 @@
         private System.Windows.Forms.Button Addbtn;
         private System.Windows.Forms.Button EditBtn;
         private System.Windows.Forms.Button DisableBtn;
+        private System.Windows.Forms.Button Menubtn;
     }
 }

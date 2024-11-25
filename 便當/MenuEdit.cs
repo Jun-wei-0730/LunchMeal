@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
-using System.Collections.Generic;
 
 namespace 便當
 {
@@ -51,14 +51,19 @@ namespace 便當
             SortID();
             SQLconn conn = new SQLconn();
             conn.BackupDB();
-            FKColumn("Meals", "OrderInfo", "MealID");
+            string str = "select * from Meals inner join OrderInfo on Meals.MealID = OrderInfo.MealID";
+            DataTable dt = conn.conn(str);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                list.Add(Convert.ToInt32(dt.Rows[i]["MealID"]));
+            }
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
             string UpdateCmd = "Update Meals set MealName = @Name,PricePerMeal = @Price,Enabled = @Enable where MealID = @ID ;";
             string InsertCmd = "Insert into Meals values (@ID,@Name,@Price,@Enable)";
             using (SqlConnection connection = new SqlConnection(connstr))
             {
                 connection.Open();
-                using (SqlCommand cmd = new SqlCommand(UpdateCmd,connection))
+                using (SqlCommand cmd = new SqlCommand(UpdateCmd, connection))
                 {
                     List<int> DataGridViewID = new List<int>();
                     foreach (DataGridViewRow row in MenuDataGridView.Rows)
@@ -66,6 +71,7 @@ namespace 便當
                     bool allOK = list.All(ID => DataGridViewID.Contains(ID));
                     if (allOK)
                     {
+                        conn.CleanTable("Meals", "OrderInfo", "MealID");
                         UploadConfirm(cmd, InsertCmd, connection);
                         MessageBox.Show("變更已儲存。");
                     }
@@ -77,7 +83,6 @@ namespace 便當
                             "警告", MessageBoxButtons.YesNoCancel);
                         if (result == DialogResult.Yes)
                         {
-                            // TODO TSQL Delete 和 Truncate 差異
                             string Truncate = "truncate table OrderInfo;";
                             conn.conn(Truncate);
                             conn.CleanTable("Meals", "OrderInfo", "MealID");
@@ -166,16 +171,7 @@ namespace 便當
                 LoginPage.Show();
             }
         }
-        public void FKColumn(string ParentTable ,string ChildTable, string ID)
-        {
-            DataTable dt ;
-            SQLconn conn = new SQLconn();
-            string str = $"SELECT {ID} FROM {ParentTable} WHERE {ID} IN (SELECT DISTINCT {ID} FROM {ChildTable})"; 
-            dt = conn.conn(str);
-            foreach (DataRow dr in dt.Rows)
-                list.Add(Convert.ToInt32(dr[0]));
-        }
-        public void UploadConfirm(SqlCommand cmd,string InsertCmd,SqlConnection connection)
+        public void UploadConfirm(SqlCommand cmd, string InsertCmd, SqlConnection connection)
         {
             foreach (DataGridViewRow Row in MenuDataGridView.Rows)
             {
@@ -191,6 +187,13 @@ namespace 便當
                     }
                 }
             }
+        }
+
+        private void Menubtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Menu menu = new Menu();
+            menu.Show();
         }
     }
 }

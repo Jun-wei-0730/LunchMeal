@@ -8,8 +8,8 @@ namespace 便當
 {
     public partial class OrderInfo : Form
     {
-        Decimal Total;
-        private BindingSource bindingSource1 = new BindingSource();
+        decimal Total;
+        private readonly BindingSource bindingSource1 = new BindingSource();
         bool programclose = false;
         // List<MealData> SortedOrder;
         public OrderInfo()
@@ -35,7 +35,7 @@ namespace 便當
             dataGridView1.Columns.Clear();
             // 排序未生效
             //dataGridView1.Sort(new RowComparer(SortOrder.Descending));
-            List<MealData> SortedOrder = OrderData(orders.Orders);
+            OrderData(orders.Orders);
             dataGridView1.DataSource = bindingSource1;
             if (dataGridView1.Columns["便當名稱"] != null)
             {
@@ -43,6 +43,7 @@ namespace 便當
                 dataGridView1.Columns["便當價格"].DisplayIndex = 1;
                 dataGridView1.Columns["數量"].DisplayIndex = 2;
                 dataGridView1.Columns["小計"].DisplayIndex = 3;
+                dataGridView1.Columns["便當ID"].Visible = false;
             }
             ;
             Total_lbl.Text = Total.ToString();
@@ -71,7 +72,7 @@ namespace 便當
             DialogResult = DialogResult.Yes;
             this.Hide();
         }
-        private List<MealData> OrderData(List<order_meal> order_Meals)
+        private void OrderData(List<order_meal> order_Meals)
         {
             List<MealData> UnsortedData = new List<MealData>();
             foreach (var item in order_Meals)
@@ -95,7 +96,7 @@ namespace 便當
                 Total += Convert.ToDecimal(item.小計);
             }
             bindingSource1.DataSource = UnsortedData;
-            return UnsortedData;
+            //return UnsortedData;
         }
 
 

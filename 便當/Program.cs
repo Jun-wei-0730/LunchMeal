@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Configuration;
 namespace 便當
 {
     internal static class Program
@@ -25,7 +25,8 @@ namespace 便當
         public static string User_ID { get; set; }
         public static string User_Carrier { get; set; }
         public static int User_Seq { get; set; }
-        public static bool User_Admin { get; set;}
+        public static bool User_Admin { get; set; }
+        public static string User_Birth { get; set; }
     }
     public class orders
     {
@@ -62,7 +63,7 @@ namespace 便當
     }
     public class SQLconn
     {
-        DataTable dataTable = new DataTable();
+        readonly DataTable dataTable = new DataTable();
         public string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
         public DataTable conn(string command)
         {
@@ -101,14 +102,14 @@ namespace 便當
                 using (SqlCommand commandobj = new SqlCommand(BackupCommand, conn))
                 {
                     commandobj.Parameters.AddWithValue("@DB", "MealDB");
-                    commandobj.ExecuteNonQuery();  
+                    commandobj.ExecuteNonQuery();
                     Console.WriteLine("執行成功");
                 }
                 conn.Close();
                 Console.WriteLine("關閉連線");
             }
         }
-        public void CleanTable(string ParentTable ,string ChildTable,string ID)
+        public void CleanTable(string ParentTable, string ChildTable, string ID)
         {
             string CleanupCommand = $"DELETE FROM {ParentTable} WHERE {ID} NOT IN (SELECT DISTINCT {ID} FROM {ChildTable});";
             using (SqlConnection conn = new SqlConnection(connstr))
@@ -117,7 +118,7 @@ namespace 便當
                 Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(CleanupCommand, conn))
                 {
-                    commandobj.ExecuteNonQuery();  
+                    commandobj.ExecuteNonQuery();
                     Console.WriteLine("執行成功");
                 }
                 conn.Close();
@@ -128,23 +129,22 @@ namespace 便當
     }
 }
 
-    public class FormControl
+public class FormControl
+{
+    public void Form_Close(object sender, FormClosingEventArgs e)
     {
-        public void Form_Close(object sender, FormClosingEventArgs e)
+        string message = "是否關閉程式？";
+        string caption = "關閉提醒";
+        var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+        if (result == DialogResult.No)
         {
-            string message = "是否關閉程式？";
-            string caption = "關閉提醒";
-            var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-
+            e.Cancel = true;
         }
     }
-    public class CustomerID
-    {
+}
+public class CustomerID
+{
     public List<string> ConnByParameter(string ID)
     {
         List<string> ResultList = new List<string>();
@@ -152,7 +152,6 @@ namespace 便當
         using (SqlConnection conn = new SqlConnection(connstr))
         {
             conn.Open();
-            // TODO using 了解
             using (SqlCommand cmd = new SqlCommand("Select * from Customers where CustomerID = @ID", conn))
             {
                 cmd.Parameters.AddWithValue("@ID", ID);
@@ -161,8 +160,7 @@ namespace 便當
                 {
                     while (reader.Read())
                     {
-                        //ResultList.Add(reader.GetInt32(0).ToString());
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 6; i++)
                         {
                             ResultList.Add(reader.GetValue(i).ToString());
                         }

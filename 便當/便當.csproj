@@ -67,11 +67,11 @@
     <Compile Include="NewUser.Designer.cs">
       <DependentUpon>NewUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuEdit.cs">
+    <Compile Include="MainControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuEdit.Designer.cs">
-      <DependentUpon>MenuEdit.cs</DependentUpon>
+    <Compile Include="MainControl.Designer.cs">
+      <DependentUpon>MainControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
       <SubType>Form</SubType>
@@ -108,8 +108,8 @@
     <EmbeddedResource Include="NewUser.resx">
       <DependentUpon>NewUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuEdit.resx">
-      <DependentUpon>MenuEdit.cs</DependentUpon>
+    <EmbeddedResource Include="MainControl.resx">
+      <DependentUpon>MainControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Order.resx">
       <DependentUpon>Order.cs</DependentUpon>

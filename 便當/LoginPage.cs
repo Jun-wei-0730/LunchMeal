@@ -34,7 +34,7 @@ namespace 便當
                     User.User_Admin = Convert.ToBoolean(Query_result[5]);
                     if (User.User_Admin)
                     {
-                        MenuEdit menuEdit = new MenuEdit();
+                        MainControl menuEdit = new MainControl();
                         this.Hide();
                         menuEdit.Show();
                     }
@@ -87,7 +87,7 @@ namespace 便當
                     User.User_Admin = Convert.ToBoolean(Query_result[4]);
                     if (User.User_Admin)
                     {
-                        MenuEdit menuEdit = new MenuEdit();
+                        MainControl menuEdit = new MainControl();
                         this.Hide();
                         menuEdit.Show();
                     }
@@ -107,6 +107,14 @@ namespace 便當
             if (newID.ShowDialog() == DialogResult.OK)
             {
 
+            }
+        }
+
+        private void UserNameInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                loginButton_Click(sender, e);
             }
         }
     }

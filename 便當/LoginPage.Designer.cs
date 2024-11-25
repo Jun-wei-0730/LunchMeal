@@ -43,6 +43,7 @@
             this.UserNameInput.Name = "UserNameInput";
             this.UserNameInput.Size = new System.Drawing.Size(370, 50);
             this.UserNameInput.TabIndex = 0;
+            this.UserNameInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UserNameInput_KeyDown);
             // 
             // Test
             // 

@@ -1,6 +1,6 @@
 ﻿namespace 便當
 {
-    partial class MenuEdit
+    partial class MainControl
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuDataGridView = new System.Windows.Forms.DataGridView();
             this.ChangeUpload = new System.Windows.Forms.Button();
             this.NewRow = new System.Windows.Forms.Button();
@@ -48,6 +48,8 @@
             this.EditBtn = new System.Windows.Forms.Button();
             this.DisableBtn = new System.Windows.Forms.Button();
             this.Menubtn = new System.Windows.Forms.Button();
+            this.NameSearchBox = new System.Windows.Forms.TextBox();
+            this.TableBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,25 +61,26 @@
             this.MenuDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.MenuDataGridView.BackgroundColor = System.Drawing.Color.Teal;
             this.MenuDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.MenuDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle12;
             this.MenuDataGridView.Location = new System.Drawing.Point(12, 65);
             this.MenuDataGridView.Name = "MenuDataGridView";
+            this.MenuDataGridView.ReadOnly = true;
             this.MenuDataGridView.RowTemplate.Height = 24;
             this.MenuDataGridView.Size = new System.Drawing.Size(533, 373);
             this.MenuDataGridView.TabIndex = 0;
@@ -265,12 +268,41 @@
             this.Menubtn.UseVisualStyleBackColor = true;
             this.Menubtn.Click += new System.EventHandler(this.Menubtn_Click);
             // 
-            // MenuEdit
+            // NameSearchBox
+            // 
+            this.NameSearchBox.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.NameSearchBox.Location = new System.Drawing.Point(301, 35);
+            this.NameSearchBox.Name = "NameSearchBox";
+            this.NameSearchBox.Size = new System.Drawing.Size(100, 22);
+            this.NameSearchBox.TabIndex = 21;
+            this.NameSearchBox.Text = "查詢品名";
+            this.NameSearchBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NameSearchBox_MouseClick);
+            this.NameSearchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NameSearchBox_KeyDown);
+            // 
+            // TableBox
+            // 
+            this.TableBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TableBox.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TableBox.FormattingEnabled = true;
+            this.TableBox.Items.AddRange(new object[] {
+            "使用者",
+            "菜單",
+            "全部訂單",
+            "訂單詳細"});
+            this.TableBox.Location = new System.Drawing.Point(174, 36);
+            this.TableBox.Name = "TableBox";
+            this.TableBox.Size = new System.Drawing.Size(121, 21);
+            this.TableBox.TabIndex = 22;
+            this.TableBox.SelectedIndexChanged += new System.EventHandler(this.TableBox_SelectedIndexChanged);
+            // 
+            // MainControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TableBox);
+            this.Controls.Add(this.NameSearchBox);
             this.Controls.Add(this.Menubtn);
             this.Controls.Add(this.DisableBtn);
             this.Controls.Add(this.EditBtn);
@@ -289,9 +321,9 @@
             this.Controls.Add(this.NewRow);
             this.Controls.Add(this.ChangeUpload);
             this.Controls.Add(this.MenuDataGridView);
-            this.Name = "MenuEdit";
+            this.Name = "MainControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MenuEdit";
+            this.Text = "主控台";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuEdit_FormClosing);
             this.Load += new System.EventHandler(this.MenuEdit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).EndInit();
@@ -320,5 +352,7 @@
         private System.Windows.Forms.Button EditBtn;
         private System.Windows.Forms.Button DisableBtn;
         private System.Windows.Forms.Button Menubtn;
+        private System.Windows.Forms.TextBox NameSearchBox;
+        private System.Windows.Forms.ComboBox TableBox;
     }
 }

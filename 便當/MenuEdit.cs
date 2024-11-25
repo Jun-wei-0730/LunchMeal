@@ -6,16 +6,17 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace 便當
 {
 
-    public partial class MenuEdit : Form
+    public partial class MainControl : Form
     {
         List<int> list = new List<int>();
         DataTable DTbase = new DataTable();
         int MealIDSeq;
-        public MenuEdit()
+        public MainControl()
         {
             InitializeComponent();
         }
@@ -26,7 +27,6 @@ namespace 便當
             SQLconn conn = new SQLconn();
             string select = "select * from Meals;";
             DTbase = conn.conn(select);
-            MenuDataGridView.DataSource = DTbase;
             MealIDSeq = DTbase.Rows.Count - 2;
             foreach (DataGridViewColumn Column in MenuDataGridView.Columns)
             {
@@ -105,12 +105,6 @@ namespace 便當
                 }
                 connection.Close();
             }
-        }
-
-        private void MenuDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            var Chose = MenuDataGridView.CurrentCell;
-            string Location = MenuDataGridView.Columns[MenuDataGridView.CurrentCell.ColumnIndex].HeaderText;
         }
 
         private void NewRowBtn_Click(object sender, EventArgs e)
@@ -194,6 +188,37 @@ namespace 便當
             this.Hide();
             Menu menu = new Menu();
             menu.Show();
+        }
+
+        private void NameSearchBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if(!String.IsNullOrEmpty(NameSearchBox.Text))
+                {
+                    DataTable dt = new DataTable();
+                    string SearchStr = NameSearchBox.Text;
+                    var query = from  rows in DTbase.AsEnumerable()
+                                where rows["MealName"].ToString().Contains(SearchStr)
+                                select rows;
+                    MenuDataGridView.DataSource = query.CopyToDataTable();
+                }
+                else
+                { MenuDataGridView.DataSource = DTbase; }
+            }
+        }
+
+        private void NameSearchBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            NameSearchBox.Text = string.Empty;
+            NameSearchBox.ForeColor = Color.Black;
+        }
+
+        private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = TableBox.SelectedIndex;
+            List<string> item = new List<string> {"查詢使用者名","查詢品名","查詢訂單編號","查詢客戶編號"};
+            NameSearchBox.Text = item[index].ToString();
         }
     }
 }

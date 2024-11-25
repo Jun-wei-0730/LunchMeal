@@ -93,13 +93,14 @@ namespace 便當
         public void BackupDB()
         {
             string BackupLocation = ConfigurationManager.ConnectionStrings["BackUpLocation"].ConnectionString;
-            string BackupCommand = $"backup database MealDB to Disk = '{BackupLocation}'";
+            string BackupCommand = $"backup database @DB to Disk = '{BackupLocation}'";
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();
                 Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(BackupCommand, conn))
                 {
+                    commandobj.Parameters.AddWithValue("@DB", "MealDB");
                     commandobj.ExecuteNonQuery();  
                     Console.WriteLine("執行成功");
                 }

@@ -30,17 +30,17 @@ namespace 便當
         {
             UserNameLabel.Text = "使用者 : " + User.UserName;
             SQLconn MealConn = new SQLconn();
-            string MealSelect = "select MealID as 品項ID,MealName as 品名,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
+            string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
             DTbaseMeal = MealConn.conn(MealSelect);
             SQLconn UserConn = new SQLconn();
             string UserSelect = "select CustomerID as 帳號, CustomerName as 名字, Birth as 生日, Carrier as 載具, Admin as 權限 from Customers;";
             DTbaseUser = UserConn.conn(UserSelect);
             SQLconn OrderConn = new SQLconn();
-            string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 總價, " +
+            string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 訂單總價, " +
                 "TableWare as 餐具,PlasticBag as 塑膠袋, GetMeal as 取餐方式, GetMealtime as 取餐時間, Note as 備註 from Orders inner join Customers on Orders.CustomerSeq = Customers.CustomerSeq;";
             DTbaseOrder = OrderConn.conn(OrderSelect);
             SQLconn InfoConn = new SQLconn();
-            string InfoSelect = "select * from OrderInfo;";
+            string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
             DTbaseInfo = InfoConn.conn(InfoSelect);
         }
 
@@ -189,13 +189,14 @@ namespace 便當
             {
                 switch (TableBox.Text)
                 {
-                    case "使用者": Query(DTbaseUser, "名字");UserPanel.Visible = true; MealPanel.Visible = false; OrdersPanel.Visible = false;
+                    case "使用者": Query(DTbaseUser, "名字");UserPanel.Visible = true; MealPanel.Visible = false; OrdersPanel.Visible = false; InfoPanel.Visible = false;
                         UserPanel.Location = new Point(551, 65);  break;
-                    case "全部訂單": Query(DTbaseOrder, "訂餐者"); MealPanel.Visible = false; UserPanel.Visible = false; OrdersPanel.Visible = true;
-                        OrdersPanel.Location = new Point(511,65); break;
-                    case "訂單詳細": Query(DTbaseInfo, "OrderID");  break;
-                    default : Query(DTbaseMeal, "品名"); MealPanel.Visible = true; UserPanel.Visible = false; OrdersPanel.Visible = false; 
-                              MealPanel.Location = new Point (551,65);  break;
+                    case "全部訂單": Query(DTbaseOrder, "訂餐者"); MealPanel.Visible = false; UserPanel.Visible = false; OrdersPanel.Visible = true; InfoPanel.Visible = false;
+                        OrdersPanel.Location = new Point(551,65); break;
+                    case "餐點詳細": Query(DTbaseInfo, "訂單編號"); MealPanel.Visible = false; UserPanel.Visible = false; OrdersPanel.Visible = false; InfoPanel.Visible = true;
+                        InfoPanel.Location = new Point(551, 65); break;
+                    default : Query(DTbaseMeal, "品項"); MealPanel.Visible = true; UserPanel.Visible = false; OrdersPanel.Visible = false; InfoPanel.Visible = false;
+                        MealPanel.Location = new Point (551,65);  break;
                 }
             }
         }
@@ -210,7 +211,7 @@ namespace 便當
         private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = TableBox.SelectedIndex;
-            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品名", "按Enter查詢訂單編號", "按Enter查詢訂餐者名字" };
+            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品項", "按Enter查詢訂單編號", "按Enter查詢訂餐者名字" };
             NameSearchBox.Text = item[index].ToString();
             NameSearchBox.ForeColor= Color.Silver;
         }
@@ -251,6 +252,20 @@ namespace 便當
                             string name = box.Name.Substring(0, box.Name.Length - 3);
                             SetText(name, OrdersPanel);
                         }
+                        if (MenuDataGridView.CurrentRow.Cells[TableWarelbl.Text].Value.ToString() == "True")
+                            TableWareBox.Checked = true;
+                        else TableWareBox.Checked = false;
+                        if (MenuDataGridView.CurrentRow.Cells[PlasticBaglbl.Text].Value.ToString() == "True")
+                            PlasticBagBox.Checked = true;
+                        else PlasticBagBox.Checked = false;
+                        GetMealBox.Text = MenuDataGridView.CurrentRow.Cells[GetMeallbl.Text].Value.ToString();
+                        break;
+                    case "餐點詳細":
+                        foreach (TextBox box in InfoPanel.Controls.OfType<TextBox>())
+                        {
+                            string name = box.Name.Substring(0, box.Name.Length - 3);
+                            SetText(name, InfoPanel);
+                        }
                         break;
                     default:
                         foreach (TextBox box in MealPanel.Controls.OfType<TextBox>())
@@ -280,7 +295,12 @@ namespace 便當
                 Box.Text = MenuDataGridView.CurrentRow.Cells[lbl.Text].Value.ToString();
             if (DateTime.TryParse(Box.Text,out DateTime dateValue))
             {
-                Box.Text = dateValue.ToString("yyyy-MM-dd");
+                if (panel == UserPanel)
+                    Box.Text = dateValue.ToString("yyyy-MM-dd");
+                else
+                    if (BoxName == "OrderTimeBox")
+                        Box.Text = dateValue.ToString("yyyy-MM-dd HH:mm");
+                    else Box.Text = dateValue.ToString("HH:mm");
             }
         }
     }

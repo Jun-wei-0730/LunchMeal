@@ -199,6 +199,14 @@ namespace 便當
                         MealPanel.Location = new Point (551,65);  break;
                 }
             }
+            if (MenuDataGridView.DataSource == null)
+            {
+                MessageBox.Show("查詢不到結果！");
+                MealPanel.Visible = false;
+                UserPanel.Visible = false;
+                OrdersPanel.Visible = false;
+                InfoPanel.Visible = false;
+            }
         }
 
         private void NameSearchBox_MouseClick(object sender, MouseEventArgs e)
@@ -211,7 +219,7 @@ namespace 便當
         private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = TableBox.SelectedIndex;
-            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品項", "按Enter查詢訂單編號", "按Enter查詢訂餐者名字" };
+            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品項", "按Enter查詢訂單者名字", "按Enter查詢訂單編號" };
             NameSearchBox.Text = item[index].ToString();
             NameSearchBox.ForeColor= Color.Silver;
         }
@@ -227,7 +235,10 @@ namespace 便當
             if (query.Count() > 0)
                 MenuDataGridView.DataSource = query.CopyToDataTable();
 
-            else MenuDataGridView.DataSource = null;
+            else
+            {
+                MenuDataGridView.DataSource = null;
+            }
         }
 
         private void MenuDataGridView_SelectionChanged(object sender, EventArgs e)

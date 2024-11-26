@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace 便當
 {
@@ -18,7 +19,7 @@ namespace 便當
         DataTable DTbaseUser = new DataTable();
         DataTable DTbaseOrder = new DataTable();
         DataTable DTbaseInfo = new DataTable();
-        int MealIDSeq;
+        bool MenuChange = false;
 
         public MainControl()
         {
@@ -29,13 +30,14 @@ namespace 便當
         {
             UserNameLabel.Text = "使用者 : " + User.UserName;
             SQLconn MealConn = new SQLconn();
-            string MealSelect = "select * from Meals;";
+            string MealSelect = "select MealID as 品項ID,MealName as 品名,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
             DTbaseMeal = MealConn.conn(MealSelect);
             SQLconn UserConn = new SQLconn();
-            string UserSelect = "select * from Customers;";
+            string UserSelect = "select CustomerID as 帳號, CustomerName as 名字, Birth as 生日, Carrier as 載具, Admin as 權限 from Customers;";
             DTbaseUser = UserConn.conn(UserSelect);
             SQLconn OrderConn = new SQLconn();
-            string OrderSelect = "select * from Orders;";
+            string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 總價, " +
+                "TableWare as 餐具,PlasticBag as 塑膠袋, GetMeal as 取餐方式, GetMealtime as 取餐時間, Note as 備註 from Orders inner join Customers on Orders.CustomerSeq = Customers.CustomerSeq;";
             DTbaseOrder = OrderConn.conn(OrderSelect);
             SQLconn InfoConn = new SQLconn();
             string InfoSelect = "select * from OrderInfo;";
@@ -101,11 +103,6 @@ namespace 便當
                 }
                 connection.Close();
             }
-        }
-
-        private void NewRowBtn_Click(object sender, EventArgs e)
-        {
-            DTbaseMeal.Rows.Add(++MealIDSeq, "名稱", "0", 1);
         }
 
         private void DeleteRowBtn_Click(object sender, EventArgs e)
@@ -190,13 +187,16 @@ namespace 便當
         {
             if (e.KeyCode == Keys.Enter)
             {
-            switch (TableBox.Text)
-            {
-                case "使用者": Query(DTbaseUser, "CustomerName"); break ;
-                case "全部訂單": Query(DTbaseOrder, "CustomerSeq"); break;
-                case "訂單詳細": Query(DTbaseInfo, "OrderID"); break;
-                default : Query(DTbaseMeal, "MealName"); break;
-            }
+                switch (TableBox.Text)
+                {
+                    case "使用者": Query(DTbaseUser, "名字");UserPanel.Visible = true; MealPanel.Visible = false; OrdersPanel.Visible = false;
+                        UserPanel.Location = new Point(551, 65);  break;
+                    case "全部訂單": Query(DTbaseOrder, "訂餐者"); MealPanel.Visible = false; UserPanel.Visible = false; OrdersPanel.Visible = true;
+                        OrdersPanel.Location = new Point(511,65); break;
+                    case "訂單詳細": Query(DTbaseInfo, "OrderID");  break;
+                    default : Query(DTbaseMeal, "品名"); MealPanel.Visible = true; UserPanel.Visible = false; OrdersPanel.Visible = false; 
+                              MealPanel.Location = new Point (551,65);  break;
+                }
             }
         }
 
@@ -204,12 +204,13 @@ namespace 便當
         {
             NameSearchBox.Text = string.Empty;
             NameSearchBox.ForeColor = Color.Black;
+            MenuChange = true;
         }
 
         private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = TableBox.SelectedIndex;
-            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品名", "按Enter查詢訂單編號", "按Enter查詢使用者編號" };
+            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品名", "按Enter查詢訂單編號", "按Enter查詢訂餐者名字" };
             NameSearchBox.Text = item[index].ToString();
             NameSearchBox.ForeColor= Color.Silver;
         }
@@ -230,10 +231,56 @@ namespace 便當
 
         private void MenuDataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            if (MenuDataGridView.CurrentRow != null)
+            if (!MenuChange)
             {
-                MealIDBox.Text = MenuDataGridView.CurrentRow.Cells[0].Value.ToString();
-                MealIDBox.Visible = true;
+                switch (TableBox.Text)
+                {
+                    case "使用者":
+                        foreach (TextBox box in UserPanel.Controls.OfType<TextBox>())
+                        {
+                            string name = box.Name.Substring(0, box.Name.Length - 3);
+                            SetText(name, UserPanel);
+                        }
+                        if (MenuDataGridView.CurrentRow.Cells[Adminlbl.Text].Value.ToString() == "True")
+                        { AdminBox.Text = "管理員"; }
+                        else { AdminBox.Text = "一般使用者"; }
+                        break;
+                    case "全部訂單":
+                        foreach (TextBox box in OrdersPanel.Controls.OfType<TextBox>())
+                        {
+                            string name = box.Name.Substring(0, box.Name.Length - 3);
+                            SetText(name, OrdersPanel);
+                        }
+                        break;
+                    default:
+                        foreach (TextBox box in MealPanel.Controls.OfType<TextBox>())
+                        {
+                            string name = box.Name.Substring(0, box.Name.Length - 3);
+                            SetText(name, MealPanel);
+                        }
+                        if (MenuDataGridView.CurrentRow.Cells[Enabledlbl.Text].Value.ToString() == "True")
+                        { EnabledBox.Text = "啟用"; EnableColorlbl.BackColor = Color.LawnGreen; }
+                        else { EnabledBox.Text = "停用"; EnableColorlbl.BackColor = Color.IndianRed; }
+                        break;
+                }
+            }
+            else MenuChange = false;
+        }
+
+        private void Addbtn_Click(object sender, EventArgs e)
+        {
+        }
+        private void SetText(string Name,Panel panel)
+        {
+            string BoxName = Name + "Box";
+            string lblName = Name + "lbl";
+            var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
+            var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
+            if (lbl != null && Box != null)
+                Box.Text = MenuDataGridView.CurrentRow.Cells[lbl.Text].Value.ToString();
+            if (DateTime.TryParse(Box.Text,out DateTime dateValue))
+            {
+                Box.Text = dateValue.ToString("yyyy-MM-dd");
             }
         }
     }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuDataGridView = new System.Windows.Forms.DataGridView();
             this.ChangeUpload = new System.Windows.Forms.Button();
             this.NewRow = new System.Windows.Forms.Button();
@@ -61,23 +61,23 @@
             this.MenuDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.MenuDataGridView.BackgroundColor = System.Drawing.Color.Teal;
             this.MenuDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.MenuDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.MenuDataGridView.Location = new System.Drawing.Point(12, 65);
             this.MenuDataGridView.Name = "MenuDataGridView";
             this.MenuDataGridView.ReadOnly = true;
@@ -85,10 +85,11 @@
             this.MenuDataGridView.Size = new System.Drawing.Size(533, 373);
             this.MenuDataGridView.TabIndex = 0;
             this.MenuDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.MenuDataGridView_DataError);
+            this.MenuDataGridView.SelectionChanged += new System.EventHandler(this.MenuDataGridView_SelectionChanged);
             // 
             // ChangeUpload
             // 
-            this.ChangeUpload.Location = new System.Drawing.Point(694, 398);
+            this.ChangeUpload.Location = new System.Drawing.Point(700, 398);
             this.ChangeUpload.Name = "ChangeUpload";
             this.ChangeUpload.Size = new System.Drawing.Size(94, 40);
             this.ChangeUpload.TabIndex = 2;
@@ -174,21 +175,23 @@
             // 
             // EnabledBox
             // 
-            this.EnabledBox.BackColor = System.Drawing.Color.PaleGreen;
+            this.EnabledBox.BackColor = System.Drawing.SystemColors.Window;
             this.EnabledBox.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.EnabledBox.FormattingEnabled = true;
+            this.EnabledBox.Items.AddRange(new object[] {
+            "Enable",
+            "Disable"});
             this.EnabledBox.Location = new System.Drawing.Point(638, 180);
             this.EnabledBox.Name = "EnabledBox";
-            this.EnabledBox.Size = new System.Drawing.Size(120, 32);
+            this.EnabledBox.Size = new System.Drawing.Size(150, 32);
             this.EnabledBox.TabIndex = 12;
-            this.EnabledBox.Text = "Enabled";
             this.EnabledBox.Visible = false;
             // 
             // MealIDlbl
             // 
             this.MealIDlbl.AutoSize = true;
             this.MealIDlbl.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.MealIDlbl.Location = new System.Drawing.Point(551, 75);
+            this.MealIDlbl.Location = new System.Drawing.Point(550, 80);
             this.MealIDlbl.Name = "MealIDlbl";
             this.MealIDlbl.Size = new System.Drawing.Size(82, 24);
             this.MealIDlbl.TabIndex = 13;
@@ -199,7 +202,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(574, 110);
+            this.label1.Location = new System.Drawing.Point(560, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 24);
             this.label1.TabIndex = 14;
@@ -210,7 +213,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(575, 145);
+            this.label2.Location = new System.Drawing.Point(560, 145);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 24);
             this.label2.TabIndex = 15;
@@ -221,7 +224,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(575, 180);
+            this.label3.Location = new System.Drawing.Point(560, 180);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 24);
             this.label3.TabIndex = 16;
@@ -270,12 +273,12 @@
             // 
             // NameSearchBox
             // 
-            this.NameSearchBox.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.NameSearchBox.ForeColor = System.Drawing.Color.Silver;
             this.NameSearchBox.Location = new System.Drawing.Point(301, 35);
             this.NameSearchBox.Name = "NameSearchBox";
-            this.NameSearchBox.Size = new System.Drawing.Size(100, 22);
+            this.NameSearchBox.Size = new System.Drawing.Size(151, 22);
             this.NameSearchBox.TabIndex = 21;
-            this.NameSearchBox.Text = "查詢品名";
+            this.NameSearchBox.Text = "按Enter查詢品名";
             this.NameSearchBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NameSearchBox_MouseClick);
             this.NameSearchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NameSearchBox_KeyDown);
             // 
@@ -325,7 +328,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "主控台";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuEdit_FormClosing);
-            this.Load += new System.EventHandler(this.MenuEdit_Load);
+            this.Load += new System.EventHandler(this.MainControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

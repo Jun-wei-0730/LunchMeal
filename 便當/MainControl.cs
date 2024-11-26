@@ -14,38 +14,34 @@ namespace 便當
     public partial class MainControl : Form
     {
         List<int> list = new List<int>();
-        DataTable DTbase = new DataTable();
+        DataTable DTbaseMeal = new DataTable();
+        DataTable DTbaseUser = new DataTable();
+        DataTable DTbaseOrder = new DataTable();
+        DataTable DTbaseInfo = new DataTable();
         int MealIDSeq;
+
         public MainControl()
         {
             InitializeComponent();
         }
 
-        private void MenuEdit_Load(object sender, EventArgs e)
+        private void MainControl_Load(object sender, EventArgs e)
         {
             UserNameLabel.Text = "使用者 : " + User.UserName;
-            SQLconn conn = new SQLconn();
-            string select = "select * from Meals;";
-            DTbase = conn.conn(select);
-            MealIDSeq = DTbase.Rows.Count - 2;
-            foreach (DataGridViewColumn Column in MenuDataGridView.Columns)
-            {
-                if (Column.HeaderText == "MealID")
-                {
-                    Column.ReadOnly = true;
-                    Column.Width = 50;
-                }
-                if (Column.HeaderText == "PricePerMeal")
-                {
-                    Column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    Column.Width = 70;
-                }
-                if (Column.HeaderText == "Enabled")
-                {
-                    Column.Width = 70;
-                }
-            }
+            SQLconn MealConn = new SQLconn();
+            string MealSelect = "select * from Meals;";
+            DTbaseMeal = MealConn.conn(MealSelect);
+            SQLconn UserConn = new SQLconn();
+            string UserSelect = "select * from Customers;";
+            DTbaseUser = UserConn.conn(UserSelect);
+            SQLconn OrderConn = new SQLconn();
+            string OrderSelect = "select * from Orders;";
+            DTbaseOrder = OrderConn.conn(OrderSelect);
+            SQLconn InfoConn = new SQLconn();
+            string InfoSelect = "select * from OrderInfo;";
+            DTbaseInfo = InfoConn.conn(InfoSelect);
         }
+
         private void ChangeUpload_Click(object sender, EventArgs e)
         {
             SortID();
@@ -109,7 +105,7 @@ namespace 便當
 
         private void NewRowBtn_Click(object sender, EventArgs e)
         {
-            DTbase.Rows.Add(++MealIDSeq, "名稱", "0", 1);
+            DTbaseMeal.Rows.Add(++MealIDSeq, "名稱", "0", 1);
         }
 
         private void DeleteRowBtn_Click(object sender, EventArgs e)
@@ -194,17 +190,13 @@ namespace 便當
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if(!String.IsNullOrEmpty(NameSearchBox.Text))
-                {
-                    DataTable dt = new DataTable();
-                    string SearchStr = NameSearchBox.Text;
-                    var query = from  rows in DTbase.AsEnumerable()
-                                where rows["MealName"].ToString().Contains(SearchStr)
-                                select rows;
-                    MenuDataGridView.DataSource = query.CopyToDataTable();
-                }
-                else
-                { MenuDataGridView.DataSource = DTbase; }
+            switch (TableBox.Text)
+            {
+                case "使用者": Query(DTbaseUser, "CustomerName"); break ;
+                case "全部訂單": Query(DTbaseOrder, "CustomerSeq"); break;
+                case "訂單詳細": Query(DTbaseInfo, "OrderID"); break;
+                default : Query(DTbaseMeal, "MealName"); break;
+            }
             }
         }
 
@@ -217,8 +209,32 @@ namespace 便當
         private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = TableBox.SelectedIndex;
-            List<string> item = new List<string> {"查詢使用者名","查詢品名","查詢訂單編號","查詢客戶編號"};
+            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品名", "按Enter查詢訂單編號", "按Enter查詢使用者編號" };
             NameSearchBox.Text = item[index].ToString();
+            NameSearchBox.ForeColor= Color.Silver;
+        }
+        private void Query(DataTable DTbase,string ColumnName)
+        {
+            MenuDataGridView.DataSource = DTbase;
+            DataTable dt = new DataTable();
+            string SearchStr = NameSearchBox.Text;
+            var query = from rows in DTbase.AsEnumerable()
+                        where rows[ColumnName].ToString().Contains(SearchStr)
+                        select rows;
+
+            if (query.Count() > 0)
+                MenuDataGridView.DataSource = query.CopyToDataTable();
+
+            else MenuDataGridView.DataSource = null;
+        }
+
+        private void MenuDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (MenuDataGridView.CurrentRow != null)
+            {
+                MealIDBox.Text = MenuDataGridView.CurrentRow.Cells[0].Value.ToString();
+                MealIDBox.Visible = true;
+            }
         }
     }
 }

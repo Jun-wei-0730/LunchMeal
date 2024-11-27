@@ -104,7 +104,7 @@ namespace 便當
         private void NewUser_Click(object sender, EventArgs e)
         {
             this.Hide();
-            NewID newID = new NewID();
+            NewCustomer newID = new NewCustomer();
             if (newID.ShowDialog() == DialogResult.OK)
             {
 

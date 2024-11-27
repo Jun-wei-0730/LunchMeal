@@ -189,15 +189,17 @@ namespace 便當
             {
                 switch (TableBox.Text)
                 {
-                    case "使用者": Query(DTbaseUser, "名字");UserPanel.Visible = true; MealPanel.Visible = false; OrdersPanel.Visible = false; InfoPanel.Visible = false;
-                        UserPanel.Location = new Point(551, 65);  break;
-                    case "全部訂單": Query(DTbaseOrder, "訂餐者"); MealPanel.Visible = false; UserPanel.Visible = false; OrdersPanel.Visible = true; InfoPanel.Visible = false;
-                        OrdersPanel.Location = new Point(551,65); break;
-                    case "餐點詳細": Query(DTbaseInfo, "訂單編號"); MealPanel.Visible = false; UserPanel.Visible = false; OrdersPanel.Visible = false; InfoPanel.Visible = true;
-                        InfoPanel.Location = new Point(551, 65); break;
-                    default : Query(DTbaseMeal, "品項"); MealPanel.Visible = true; UserPanel.Visible = false; OrdersPanel.Visible = false; InfoPanel.Visible = false;
-                        MealPanel.Location = new Point (551,65);  break;
+                    case "使用者": Query(DTbaseUser, "名字"); NowPanellbl.Text = "User";
+                        UserPanel.Location = new Point(551, 65);  PanelControl(NowPanellbl.Text); break;
+                    case "全部訂單": Query(DTbaseOrder, "訂餐者"); NowPanellbl.Text = "Orders";
+                        OrdersPanel.Location = new Point(551,65); PanelControl(NowPanellbl.Text); break;
+                    case "餐點詳細": Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info";
+                        InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
+                    default : Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal";
+                        MealPanel.Location = new Point (551,65); PanelControl(NowPanellbl.Text); break;
                 }
+                Addbtn.Enabled = true;
+                EditBtn.Enabled = true;
             }
             if (MenuDataGridView.DataSource == null)
             {
@@ -206,6 +208,8 @@ namespace 便當
                 UserPanel.Visible = false;
                 OrdersPanel.Visible = false;
                 InfoPanel.Visible = false;
+                Addbtn.Enabled = false;
+                EditBtn.Enabled = false;
             }
         }
 
@@ -293,9 +297,7 @@ namespace 便當
             else MenuChange = false;
         }
 
-        private void Addbtn_Click(object sender, EventArgs e)
-        {
-        }
+
         private void SetText(string Name,Panel panel)
         {
             string BoxName = Name + "Box";
@@ -313,6 +315,26 @@ namespace 便當
                         Box.Text = dateValue.ToString("yyyy-MM-dd HH:mm");
                     else Box.Text = dateValue.ToString("HH:mm");
             }
+        }
+        private void Addbtn_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private void EditBtn_Click(object sender, EventArgs e)
+        {
+            var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
+            panel.Enabled = true;
+        }
+        private void PanelControl(string NowPanelName)
+        {
+            string PanelName = NowPanelName + "Panel";
+            foreach (Panel panel in Controls.OfType<Panel>())
+            {
+                if(panel.Name != PanelName)
+                { panel.Enabled=false; panel.Visible=false; }
+                else
+                { panel.Visible=true; }
+            } 
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace 便當
 {
-    partial class NewID
+    partial class NewCustomer
     {
         /// <summary>
         /// Required designer variable.
@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.NewIDlbl = new System.Windows.Forms.Label();
-            this.NewIDInput = new System.Windows.Forms.TextBox();
+            this.NewCustomerIDInput = new System.Windows.Forms.TextBox();
             this.NewNamelbl = new System.Windows.Forms.Label();
-            this.NewNameInput = new System.Windows.Forms.TextBox();
-            this.IDConfirm = new System.Windows.Forms.Button();
-            this.IDCancel = new System.Windows.Forms.Button();
+            this.NewCustomerNameInput = new System.Windows.Forms.TextBox();
+            this.CustomerIDConfirm = new System.Windows.Forms.Button();
+            this.CustomerIDCancel = new System.Windows.Forms.Button();
             this.IDWarning = new System.Windows.Forms.Label();
             this.NameWarning = new System.Windows.Forms.Label();
-            this.BirthPicker1 = new System.Windows.Forms.DateTimePicker();
+            this.BirthPicker = new System.Windows.Forms.DateTimePicker();
             this.Birthdaylbl = new System.Windows.Forms.Label();
             this.DateWarning = new System.Windows.Forms.Label();
             this.IDCheck = new System.Windows.Forms.Label();
@@ -54,13 +54,13 @@
             this.NewIDlbl.TabIndex = 0;
             this.NewIDlbl.Text = "輸入新ID ( 6到8碼內英文+數字)";
             // 
-            // NewIDInput
+            // NewCustomerIDInput
             // 
-            this.NewIDInput.Location = new System.Drawing.Point(49, 44);
-            this.NewIDInput.Name = "NewIDInput";
-            this.NewIDInput.Size = new System.Drawing.Size(241, 22);
-            this.NewIDInput.TabIndex = 1;
-            this.NewIDInput.TextChanged += new System.EventHandler(this.NewIDInput_TextChanged);
+            this.NewCustomerIDInput.Location = new System.Drawing.Point(49, 44);
+            this.NewCustomerIDInput.Name = "NewCustomerIDInput";
+            this.NewCustomerIDInput.Size = new System.Drawing.Size(241, 22);
+            this.NewCustomerIDInput.TabIndex = 1;
+            this.NewCustomerIDInput.TextChanged += new System.EventHandler(this.NewCustomerIDInput_TextChanged);
             // 
             // NewNamelbl
             // 
@@ -72,35 +72,35 @@
             this.NewNamelbl.TabIndex = 2;
             this.NewNamelbl.Text = "輸入稱呼 (可使用中文)";
             // 
-            // NewNameInput
+            // NewCustomerNameInput
             // 
-            this.NewNameInput.Location = new System.Drawing.Point(49, 105);
-            this.NewNameInput.Name = "NewNameInput";
-            this.NewNameInput.Size = new System.Drawing.Size(241, 22);
-            this.NewNameInput.TabIndex = 3;
-            this.NewNameInput.TextChanged += new System.EventHandler(this.NewNameInput_TextChanged);
+            this.NewCustomerNameInput.Location = new System.Drawing.Point(49, 105);
+            this.NewCustomerNameInput.Name = "NewCustomerNameInput";
+            this.NewCustomerNameInput.Size = new System.Drawing.Size(241, 22);
+            this.NewCustomerNameInput.TabIndex = 3;
+            this.NewCustomerNameInput.TextChanged += new System.EventHandler(this.NewCustomerNameInput_TextChanged);
             // 
-            // IDConfirm
+            // CustomerIDConfirm
             // 
-            this.IDConfirm.Font = new System.Drawing.Font("新細明體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.IDConfirm.Location = new System.Drawing.Point(49, 211);
-            this.IDConfirm.Name = "IDConfirm";
-            this.IDConfirm.Size = new System.Drawing.Size(95, 35);
-            this.IDConfirm.TabIndex = 4;
-            this.IDConfirm.Text = "確認";
-            this.IDConfirm.UseVisualStyleBackColor = true;
-            this.IDConfirm.Click += new System.EventHandler(this.IDConfirm_Click);
+            this.CustomerIDConfirm.Font = new System.Drawing.Font("新細明體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.CustomerIDConfirm.Location = new System.Drawing.Point(49, 211);
+            this.CustomerIDConfirm.Name = "CustomerIDConfirm";
+            this.CustomerIDConfirm.Size = new System.Drawing.Size(95, 35);
+            this.CustomerIDConfirm.TabIndex = 4;
+            this.CustomerIDConfirm.Text = "確認";
+            this.CustomerIDConfirm.UseVisualStyleBackColor = true;
+            this.CustomerIDConfirm.Click += new System.EventHandler(this.CustomerInfoConfirm_Click);
             // 
-            // IDCancel
+            // CustomerIDCancel
             // 
-            this.IDCancel.Font = new System.Drawing.Font("新細明體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.IDCancel.Location = new System.Drawing.Point(195, 211);
-            this.IDCancel.Name = "IDCancel";
-            this.IDCancel.Size = new System.Drawing.Size(95, 35);
-            this.IDCancel.TabIndex = 5;
-            this.IDCancel.Text = "取消";
-            this.IDCancel.UseVisualStyleBackColor = true;
-            this.IDCancel.Click += new System.EventHandler(this.IDCancel_Click);
+            this.CustomerIDCancel.Font = new System.Drawing.Font("新細明體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.CustomerIDCancel.Location = new System.Drawing.Point(195, 211);
+            this.CustomerIDCancel.Name = "CustomerIDCancel";
+            this.CustomerIDCancel.Size = new System.Drawing.Size(95, 35);
+            this.CustomerIDCancel.TabIndex = 5;
+            this.CustomerIDCancel.Text = "取消";
+            this.CustomerIDCancel.UseVisualStyleBackColor = true;
+            this.CustomerIDCancel.Click += new System.EventHandler(this.IDCancel_Click);
             // 
             // IDWarning
             // 
@@ -124,13 +124,13 @@
             this.NameWarning.Text = "label2";
             this.NameWarning.Visible = false;
             // 
-            // BirthPicker1
+            // BirthPicker
             // 
-            this.BirthPicker1.Location = new System.Drawing.Point(49, 168);
-            this.BirthPicker1.Name = "BirthPicker1";
-            this.BirthPicker1.Size = new System.Drawing.Size(241, 22);
-            this.BirthPicker1.TabIndex = 8;
-            this.BirthPicker1.ValueChanged += new System.EventHandler(this.BirthPicker1_ValueChanged);
+            this.BirthPicker.Location = new System.Drawing.Point(49, 168);
+            this.BirthPicker.Name = "BirthPicker";
+            this.BirthPicker.Size = new System.Drawing.Size(241, 22);
+            this.BirthPicker.TabIndex = 8;
+            this.BirthPicker.ValueChanged += new System.EventHandler(this.BirthPicker_ValueChanged);
             // 
             // Birthdaylbl
             // 
@@ -192,7 +192,7 @@
             this.DateCheck.Text = "✓";
             this.DateCheck.Visible = false;
             // 
-            // NewID
+            // NewCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -203,20 +203,20 @@
             this.Controls.Add(this.IDCheck);
             this.Controls.Add(this.DateWarning);
             this.Controls.Add(this.Birthdaylbl);
-            this.Controls.Add(this.BirthPicker1);
+            this.Controls.Add(this.BirthPicker);
             this.Controls.Add(this.NameWarning);
             this.Controls.Add(this.IDWarning);
-            this.Controls.Add(this.IDCancel);
-            this.Controls.Add(this.IDConfirm);
-            this.Controls.Add(this.NewNameInput);
+            this.Controls.Add(this.CustomerIDCancel);
+            this.Controls.Add(this.CustomerIDConfirm);
+            this.Controls.Add(this.NewCustomerNameInput);
             this.Controls.Add(this.NewNamelbl);
-            this.Controls.Add(this.NewIDInput);
+            this.Controls.Add(this.NewCustomerIDInput);
             this.Controls.Add(this.NewIDlbl);
             this.MaximizeBox = false;
-            this.Name = "NewID";
+            this.Name = "NewCustomer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "創建新使用者";
-            this.Load += new System.EventHandler(this.NewID_Load);
+            this.Load += new System.EventHandler(this.NewCustomer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,14 +225,14 @@
         #endregion
 
         private System.Windows.Forms.Label NewIDlbl;
-        private System.Windows.Forms.TextBox NewIDInput;
+        private System.Windows.Forms.TextBox NewCustomerIDInput;
         private System.Windows.Forms.Label NewNamelbl;
-        private System.Windows.Forms.TextBox NewNameInput;
-        private System.Windows.Forms.Button IDConfirm;
-        private System.Windows.Forms.Button IDCancel;
+        private System.Windows.Forms.TextBox NewCustomerNameInput;
+        private System.Windows.Forms.Button CustomerIDConfirm;
+        private System.Windows.Forms.Button CustomerIDCancel;
         private System.Windows.Forms.Label IDWarning;
         private System.Windows.Forms.Label NameWarning;
-        private System.Windows.Forms.DateTimePicker BirthPicker1;
+        private System.Windows.Forms.DateTimePicker BirthPicker;
         private System.Windows.Forms.Label Birthdaylbl;
         private System.Windows.Forms.Label DateWarning;
         private System.Windows.Forms.Label IDCheck;

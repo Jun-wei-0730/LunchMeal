@@ -64,11 +64,11 @@
     </Compile>
     <Compile Include="FormControl.cs" />
     <Compile Include="MealInfo.cs" />
-    <Compile Include="NewUser.cs">
+    <Compile Include="NewCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewUser.Designer.cs">
-      <DependentUpon>NewUser.cs</DependentUpon>
+    <Compile Include="NewCustomer.Designer.cs">
+      <DependentUpon>NewCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="MainControl.cs">
       <SubType>Form</SubType>
@@ -109,8 +109,8 @@
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewUser.resx">
-      <DependentUpon>NewUser.cs</DependentUpon>
+    <EmbeddedResource Include="NewCustomer.resx">
+      <DependentUpon>NewCustomer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainControl.resx">
       <DependentUpon>MainControl.cs</DependentUpon>

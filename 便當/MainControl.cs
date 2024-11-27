@@ -27,6 +27,7 @@ namespace 便當
         }
         private void MainControl_Load(object sender, EventArgs e)
         {
+            TableBox.Text = "菜單";
             UserNameLabel.Text = "使用者 : " + User.UserName;
             SQLconn MealConn = new SQLconn();
             string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
@@ -162,7 +163,8 @@ namespace 便當
 
         private void MenuDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show("數據格式錯誤!");
+            //MessageBox.Show("數據格式錯誤!");
+            MessageBox.Show(e.Exception.ToString());
         }
         private void ParameterAdd(SqlCommand cmd, DataGridViewRow Row)
         {
@@ -229,16 +231,17 @@ namespace 便當
                 }
                 Addbtn.Enabled = true;
                 EditBtn.Enabled = true;
-            }
-            if (MenuDataGridView.DataSource == null)
-            {
-                MessageBox.Show("查詢不到結果！");
-                MealPanel.Visible = false;
-                UserPanel.Visible = false;
-                OrdersPanel.Visible = false;
-                InfoPanel.Visible = false;
-                Addbtn.Enabled = false;
-                EditBtn.Enabled = false;
+
+                if (MenuDataGridView.DataSource == null)
+                {
+                    MealPanel.Visible = false;
+                    UserPanel.Visible = false;
+                    OrdersPanel.Visible = false;
+                    InfoPanel.Visible = false;
+                    Addbtn.Enabled = false;
+                    EditBtn.Enabled = false;
+                    MessageBox.Show("查詢不到結果！");
+                }
             }
         }
 
@@ -292,7 +295,7 @@ namespace 便當
                         UserPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[Adminlbl.Text].Value.ToString() == "True")
                         { AdminBox.Text = "管理員"; }
-                        else { AdminBox.Text = "一般使用者"; }
+                        else { AdminBox.Text = "一般用戶"; }
                         break;
                     case "全部訂單":
                         foreach (TextBox box in OrdersPanel.Controls.OfType<TextBox>())
@@ -363,7 +366,6 @@ namespace 便當
                 MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = Box.Text;
             if (lbl != null && Combo != null)
             {
-                Console.WriteLine(Combo.Text);
                 switch (Combo.Text)
                 {
                     case "啟用":
@@ -410,21 +412,54 @@ namespace 便當
             foreach (TextBox item in panel.Controls.OfType<TextBox>())
             {
                 string name = item.Name.Substring(0, item.Name.Length - 3);
-                GetText(name, panel); 
+                GetText(name, panel);
+                Update(name, panel);
             }
             foreach (ComboBox item in panel.Controls.OfType<ComboBox>())
             {
                 string name = item.Name.Substring(0, item.Name.Length - 3);
                 GetText(name, panel);
+                Update(name, panel);
             }
             panel.Enabled = false;
             EditBtn.Enabled = true;
+            MessageBox.Show("更改已保存！");
         }
 
         private void BoxTextChanged(object sender, EventArgs e)
         {
             if(BoxEvent) 
                 ConfirmChangebtn.Enabled = true;
+        }
+        private void Update(string name , Panel panel)
+        {
+            var row = MenuDataGridView.CurrentRow;
+            string BoxName = Name + "Box";
+            string lblName = Name + "lbl";
+            var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
+            var Combo = panel.Controls.OfType<ComboBox>().FirstOrDefault(rs => rs.Name == BoxName);
+            var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
+            switch (panel.Name)
+            {
+                case "UserPanel": 
+                    {
+                        string UpdateStr = "Update Customers set CustomerName = @CustomerName" +
+                            ",Birth = @Birth,Carrier = @Carrier,Admin = @Admin where CustomerID = @CustomerID";
+                        List<string> ParaList = new List<string> { "@CustomerID", "@CustomerName", "@Birth", "@Carrier", "@Admin"};
+                        List<string> ValueList = new List<string>();
+                        for(int i = 0; i < MenuDataGridView.Columns.Count;i++)
+                        {
+                            string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
+                            if (DateTime.TryParse(item, out DateTime dateValue))
+                                item = dateValue.ToString("yyyy-MM-dd"); 
+                            ValueList.Add(item);
+                        }
+                        CustomerID conn = new CustomerID();
+                        conn.UpdateConn(UpdateStr,ParaList,ValueList);
+                        break;
+                    }
+            }
+
         }
     }
 }

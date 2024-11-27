@@ -39,6 +39,26 @@ namespace 便當
                 }
             }
         }
+        public void UpdateConn(string command ,List<string> ParaList,List<string> ValueList)
+        {
+            string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(command, conn))
+                {
+                    for (int j = 0; j < ParaList.Count; j++)
+                    {
+                        
+                        Console.WriteLine(j);
+                        Console.WriteLine(ParaList[j]);
+                        Console.WriteLine(ValueList[j]);
+                        cmd.Parameters.AddWithValue(ParaList[j], ValueList[j]);
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
     public class SQLconn
     {

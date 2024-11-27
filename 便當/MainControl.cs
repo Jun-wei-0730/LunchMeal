@@ -13,10 +13,10 @@ namespace 便當
 
     public partial class MainControl : Form
     {
-        List<int> list = new List<int>();
+        readonly List<int> list = new List<int>();
         DataTable DTbaseMeal = new DataTable();
         DataTable DTbaseUser = new DataTable();
-        DataTable DTbaseOrder = new DataTable();
+        DataTable DTbaseOrders = new DataTable();
         DataTable DTbaseInfo = new DataTable();
         bool MenuChange = false;
         bool BoxEvent = false;
@@ -37,7 +37,7 @@ namespace 便當
             SQLconn OrderConn = new SQLconn();
             string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 訂單總價, " +
                 "TableWare as 餐具,PlasticBag as 塑膠袋, GetMeal as 取餐方式, GetMealtime as 取餐時間, Note as 備註 from Orders inner join Customers on Orders.CustomerSeq = Customers.CustomerSeq;";
-            DTbaseOrder = OrderConn.conn(OrderSelect);
+            DTbaseOrders = OrderConn.conn(OrderSelect);
             SQLconn InfoConn = new SQLconn();
             string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
             DTbaseInfo = InfoConn.conn(InfoSelect);
@@ -132,8 +132,10 @@ namespace 便當
                     MessageBoxIcon.Warning) == DialogResult.OK)
                 {
 
-                    FormControl MenuEdit = new FormControl();
-                    MenuEdit.ClosingCheck = true;
+                    FormControl MenuEdit = new FormControl
+                    {
+                        ClosingCheck = true
+                    };
                     MenuEdit.Form_Close(sender, e);
                 }
                 else
@@ -216,7 +218,7 @@ namespace 便當
                         Query(DTbaseUser, "名字"); NowPanellbl.Text = "User";
                         UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
                     case "全部訂單":
-                        Query(DTbaseOrder, "訂餐者"); NowPanellbl.Text = "Orders";
+                        Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders";
                         OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
                     case "餐點詳細":
                         Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info";
@@ -274,6 +276,9 @@ namespace 便當
 
         private void MenuDataGridView_SelectionChanged(object sender, EventArgs e)
         {
+            BoxEvent = false;
+            ConfirmChangebtn.Enabled = false;
+            EditBtn.Enabled = true;
             if (!MenuChange)
             {
                 switch (TableBox.Text)
@@ -284,6 +289,7 @@ namespace 便當
                             string name = box.Name.Substring(0, box.Name.Length - 3);
                             SetText(name, UserPanel);
                         }
+                        UserPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[Adminlbl.Text].Value.ToString() == "True")
                         { AdminBox.Text = "管理員"; }
                         else { AdminBox.Text = "一般使用者"; }
@@ -294,6 +300,7 @@ namespace 便當
                             string name = box.Name.Substring(0, box.Name.Length - 3);
                             SetText(name, OrdersPanel);
                         }
+                        OrdersPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[TableWarelbl.Text].Value.ToString() == "True")
                             TableWareBox.Checked = true;
                         else TableWareBox.Checked = false;
@@ -308,6 +315,7 @@ namespace 便當
                             string name = box.Name.Substring(0, box.Name.Length - 3);
                             SetText(name, InfoPanel);
                         }
+                        InfoPanel.Enabled = false;
                         break;
                     default:
                         foreach (TextBox box in MealPanel.Controls.OfType<TextBox>())
@@ -315,6 +323,7 @@ namespace 便當
                             string name = box.Name.Substring(0, box.Name.Length - 3);
                             SetText(name, MealPanel);
                         }
+                        MealPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[Enabledlbl.Text].Value.ToString() == "True")
                         { EnabledBox.Text = "啟用"; EnableColorlbl.BackColor = Color.LawnGreen; }
                         else { EnabledBox.Text = "停用"; EnableColorlbl.BackColor = Color.IndianRed; }
@@ -343,6 +352,33 @@ namespace 便當
                 else Box.Text = dateValue.ToString("HH:mm").Trim();
             }
         }
+        private void GetText(string Name, Panel panel)
+        {
+            string BoxName = Name + "Box";
+            string lblName = Name + "lbl";
+            var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
+            var Combo = panel.Controls.OfType<ComboBox>().FirstOrDefault(rs => rs.Name == BoxName);
+            var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
+            if (lbl != null && Box != null)
+                MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = Box.Text;
+            if (lbl != null && Combo != null)
+            {
+                Console.WriteLine(Combo.Text);
+                switch (Combo.Text)
+                {
+                    case "啟用":
+                        MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = true; EnableColorlbl.BackColor = Color.LawnGreen; break;
+                    case "停用":
+                        MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = false; EnableColorlbl.BackColor = Color.IndianRed; break;
+                    case "管理員":
+                        MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = true; break;
+                    case "一般用戶":
+                        MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = false; break;
+                    default:
+                        MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = Combo.Text; break;
+                }
+            }
+        }
         private void Addbtn_Click(object sender, EventArgs e)
         {
 
@@ -352,6 +388,7 @@ namespace 便當
             var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
             panel.Enabled = true;
             BoxEvent = true;
+            EditBtn.Enabled = false;
         }
         private void PanelControl(string NowPanelName)
         {
@@ -368,6 +405,20 @@ namespace 便當
         private void ConfirmChangebtn_Click(object sender, EventArgs e)
         {
             ConfirmChangebtn.Enabled = false;
+            string PanelName = NowPanellbl.Text + "Panel";
+            Panel panel = Controls.OfType<Panel>().FirstOrDefault(rs => rs.Name == PanelName);
+            foreach (TextBox item in panel.Controls.OfType<TextBox>())
+            {
+                string name = item.Name.Substring(0, item.Name.Length - 3);
+                GetText(name, panel); 
+            }
+            foreach (ComboBox item in panel.Controls.OfType<ComboBox>())
+            {
+                string name = item.Name.Substring(0, item.Name.Length - 3);
+                GetText(name, panel);
+            }
+            panel.Enabled = false;
+            EditBtn.Enabled = true;
         }
 
         private void BoxTextChanged(object sender, EventArgs e)

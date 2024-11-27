@@ -48,8 +48,15 @@ namespace 便當
                 {
                     control.TextChanged += BoxTextChanged;
                 }
+                foreach(CheckBox box in panel.Controls.OfType<CheckBox>())
+                {
+                    box.CheckedChanged += Box_CheckedChanged;
+                }
             }
         }
+
+
+
         private void ChangeUpload_Click(object sender, EventArgs e)
         {
             SortID();
@@ -431,6 +438,11 @@ namespace 便當
             if(BoxEvent) 
                 ConfirmChangebtn.Enabled = true;
         }
+        private void Box_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BoxEvent)
+                ConfirmChangebtn.Enabled = true;
+        }
         private void Update(string name , Panel panel)
         {
             var row = MenuDataGridView.CurrentRow;
@@ -457,6 +469,57 @@ namespace 便當
                         CustomerID conn = new CustomerID();
                         conn.UpdateConn(UpdateStr,ParaList,ValueList);
                         break;
+                    }
+                case "MealPanel":
+                    {
+                        string UpdateStr = "Update Meals set MealName = @MealName, PricePerMeal = @PricePerMeal, Enabled = @Enabled " +
+                            "where MealID = @MealID";
+                        List<string> ParaList = new List<string> { "@MealID", "@MealName", "@PricePerMeal", "@Enabled" };
+                        List<string> ValueList = new List<string>();
+                        for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
+                        {
+                            string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
+                            ValueList.Add(item);
+                        }
+                        CustomerID conn = new CustomerID();
+                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
+                        break; 
+                    }
+                case "OrdersPanel":
+                    {
+                        string UpdateStr = "declare @CustomerSeq int;" +
+                            "select @CustomerSeq = CustomerSeq from Customers where CustomerName = @CustomerName;" +
+                            "Update Orders set CustomerSeq = @CustomerSeq, OrderTime = @OrderTime, OrderPrice = @OrderPrice" +
+                            ",TableWare = @TableWare, PlasticBag = @PlasticBag, GetMeal = @GetMeal , GetMealTime = @GetMealTime" +
+                            ",note = @note where OrderID = @OrderID";
+                        List<string> ParaList = new List<string> { "@OrderID", "@CustomerName", "@OrderTime", "@OrderPrice", "@TableWare", "@PlasticBag", "@GetMeal" , "@GetMealTime", "@note" };
+                        List<string> ValueList = new List<string>();
+                        for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
+                        {
+                            string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
+                            if (DateTime.TryParse(item, out DateTime dateValue))
+                                item = dateValue.ToString("yyyy-MM-dd HH:mm");
+                            ValueList.Add(item);
+                        }
+                        CustomerID conn = new CustomerID();
+                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
+                        break; 
+                    }
+                case "InfoPanel":
+                    {
+                        string UpdateStr = "declare @MealID int;" +
+                            "select @MealID = MealID from Meals where MealName = @MealName;" +
+                            "Update OrderInfo set MealCount = @MealCount where MealID = @MealID and OrderID = @OrderID";
+                        List<string> ParaList = new List<string> { "@OrderID","@MealName", "@MealCount"};
+                        List<string> ValueList = new List<string>();
+                        for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
+                        {
+                            string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
+                            ValueList.Add(item);
+                        }
+                        CustomerID conn = new CustomerID();
+                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
+                        break; 
                     }
             }
 

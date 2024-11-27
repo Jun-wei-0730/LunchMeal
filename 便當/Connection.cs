@@ -55,6 +55,7 @@ namespace 便當
                         Console.WriteLine(ValueList[j]);
                         cmd.Parameters.AddWithValue(ParaList[j], ValueList[j]);
                     }
+                    Console.WriteLine(cmd);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -125,5 +126,6 @@ namespace 便當
             }
 
         }
+
     }
 }

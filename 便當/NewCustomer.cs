@@ -89,21 +89,21 @@ namespace 便當
         private void NewCustomerNameInput_TextChanged(object sender, EventArgs e)
         {
             if (NewCustomerNameInput.Text.Length == 0)
-                { NameWarning.Text = "名稱不得為空!"; NameWarning.Visible = true;}
+            { NameWarning.Text = "名稱不得為空!"; NameWarning.Visible = true; }
             else if (list.Contains(NewCustomerNameInput.Text))
-                { NameWarning.Text = "名稱重複!"; NameWarning.Visible = true; }
-            else { NameWarning.Visible = false; NameCheck.Visible = true; } 
+            { NameWarning.Text = "名稱重複!"; NameWarning.Visible = true; }
+            else { NameWarning.Visible = false; NameCheck.Visible = true; }
         }
 
         private void BirthPicker_ValueChanged(object sender, EventArgs e)
         {
             if (BirthPicker.Value > DateTime.Now)
-                { DateWarning.Text = "時間不對!";DateWarning.Visible = true; }
+            { DateWarning.Text = "時間不對!"; DateWarning.Visible = true; }
             else { DateWarning.Visible = false; DateCheck.Visible = true; }
         }
         private bool AllOk()
         {
-            if (IDCheck.Visible == true && NameCheck.Visible == true && DateCheck.Visible == true) 
+            if (IDCheck.Visible == true && NameCheck.Visible == true && DateCheck.Visible == true)
                 return true;
             else
                 return false;

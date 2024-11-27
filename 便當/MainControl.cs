@@ -4,10 +4,9 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace 便當
 {
@@ -20,12 +19,12 @@ namespace 便當
         DataTable DTbaseOrder = new DataTable();
         DataTable DTbaseInfo = new DataTable();
         bool MenuChange = false;
+        bool BoxEvent = false;
 
         public MainControl()
         {
             InitializeComponent();
         }
-
         private void MainControl_Load(object sender, EventArgs e)
         {
             UserNameLabel.Text = "使用者 : " + User.UserName;
@@ -42,8 +41,14 @@ namespace 便當
             SQLconn InfoConn = new SQLconn();
             string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
             DTbaseInfo = InfoConn.conn(InfoSelect);
+            foreach (Panel panel in Controls.OfType<Panel>())
+            {
+                foreach (Control control in panel.Controls)
+                {
+                    control.TextChanged += BoxTextChanged;
+                }
+            }
         }
-
         private void ChangeUpload_Click(object sender, EventArgs e)
         {
             SortID();
@@ -116,8 +121,26 @@ namespace 便當
 
         private void MenuEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
-            FormControl MenuEdit = new FormControl();
-            MenuEdit.Form_Close(sender, e);
+            if (!ConfirmChangebtn.Enabled)
+            {
+                FormControl MenuEdit = new FormControl();
+                MenuEdit.Form_Close(sender, e);
+            }
+            else
+            {
+                if (MessageBox.Show("還有更改未保存，確定要關閉嗎？", "警告", MessageBoxButtons.OKCancel, 
+                    MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+
+                    FormControl MenuEdit = new FormControl();
+                    MenuEdit.ClosingCheck = true;
+                    MenuEdit.Form_Close(sender, e);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }    
+            }
         }
         private void SortID()
         {
@@ -189,14 +212,18 @@ namespace 便當
             {
                 switch (TableBox.Text)
                 {
-                    case "使用者": Query(DTbaseUser, "名字"); NowPanellbl.Text = "User";
-                        UserPanel.Location = new Point(551, 65);  PanelControl(NowPanellbl.Text); break;
-                    case "全部訂單": Query(DTbaseOrder, "訂餐者"); NowPanellbl.Text = "Orders";
-                        OrdersPanel.Location = new Point(551,65); PanelControl(NowPanellbl.Text); break;
-                    case "餐點詳細": Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info";
+                    case "使用者":
+                        Query(DTbaseUser, "名字"); NowPanellbl.Text = "User";
+                        UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
+                    case "全部訂單":
+                        Query(DTbaseOrder, "訂餐者"); NowPanellbl.Text = "Orders";
+                        OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
+                    case "餐點詳細":
+                        Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info";
                         InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
-                    default : Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal";
-                        MealPanel.Location = new Point (551,65); PanelControl(NowPanellbl.Text); break;
+                    default:
+                        Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal";
+                        MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
                 }
                 Addbtn.Enabled = true;
                 EditBtn.Enabled = true;
@@ -223,11 +250,11 @@ namespace 便當
         private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = TableBox.SelectedIndex;
-            List<string> item = new List<string> {"按Enter查詢使用者名", "按Enter查詢品項", "按Enter查詢訂單者名字", "按Enter查詢訂單編號" };
+            List<string> item = new List<string> { "按Enter查詢使用者名", "按Enter查詢品項", "按Enter查詢訂單者名字", "按Enter查詢訂單編號" };
             NameSearchBox.Text = item[index].ToString();
-            NameSearchBox.ForeColor= Color.Silver;
+            NameSearchBox.ForeColor = Color.Silver;
         }
-        private void Query(DataTable DTbase,string ColumnName)
+        private void Query(DataTable DTbase, string ColumnName)
         {
             MenuDataGridView.DataSource = DTbase;
             DataTable dt = new DataTable();
@@ -298,43 +325,55 @@ namespace 便當
         }
 
 
-        private void SetText(string Name,Panel panel)
+        private void SetText(string Name, Panel panel)
         {
             string BoxName = Name + "Box";
             string lblName = Name + "lbl";
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
             var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
             if (lbl != null && Box != null)
-                Box.Text = MenuDataGridView.CurrentRow.Cells[lbl.Text].Value.ToString();
-            if (DateTime.TryParse(Box.Text,out DateTime dateValue))
+                Box.Text = MenuDataGridView.CurrentRow.Cells[lbl.Text].Value.ToString().Trim();
+            if (DateTime.TryParse(Box.Text, out DateTime dateValue))
             {
                 if (panel == UserPanel)
-                    Box.Text = dateValue.ToString("yyyy-MM-dd");
+                    Box.Text = dateValue.ToString("yyyy-MM-dd").Trim();
                 else
                     if (BoxName == "OrderTimeBox")
-                        Box.Text = dateValue.ToString("yyyy-MM-dd HH:mm");
-                    else Box.Text = dateValue.ToString("HH:mm");
+                    Box.Text = dateValue.ToString("yyyy-MM-dd HH:mm").Trim();
+                else Box.Text = dateValue.ToString("HH:mm").Trim();
             }
         }
         private void Addbtn_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void EditBtn_Click(object sender, EventArgs e)
         {
             var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
             panel.Enabled = true;
+            BoxEvent = true;
         }
         private void PanelControl(string NowPanelName)
         {
+            // 判斷現在顯示的資料面板並關閉其他
             string PanelName = NowPanelName + "Panel";
             foreach (Panel panel in Controls.OfType<Panel>())
             {
-                if(panel.Name != PanelName)
-                { panel.Enabled=false; panel.Visible=false; }
+                if (panel.Name != PanelName)
+                { panel.Enabled = false; panel.Visible = false; }
                 else
-                { panel.Visible=true; }
-            } 
+                { panel.Visible = true; }
+            }
+        }
+        private void ConfirmChangebtn_Click(object sender, EventArgs e)
+        {
+            ConfirmChangebtn.Enabled = false;
+        }
+
+        private void BoxTextChanged(object sender, EventArgs e)
+        {
+            if(BoxEvent) 
+                ConfirmChangebtn.Enabled = true;
         }
     }
 }

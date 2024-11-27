@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.SqlTypes;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace 便當
@@ -19,7 +14,7 @@ namespace 便當
 
         public void loginButton_Click(object sender, EventArgs e)
         {
-            CustomerID customerID  = new CustomerID();
+            CustomerID customerID = new CustomerID();
             string ID = UserNameInput.Text;
             if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
             {
@@ -69,7 +64,7 @@ namespace 便當
                 return "0";
             else return "1";
         }
-        
+
 
         private void MenuChange_Click(object sender, EventArgs e)
         {

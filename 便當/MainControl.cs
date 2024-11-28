@@ -383,7 +383,7 @@ namespace 便當
             if (UploadDialog.FileName != null)
             {
                 string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
-                if (File.Exists(TargetPath))
+                if (File.Exists(UploadDialog.FileName))
                     File.Copy(UploadDialog.FileName, TargetPath, true);
             }
             panel.Enabled = false;
@@ -478,7 +478,7 @@ namespace 便當
             if (UploadDialog.FileName != null)
             {
                 string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
-                if (File.Exists(TargetPath))
+                if (File.Exists(UploadDialog.FileName))
                     File.Copy(UploadDialog.FileName, TargetPath, true);
             }
             string InsertStr = "Insert into Meals (MealID, MealName, PricePerMeal, Enabled) values" +

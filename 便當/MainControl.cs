@@ -48,75 +48,6 @@ namespace 便當
                 }
             }
         }
-
-        private void ChangeUpload_Click(object sender, EventArgs e)
-        {
-            SortID();
-            SQLconn conn = new SQLconn();
-            conn.BackupDB();
-            string str = "select * from Meals inner join OrderInfo on Meals.MealID = OrderInfo.MealID";
-            DataTable dt = conn.conn(str);
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                list.Add(Convert.ToInt32(dt.Rows[i]["MealID"]));
-            }
-            string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
-            string UpdateCmd = "Update Meals set MealName = @Name,PricePerMeal = @Price,Enabled = @Enable where MealID = @ID ;";
-            string InsertCmd = "Insert into Meals values (@ID,@Name,@Price,@Enable)";
-            using (SqlConnection connection = new SqlConnection(connstr))
-            {
-                connection.Open();
-                using (SqlCommand cmd = new SqlCommand(UpdateCmd, connection))
-                {
-                    List<int> DataGridViewID = new List<int>();
-                    foreach (DataGridViewRow row in MenuDataGridView.Rows)
-                        DataGridViewID.Add(Convert.ToInt32(row.Cells["MealID"].Value));
-                    bool allOK = list.All(ID => DataGridViewID.Contains(ID));
-                    if (allOK)
-                    {
-                        conn.CleanTable("Meals", "OrderInfo", "MealID");
-                        UploadConfirm(cmd, InsertCmd, connection);
-                        MessageBox.Show("變更已儲存。");
-                    }
-                    else
-                    {
-                        this.Hide();
-                        var result = MessageBox.Show("含有訂單中已存在的餐點，是否要刪除？\n" +
-                            "是:連同訂單一起刪除\n否:僅更改未在訂單中的餐點。",
-                            "警告", MessageBoxButtons.YesNoCancel);
-                        if (result == DialogResult.Yes)
-                        {
-                            string Truncate = "truncate table OrderInfo;";
-                            conn.conn(Truncate);
-                            conn.CleanTable("Meals", "OrderInfo", "MealID");
-                            UploadConfirm(cmd, InsertCmd, connection);
-                            MessageBox.Show("變更已儲存。");
-                            this.Show();
-                        }
-                        else if (result == DialogResult.No)
-                        {
-                            conn.CleanTable("Meals", "OrderInfo", "MealID");
-                            UploadConfirm(cmd, InsertCmd, connection);
-                            MessageBox.Show("變更已儲存。");
-                            this.Show();
-                        }
-                        else this.Show();
-
-                    }
-                }
-                connection.Close();
-            }
-        }
-
-        private void DeleteRowBtn_Click(object sender, EventArgs e)
-        {
-            if (MenuDataGridView.CurrentRow != null)
-            {
-                var ChoseIndex = MenuDataGridView.CurrentRow.Index;
-                MenuDataGridView.Rows.RemoveAt(ChoseIndex);
-            }
-        }
-
         private void MenuEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!ConfirmChangebtn.Visible)
@@ -335,8 +266,6 @@ namespace 便當
             }
             else MenuChange = false;
         }
-
-
         private void SetText(string Name, Panel panel)
         {
             string BoxName = Name + "Box";

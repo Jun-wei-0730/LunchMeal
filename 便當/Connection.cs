@@ -55,6 +55,20 @@ namespace 便當
                 }
             }
         }
+        public void ParameterCommandByOne(string command, string Para, string Value)
+        {
+            string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(command, conn))
+                {
+                    cmd.Parameters.AddWithValue(Para, Value);
+                    Console.WriteLine(command);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public bool ParameterSelectByOne(string command, string Para, string Value)
         {
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;

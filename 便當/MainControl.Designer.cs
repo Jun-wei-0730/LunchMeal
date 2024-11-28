@@ -175,7 +175,6 @@
             // 
             this.MealIDBox.BackColor = System.Drawing.Color.White;
             this.MealIDBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.MealIDBox.Enabled = false;
             this.MealIDBox.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.MealIDBox.Location = new System.Drawing.Point(89, 19);
             this.MealIDBox.Name = "MealIDBox";
@@ -422,7 +421,6 @@
             // 
             this.AccountBox.BackColor = System.Drawing.Color.White;
             this.AccountBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.AccountBox.Enabled = false;
             this.AccountBox.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.AccountBox.Location = new System.Drawing.Point(65, 20);
             this.AccountBox.Name = "AccountBox";
@@ -537,7 +535,6 @@
             // 
             // OrderIDBox
             // 
-            this.OrderIDBox.Enabled = false;
             this.OrderIDBox.Location = new System.Drawing.Point(80, 13);
             this.OrderIDBox.Name = "OrderIDBox";
             this.OrderIDBox.Size = new System.Drawing.Size(157, 22);
@@ -695,7 +692,6 @@
             // 
             // MealNameInfoBox
             // 
-            this.MealNameInfoBox.Enabled = false;
             this.MealNameInfoBox.Location = new System.Drawing.Point(94, 40);
             this.MealNameInfoBox.Name = "MealNameInfoBox";
             this.MealNameInfoBox.Size = new System.Drawing.Size(149, 22);
@@ -703,7 +699,6 @@
             // 
             // OrderInfoIDBox
             // 
-            this.OrderInfoIDBox.Enabled = false;
             this.OrderInfoIDBox.Location = new System.Drawing.Point(94, 10);
             this.OrderInfoIDBox.Name = "OrderInfoIDBox";
             this.OrderInfoIDBox.Size = new System.Drawing.Size(149, 22);
@@ -764,7 +759,7 @@
             // ConfirmAddbtn
             // 
             this.ConfirmAddbtn.Enabled = false;
-            this.ConfirmAddbtn.Location = new System.Drawing.Point(705, 398);
+            this.ConfirmAddbtn.Location = new System.Drawing.Point(705, 399);
             this.ConfirmAddbtn.Name = "ConfirmAddbtn";
             this.ConfirmAddbtn.Size = new System.Drawing.Size(89, 39);
             this.ConfirmAddbtn.TabIndex = 29;
@@ -822,7 +817,7 @@
             // 
             // DeleteThisMealbtn
             // 
-            this.DeleteThisMealbtn.Location = new System.Drawing.Point(297, 36);
+            this.DeleteThisMealbtn.Location = new System.Drawing.Point(382, 22);
             this.DeleteThisMealbtn.Name = "DeleteThisMealbtn";
             this.DeleteThisMealbtn.Size = new System.Drawing.Size(94, 23);
             this.DeleteThisMealbtn.TabIndex = 35;
@@ -840,7 +835,6 @@
             this.Controls.Add(this.DeleteThisMealbtn);
             this.Controls.Add(this.DeleteThisOrderbtn);
             this.Controls.Add(this.UploadPanel);
-            this.Controls.Add(this.ConfirmAddbtn);
             this.Controls.Add(this.ConfirmChangebtn);
             this.Controls.Add(this.NowPanellbl);
             this.Controls.Add(this.InfoPanel);
@@ -856,6 +850,7 @@
             this.Controls.Add(this.ChangeUpload);
             this.Controls.Add(this.MealPanel);
             this.Controls.Add(this.MenuDataGridView);
+            this.Controls.Add(this.ConfirmAddbtn);
             this.Name = "MainControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "主控台";

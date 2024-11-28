@@ -427,6 +427,7 @@ namespace 便當
         private void ConfirmChangebtn_Click(object sender, EventArgs e)
         {
             ConfirmChangebtn.Visible = false;
+            ConfirmChangebtn.Enabled = false;
             string PanelName = NowPanellbl.Text + "Panel";
             Panel panel = Controls.OfType<Panel>().FirstOrDefault(rs => rs.Name == PanelName);
             foreach (TextBox item in panel.Controls.OfType<TextBox>())
@@ -447,10 +448,12 @@ namespace 便當
                 GetText(name, panel);
                 Update(panel);
             }
+
             if (UploadDialog.FileName != null)
             {
                 string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
-                File.Copy(UploadDialog.FileName, TargetPath, true);
+                if (File.Exists(TargetPath)) 
+                    File.Copy(UploadDialog.FileName, TargetPath, true);
             }
             panel.Enabled = false;
             EditBtn.Enabled = true;
@@ -585,14 +588,16 @@ namespace 便當
                 conn.BackupDB();
                 ConnectionWithParameter CWPconn = new ConnectionWithParameter();
                 string command = "Delete from OrderInfo where OrderID = @OrderID;";
-                string OrderID = OrderInfoIDBox.Text;
-                CWPconn.ParameterSelectByOne(command, "@OrderID", OrderID);
+                string OrderID = OrderIDBox.Text;
+                Console.WriteLine(OrderID);
+                CWPconn.ParameterCommandByOne(command, "@OrderID", OrderID);
                 command = "Delete from Orders where OrderID = @OrderID;";
-                CWPconn.ParameterSelectByOne(command, "@OrderID", OrderID);
+                CWPconn.ParameterCommandByOne(command, "@OrderID", OrderID);
                 MessageBox.Show("訂單已刪除");
                 GetSQL();
                 Query(DTbaseOrders, "訂餐者");
             }
+            
         }
         private void GetSQL()
         {
@@ -626,11 +631,12 @@ namespace 便當
                     SQLconn conn = new SQLconn();
                     conn.BackupDB();
                     string command = "Delete from Meals where MealID = @MealID;";
-                    CWPconn.ParameterSelectByOne(command, "@MealID", MealID);
+                    CWPconn.ParameterCommandByOne(command, "@MealID", MealID);
                     MessageBox.Show("品項已刪除");
                     GetSQL();
                     Query(DTbaseMeal, "品項");
                 }
+                
             }
         }
     }

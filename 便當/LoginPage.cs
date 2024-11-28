@@ -14,12 +14,12 @@ namespace 便當
 
         public void loginButton_Click(object sender, EventArgs e)
         {
-            CustomerID customerID = new CustomerID();
+            ConnectionWithParameter customerID = new ConnectionWithParameter();
             string ID = UserNameInput.Text;
             if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
             {
-                List<string> Query_result = customerID.ConnByParameter(ID);
-                if (customerID.ConnByParameter(ID) != null)
+                List<string> Query_result = customerID.CustomerIDConn(ID);
+                if (customerID.CustomerIDConn(ID) != null)
                 {
                     User.User_Seq = Convert.ToInt32(Query_result[0]);
                     User.User_ID = Query_result[1];
@@ -68,12 +68,12 @@ namespace 便當
 
         private void MenuChange_Click(object sender, EventArgs e)
         {
-            CustomerID customerID = new CustomerID();
+            ConnectionWithParameter customerID = new ConnectionWithParameter();
             string ID = UserNameInput.Text;
             if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
             {
-                List<string> Query_result = customerID.ConnByParameter(ID);
-                if (customerID.ConnByParameter(ID) != null)
+                List<string> Query_result = customerID.CustomerIDConn(ID);
+                if (customerID.CustomerIDConn(ID) != null)
                 {
                     User.User_Seq = Convert.ToInt32(Query_result[0]);
                     User.User_ID = Query_result[1];

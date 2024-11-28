@@ -129,7 +129,7 @@ namespace 便當
 
         private void MenuEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!ConfirmChangebtn.Enabled)
+            if (!ConfirmChangebtn.Visible)
             {
                 FormControl MenuEdit = new FormControl();
                 MenuEdit.Form_Close(sender, e);
@@ -224,16 +224,16 @@ namespace 便當
                 switch (TableBox.Text)
                 {
                     case "使用者":
-                        Query(DTbaseUser, "名字"); NowPanellbl.Text = "User";
+                        Query(DTbaseUser, "名字"); NowPanellbl.Text = "User"; Addbtn.Visible = false;
                         UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
                     case "全部訂單":
-                        Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders";
+                        Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders"; Addbtn.Visible = false;
                         OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
                     case "餐點詳細":
-                        Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info";
+                        Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info"; Addbtn.Visible = false;
                         InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
                     default:
-                        Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal";
+                        Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal"; Addbtn.Visible = true;
                         MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
                 }
                 Addbtn.Enabled = true;
@@ -288,7 +288,9 @@ namespace 便當
         {
             BoxEvent = false;
             ConfirmChangebtn.Enabled = false;
+            ConfirmChangebtn.Visible = false;
             EditBtn.Enabled = true;
+            ConfirmAddbtn.Visible = false;
             if (!MenuChange && MenuDataGridView.CurrentRow != null)
             {
                 switch (TableBox.Text)
@@ -393,14 +395,25 @@ namespace 便當
         }
         private void Addbtn_Click(object sender, EventArgs e)
         {
-
+            var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
+            panel.Enabled = true;
+            ConfirmAddbtn.Visible = true;
+            ConfirmAddbtn.Enabled = false;
+            foreach (TextBox Box in panel.Controls.OfType<TextBox>())
+            {
+                Box.Text = "";
+            }
+            int NewSeq = Convert.ToInt32(MenuDataGridView.Rows[MenuDataGridView.Rows.Count - 3].Cells["品項ID"].Value);
+            MealIDBox.Text = (NewSeq + 1).ToString();
+            ConfirmAddbtn.Enabled = true;
         }
         private void EditBtn_Click(object sender, EventArgs e)
         {
             var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
             panel.Enabled = true;
             BoxEvent = true;
-            EditBtn.Enabled = false;
+            EditBtn.Enabled = false; 
+            ConfirmChangebtn.Visible = true;
         }
         private void PanelControl(string NowPanelName)
         {
@@ -416,7 +429,7 @@ namespace 便當
         }
         private void ConfirmChangebtn_Click(object sender, EventArgs e)
         {
-            ConfirmChangebtn.Enabled = false;
+            ConfirmChangebtn.Visible = false;
             string PanelName = NowPanellbl.Text + "Panel";
             Panel panel = Controls.OfType<Panel>().FirstOrDefault(rs => rs.Name == PanelName);
             foreach (TextBox item in panel.Controls.OfType<TextBox>())
@@ -469,7 +482,7 @@ namespace 便當
                                 item = dateValue.ToString("yyyy-MM-dd"); 
                             ValueList.Add(item);
                         }
-                        CustomerID conn = new CustomerID();
+                        ConnectionWithParameter conn = new ConnectionWithParameter();
                         conn.UpdateConn(UpdateStr,ParaList,ValueList);
                         break;
                     }
@@ -484,7 +497,7 @@ namespace 便當
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             ValueList.Add(item);
                         }
-                        CustomerID conn = new CustomerID();
+                        ConnectionWithParameter conn = new ConnectionWithParameter();
                         conn.UpdateConn(UpdateStr, ParaList, ValueList);
                         break; 
                     }
@@ -505,7 +518,7 @@ namespace 便當
                                 item = dateValue.ToString("yyyy-MM-dd HH:mm");
                             ValueList.Add(item);
                         }
-                        CustomerID conn = new CustomerID();
+                        ConnectionWithParameter conn = new ConnectionWithParameter();
                         conn.UpdateConn(UpdateStr, ParaList, ValueList);
                         break; 
                     }
@@ -521,12 +534,34 @@ namespace 便當
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             ValueList.Add(item);
                         }
-                        CustomerID conn = new CustomerID();
+                        ConnectionWithParameter conn = new ConnectionWithParameter();
                         conn.UpdateConn(UpdateStr, ParaList, ValueList);
                         break; 
                     }
             }
 
+        }
+
+        private void ConfirmAddbtn_Click(object sender, EventArgs e)
+        {
+            string InsertStr = "Insert into Meals (MealID, MealName, PricePerMeal, Enabled) values" +
+                "(@MealID, @MealName, @PricePerMeal, @Enabled)";
+            List<string> ParaList = new List<string> { "@MealID", "@MealName", "@PricePerMeal", "@Enabled" };
+            bool Enable;
+            if (EnabledBox.Text == "啟用") Enable = true; else Enable = false;
+            List<string> ValueList = new List<string> { MealIDBox.Text, MealNameBox.Text, PricePerMealBox.Text ,Enable.ToString()};
+            ConnectionWithParameter conn = new ConnectionWithParameter();
+            conn.UpdateConn(InsertStr, ParaList, ValueList);
+            SQLconn MealConn = new SQLconn();
+            string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
+            DTbaseMeal = MealConn.conn(MealSelect);
+            Query(DTbaseMeal, "品項");
+        }
+
+        private void EnabledBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (EnabledBox.Text == "啟用") EnableColorlbl.BackColor = Color.LawnGreen;
+            else EnableColorlbl.BackColor = Color.IndianRed;
         }
     }
 }

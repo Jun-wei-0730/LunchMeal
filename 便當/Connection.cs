@@ -6,9 +6,9 @@ using System.Data.SqlClient;
 
 namespace 便當
 {
-    public class CustomerID
+    public class ConnectionWithParameter
     {
-        public List<string> ConnByParameter(string ID)
+        public List<string> CustomerIDConn(string ID)
         {
             List<string> ResultList = new List<string>();
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
@@ -49,10 +49,6 @@ namespace 便當
                 {
                     for (int j = 0; j < ParaList.Count; j++)
                     {
-                        
-                        Console.WriteLine(j);
-                        Console.WriteLine(ParaList[j]);
-                        Console.WriteLine(ValueList[j]);
                         cmd.Parameters.AddWithValue(ParaList[j], ValueList[j]);
                     }
                     Console.WriteLine(cmd);

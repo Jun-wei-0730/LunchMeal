@@ -409,8 +409,10 @@ namespace 便當
             BoxEvent = true;
             EditBtn.Enabled = false;
             ConfirmChangebtn.Visible = true;
-            UploadPanel.Visible = true;
-            UploadPanel.Enabled = true;
+            if (panel.Name == "MealPanel")
+            {UploadPanel.Visible = true;
+                UploadPanel.Enabled = true;
+            }
         }
         private void PanelControl(string NowPanelName)
         {

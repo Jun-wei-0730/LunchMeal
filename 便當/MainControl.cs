@@ -31,19 +31,7 @@ namespace 便當
             DoubleBuffered = true;
             TableBox.Text = "菜單";
             UserNameLabel.Text = "使用者 : " + User.UserName;
-            SQLconn MealConn = new SQLconn();
-            string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
-            DTbaseMeal = MealConn.conn(MealSelect);
-            SQLconn UserConn = new SQLconn();
-            string UserSelect = "select CustomerID as 帳號, CustomerName as 名字, Birth as 生日, Carrier as 載具, Admin as 權限 from Customers;";
-            DTbaseUser = UserConn.conn(UserSelect);
-            SQLconn OrderConn = new SQLconn();
-            string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 訂單總價, " +
-                "TableWare as 餐具,PlasticBag as 塑膠袋, GetMeal as 取餐方式, GetMealtime as 取餐時間, Note as 備註 from Orders inner join Customers on Orders.CustomerSeq = Customers.CustomerSeq;";
-            DTbaseOrders = OrderConn.conn(OrderSelect);
-            SQLconn InfoConn = new SQLconn();
-            string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
-            DTbaseInfo = InfoConn.conn(InfoSelect);
+            GetSQL();
             foreach (Panel panel in Controls.OfType<Panel>())
             {
                 foreach (Control control in panel.Controls)
@@ -228,16 +216,16 @@ namespace 便當
                 switch (TableBox.Text)
                 {
                     case "使用者":
-                        Query(DTbaseUser, "名字"); NowPanellbl.Text = "User"; Addbtn.Visible = false; UploadPanel.Visible = false;
+                        Query(DTbaseUser, "名字"); NowPanellbl.Text = "User"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = false;
                         UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                     case "全部訂單":
-                        Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders"; Addbtn.Visible = false; UploadPanel.Visible = false;
+                        Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = true;
                         OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                     case "餐點詳細":
-                        Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info"; Addbtn.Visible = false; UploadPanel.Visible = false;
+                        Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = false;
                         InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                     default:
-                        Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal"; Addbtn.Visible = true;
+                        Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal"; Addbtn.Visible = true; UploadPanel.Visible = true; DeleteThisOrderbtn.Visible = false;
                         MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                 }
                 Addbtn.Enabled = true;
@@ -494,7 +482,7 @@ namespace 便當
                             ValueList.Add(item);
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
-                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
                 case "MealPanel":
@@ -509,7 +497,7 @@ namespace 便當
                             ValueList.Add(item);
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
-                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
                 case "OrdersPanel":
@@ -530,7 +518,7 @@ namespace 便當
                             ValueList.Add(item);
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
-                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
                 case "InfoPanel":
@@ -546,7 +534,7 @@ namespace 便當
                             ValueList.Add(item);
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
-                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
             }
@@ -567,10 +555,9 @@ namespace 便當
             if (EnabledBox.Text == "啟用") Enable = true; else Enable = false;
             List<string> ValueList = new List<string> { MealIDBox.Text, MealNameBox.Text, PricePerMealBox.Text, Enable.ToString() };
             ConnectionWithParameter conn = new ConnectionWithParameter();
-            conn.UpdateConn(InsertStr, ParaList, ValueList);
+            conn.ParameterByList(InsertStr, ParaList, ValueList);
             SQLconn MealConn = new SQLconn();
-            string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
-            DTbaseMeal = MealConn.conn(MealSelect);
+            GetSQL();
             Query(DTbaseMeal, "品項");
 
         }
@@ -593,7 +580,39 @@ namespace 便當
 
         private void DeleteThisOrderbtn_Click(object sender, EventArgs e)
         {
-
+            var result = MessageBox.Show("刪除後無法復原！真的要刪除嗎？","警告",MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+            {
+                SQLconn conn = new SQLconn();
+                conn.BackupDB();
+                ConnectionWithParameter CWPconn = new ConnectionWithParameter();
+                string command = "Delete from OrderInfo where OrderID = @OrderID;";
+                List<string> Parameters = new List<string>{"@OrderID"};
+                string OrderID = OrderInfoIDBox.Text;
+                List<string> Values = new List<string>{OrderID};
+                CWPconn.ParameterByList(command, Parameters, Values);
+                command = "Delete from Orders where OrderID = @OrderID;";
+                CWPconn.ParameterByList(command,Parameters, Values);
+                MessageBox.Show("訂單已刪除");
+                GetSQL();
+                Query(DTbaseOrders, "訂餐者");
+            }
+        }
+        private void GetSQL()
+        {
+            SQLconn MealConn = new SQLconn();
+            string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
+            DTbaseMeal = MealConn.conn(MealSelect);
+            SQLconn UserConn = new SQLconn();
+            string UserSelect = "select CustomerID as 帳號, CustomerName as 名字, Birth as 生日, Carrier as 載具, Admin as 權限 from Customers;";
+            DTbaseUser = UserConn.conn(UserSelect);
+            SQLconn OrderConn = new SQLconn();
+            string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 訂單總價, " +
+                "TableWare as 餐具,PlasticBag as 塑膠袋, GetMeal as 取餐方式, GetMealtime as 取餐時間, Note as 備註 from Orders inner join Customers on Orders.CustomerSeq = Customers.CustomerSeq;";
+            DTbaseOrders = OrderConn.conn(OrderSelect);
+            SQLconn InfoConn = new SQLconn();
+            string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
+            DTbaseInfo = InfoConn.conn(InfoSelect);
         }
     }
 }

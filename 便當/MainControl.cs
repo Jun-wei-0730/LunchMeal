@@ -452,7 +452,7 @@ namespace 便當
             if (UploadDialog.FileName != null)
             {
                 string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
-                if (File.Exists(TargetPath)) 
+                if (File.Exists(TargetPath))
                     File.Copy(UploadDialog.FileName, TargetPath, true);
             }
             panel.Enabled = false;
@@ -547,7 +547,8 @@ namespace 便當
             if (UploadDialog.FileName != null)
             {
                 string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
-                File.Copy(UploadDialog.FileName, TargetPath, true);
+                if (File.Exists(TargetPath))
+                    File.Copy(UploadDialog.FileName, TargetPath, true);
             }
             string InsertStr = "Insert into Meals (MealID, MealName, PricePerMeal, Enabled) values" +
                 "(@MealID, @MealName, @PricePerMeal, @Enabled)";
@@ -597,7 +598,7 @@ namespace 便當
                 GetSQL();
                 Query(DTbaseOrders, "訂餐者");
             }
-            
+
         }
         private void GetSQL()
         {
@@ -618,25 +619,37 @@ namespace 便當
 
         private void DeleteThisMealbtn_Click(object sender, EventArgs e)
         {
-            string CheckCommand = "select MealName from Meals where MealID in (select MealID from OrderInfo) and MealID = @MealID;";
+            string CheckCommand = "select OrderID from OrderInfo where MealID in (select MealID from OrderInfo) and MealID = @MealID;";
             ConnectionWithParameter CWPconn = new ConnectionWithParameter();
             string MealID = MealIDBox.Text;
-            bool result = CWPconn.ParameterSelectByOne(CheckCommand, "@MealID", MealID);
-            if (result)  MessageBox.Show("此品項尚有訂單，請先刪除全部包含的訂單!");  
-            else 
+            var reader = CWPconn.ParameterSelectByOne(CheckCommand, "@MealID", MealID);
+            int result = reader.Count;
+            if (result != 0)
             {
-                var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
-                if (Warning == DialogResult.OK)
+                var rs = MessageBox.Show("此品項尚有訂單，要全部一起刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+                if (rs == DialogResult.OK)
                 {
-                    SQLconn conn = new SQLconn();
-                    conn.BackupDB();
-                    string command = "Delete from Meals where MealID = @MealID;";
-                    CWPconn.ParameterCommandByOne(command, "@MealID", MealID);
-                    MessageBox.Show("品項已刪除");
-                    GetSQL();
-                    Query(DTbaseMeal, "品項");
+                    var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+                    if (Warning == DialogResult.OK)
+                    {
+                        SQLconn conn = new SQLconn();
+                        conn.BackupDB();
+                        for (int i = 0; i < reader.Count; i++)
+                        {
+                            string OrderID = reader[i];
+                            string command = "Delete from OrderInfo where OrderID = @OrderID;";
+                            CWPconn.ParameterCommandByOne(command, "@OrderID", OrderID);
+                            command = "Delete from Orders where OrderID = @OrderID;";
+                            CWPconn.ParameterCommandByOne(command, "@OrderID", OrderID);
+                        }
+                        string DeleteCommand = "Delete from Meals where MealID = @MealID;";
+                        CWPconn.ParameterCommandByOne(DeleteCommand, "@MealID", MealID);
+                        MessageBox.Show("品項已刪除");
+                        GetSQL();
+                        Query(DTbaseMeal, "品項");
+                    }
+
                 }
-                
             }
         }
     }

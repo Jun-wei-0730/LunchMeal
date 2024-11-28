@@ -69,7 +69,7 @@ namespace 便當
                 }
             }
         }
-        public bool ParameterSelectByOne(string command, string Para, string Value)
+        public List<string> ParameterSelectByOne(string command, string Para, string Value)
         {
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connstr))
@@ -80,9 +80,15 @@ namespace 便當
                     cmd.Parameters.AddWithValue(Para,Value);
                     Console.WriteLine(command);
                     var reader =  cmd.ExecuteReader();
-                    bool result = reader.HasRows;
-                    Console.WriteLine(result);
-                    return result;
+                    List<string> ReadList = new List<string>();
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                            {Console.WriteLine(reader[i].ToString());
+                            ReadList.Add(reader.GetString(i));
+                        }
+                    }
+                    return ReadList;
                 }
             }
         }

@@ -44,7 +44,7 @@ namespace 便當
                 }
                 foreach (Button button in panel.Controls.OfType<Button>())
                 {
-                     button.Click += AllowSaveChange;
+                    button.Click += AllowSaveChange;
                 }
             }
         }
@@ -100,10 +100,8 @@ namespace 便當
                             MessageBox.Show("變更已儲存。");
                             this.Show();
                         }
-                        else
-                        {
-                            this.Show();
-                        }
+                        else this.Show();
+
                     }
                 }
                 connection.Close();
@@ -217,16 +215,16 @@ namespace 便當
                 {
                     case "使用者":
                         Query(DTbaseUser, "名字"); NowPanellbl.Text = "User"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = false;
-                        UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
+                        UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
                     case "全部訂單":
                         Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = true;
-                        OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
+                        OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
                     case "餐點詳細":
                         Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = false;
-                        InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
+                        InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
                     default:
                         Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal"; Addbtn.Visible = true; UploadPanel.Visible = true; DeleteThisOrderbtn.Visible = false;
-                        MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
+                        MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = true; break;
                 }
                 Addbtn.Enabled = true;
                 EditBtn.Enabled = true;
@@ -580,19 +578,17 @@ namespace 便當
 
         private void DeleteThisOrderbtn_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("刪除後無法復原！真的要刪除嗎？","警告",MessageBoxButtons.OKCancel);
+            var result = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
                 SQLconn conn = new SQLconn();
                 conn.BackupDB();
                 ConnectionWithParameter CWPconn = new ConnectionWithParameter();
                 string command = "Delete from OrderInfo where OrderID = @OrderID;";
-                List<string> Parameters = new List<string>{"@OrderID"};
                 string OrderID = OrderInfoIDBox.Text;
-                List<string> Values = new List<string>{OrderID};
-                CWPconn.ParameterByList(command, Parameters, Values);
+                CWPconn.ParameterSelectByOne(command, "@OrderID", OrderID);
                 command = "Delete from Orders where OrderID = @OrderID;";
-                CWPconn.ParameterByList(command,Parameters, Values);
+                CWPconn.ParameterSelectByOne(command, "@OrderID", OrderID);
                 MessageBox.Show("訂單已刪除");
                 GetSQL();
                 Query(DTbaseOrders, "訂餐者");
@@ -613,6 +609,29 @@ namespace 便當
             SQLconn InfoConn = new SQLconn();
             string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
             DTbaseInfo = InfoConn.conn(InfoSelect);
+        }
+
+        private void DeleteThisMealbtn_Click(object sender, EventArgs e)
+        {
+            string CheckCommand = "select MealName from Meals where MealID in (select MealID from OrderInfo) and MealID = @MealID;";
+            ConnectionWithParameter CWPconn = new ConnectionWithParameter();
+            string MealID = MealIDBox.Text;
+            bool result = CWPconn.ParameterSelectByOne(CheckCommand, "@MealID", MealID);
+            if (result)  MessageBox.Show("此品項尚有訂單，請先刪除全部包含的訂單!");  
+            else 
+            {
+                var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+                if (Warning == DialogResult.OK)
+                {
+                    SQLconn conn = new SQLconn();
+                    conn.BackupDB();
+                    string command = "Delete from Meals where MealID = @MealID;";
+                    CWPconn.ParameterSelectByOne(command, "@MealID", MealID);
+                    MessageBox.Show("品項已刪除");
+                    GetSQL();
+                    Query(DTbaseMeal, "品項");
+                }
+            }
         }
     }
 }

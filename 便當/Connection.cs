@@ -51,8 +51,24 @@ namespace 便當
                     {
                         cmd.Parameters.AddWithValue(ParaList[j], ValueList[j]);
                     }
-                    Console.WriteLine(cmd);
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public bool ParameterSelectByOne(string command, string Para, string Value)
+        {
+            string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(command, conn))
+                {
+                    cmd.Parameters.AddWithValue(Para,Value);
+                    Console.WriteLine(command);
+                    var reader =  cmd.ExecuteReader();
+                    bool result = reader.HasRows;
+                    Console.WriteLine(result);
+                    return result;
                 }
             }
         }

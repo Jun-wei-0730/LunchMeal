@@ -48,11 +48,15 @@ namespace 便當
             {
                 foreach (Control control in panel.Controls)
                 {
-                    control.TextChanged += BoxTextChanged;
+                    control.TextChanged += AllowSaveChange;
                 }
                 foreach (CheckBox box in panel.Controls.OfType<CheckBox>())
                 {
-                    box.CheckedChanged += Box_CheckedChanged;
+                    box.CheckedChanged += AllowSaveChange;
+                }
+                foreach (Button button in panel.Controls.OfType<Button>())
+                {
+                     button.Click += AllowSaveChange;
                 }
             }
         }
@@ -457,17 +461,17 @@ namespace 便當
                 GetText(name, panel);
                 Update(panel);
             }
+            if (UploadDialog.FileName != null)
+            {
+                string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
+                File.Copy(UploadDialog.FileName, TargetPath, true);
+            }
             panel.Enabled = false;
             EditBtn.Enabled = true;
             MessageBox.Show("更改已保存！");
         }
 
-        private void BoxTextChanged(object sender, EventArgs e)
-        {
-            if (BoxEvent)
-                ConfirmChangebtn.Enabled = true;
-        }
-        private void Box_CheckedChanged(object sender, EventArgs e)
+        private void AllowSaveChange(object sender, EventArgs e)
         {
             if (BoxEvent)
                 ConfirmChangebtn.Enabled = true;
@@ -579,11 +583,17 @@ namespace 便當
 
         private void Uploadbtn_Click(object sender, EventArgs e)
         {
+            UploadDialog.AddExtension = true;
             UploadDialog.Filter = "Image Files(*.PNG;*.JPG;*)|*.PNG;*.JPG;*|All files (*.*)|*.*";
             if (UploadDialog.ShowDialog() == DialogResult.OK && UploadDialog.FileName != null)
             {
                 UploadBox.ImageLocation = UploadDialog.FileName;
             }
+        }
+
+        private void DeleteThisOrderbtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

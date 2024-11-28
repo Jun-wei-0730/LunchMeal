@@ -5,9 +5,9 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.IO;
 
 namespace 便當
 {
@@ -50,14 +50,12 @@ namespace 便當
                 {
                     control.TextChanged += BoxTextChanged;
                 }
-                foreach(CheckBox box in panel.Controls.OfType<CheckBox>())
+                foreach (CheckBox box in panel.Controls.OfType<CheckBox>())
                 {
                     box.CheckedChanged += Box_CheckedChanged;
                 }
             }
         }
-
-
 
         private void ChangeUpload_Click(object sender, EventArgs e)
         {
@@ -138,7 +136,7 @@ namespace 便當
             }
             else
             {
-                if (MessageBox.Show("還有更改未保存，確定要關閉嗎？", "警告", MessageBoxButtons.OKCancel, 
+                if (MessageBox.Show("還有更改未保存，確定要關閉嗎？", "警告", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning) == DialogResult.OK)
                 {
 
@@ -151,7 +149,7 @@ namespace 便當
                 else
                 {
                     e.Cancel = true;
-                }    
+                }
             }
         }
         private void SortID()
@@ -419,9 +417,9 @@ namespace 便當
             var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
             panel.Enabled = true;
             BoxEvent = true;
-            EditBtn.Enabled = false; 
+            EditBtn.Enabled = false;
             ConfirmChangebtn.Visible = true;
-            UploadPanel.Visible= true;
+            UploadPanel.Visible = true;
             UploadPanel.Enabled = true;
         }
         private void PanelControl(string NowPanelName)
@@ -466,7 +464,7 @@ namespace 便當
 
         private void BoxTextChanged(object sender, EventArgs e)
         {
-            if(BoxEvent) 
+            if (BoxEvent)
                 ConfirmChangebtn.Enabled = true;
         }
         private void Box_CheckedChanged(object sender, EventArgs e)
@@ -478,21 +476,21 @@ namespace 便當
         {
             switch (panel.Name)
             {
-                case "UserPanel": 
+                case "UserPanel":
                     {
                         string UpdateStr = "Update Customers set CustomerName = @CustomerName" +
                             ",Birth = @Birth,Carrier = @Carrier,Admin = @Admin where CustomerID = @CustomerID";
-                        List<string> ParaList = new List<string> { "@CustomerID", "@CustomerName", "@Birth", "@Carrier", "@Admin"};
+                        List<string> ParaList = new List<string> { "@CustomerID", "@CustomerName", "@Birth", "@Carrier", "@Admin" };
                         List<string> ValueList = new List<string>();
-                        for(int i = 0; i < MenuDataGridView.Columns.Count;i++)
+                        for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             if (DateTime.TryParse(item, out DateTime dateValue))
-                                item = dateValue.ToString("yyyy-MM-dd"); 
+                                item = dateValue.ToString("yyyy-MM-dd");
                             ValueList.Add(item);
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
-                        conn.UpdateConn(UpdateStr,ParaList,ValueList);
+                        conn.UpdateConn(UpdateStr, ParaList, ValueList);
                         break;
                     }
                 case "MealPanel":
@@ -508,7 +506,7 @@ namespace 便當
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
                         conn.UpdateConn(UpdateStr, ParaList, ValueList);
-                        break; 
+                        break;
                     }
                 case "OrdersPanel":
                     {
@@ -517,7 +515,7 @@ namespace 便當
                             "Update Orders set CustomerSeq = @CustomerSeq, OrderTime = @OrderTime, OrderPrice = @OrderPrice" +
                             ",TableWare = @TableWare, PlasticBag = @PlasticBag, GetMeal = @GetMeal , GetMealTime = @GetMealTime" +
                             ",note = @note where OrderID = @OrderID";
-                        List<string> ParaList = new List<string> { "@OrderID", "@CustomerName", "@OrderTime", "@OrderPrice", "@TableWare", "@PlasticBag", "@GetMeal" , "@GetMealTime", "@note" };
+                        List<string> ParaList = new List<string> { "@OrderID", "@CustomerName", "@OrderTime", "@OrderPrice", "@TableWare", "@PlasticBag", "@GetMeal", "@GetMealTime", "@note" };
                         List<string> ValueList = new List<string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
@@ -529,14 +527,14 @@ namespace 便當
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
                         conn.UpdateConn(UpdateStr, ParaList, ValueList);
-                        break; 
+                        break;
                     }
                 case "InfoPanel":
                     {
                         string UpdateStr = "declare @MealID int;" +
                             "select @MealID = MealID from Meals where MealName = @MealName;" +
                             "Update OrderInfo set MealCount = @MealCount where MealID = @MealID and OrderID = @OrderID";
-                        List<string> ParaList = new List<string> { "@OrderID","@MealName", "@MealCount"};
+                        List<string> ParaList = new List<string> { "@OrderID", "@MealName", "@MealCount" };
                         List<string> ValueList = new List<string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
@@ -545,7 +543,7 @@ namespace 便當
                         }
                         ConnectionWithParameter conn = new ConnectionWithParameter();
                         conn.UpdateConn(UpdateStr, ParaList, ValueList);
-                        break; 
+                        break;
                     }
             }
 
@@ -563,14 +561,14 @@ namespace 便當
             List<string> ParaList = new List<string> { "@MealID", "@MealName", "@PricePerMeal", "@Enabled" };
             bool Enable;
             if (EnabledBox.Text == "啟用") Enable = true; else Enable = false;
-            List<string> ValueList = new List<string> { MealIDBox.Text, MealNameBox.Text, PricePerMealBox.Text ,Enable.ToString()};
+            List<string> ValueList = new List<string> { MealIDBox.Text, MealNameBox.Text, PricePerMealBox.Text, Enable.ToString() };
             ConnectionWithParameter conn = new ConnectionWithParameter();
             conn.UpdateConn(InsertStr, ParaList, ValueList);
             SQLconn MealConn = new SQLconn();
             string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
             DTbaseMeal = MealConn.conn(MealSelect);
             Query(DTbaseMeal, "品項");
-            
+
         }
 
         private void EnabledBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -581,12 +579,10 @@ namespace 便當
 
         private void Uploadbtn_Click(object sender, EventArgs e)
         {
-            UploadDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*";
+            UploadDialog.Filter = "Image Files(*.PNG;*.JPG;*)|*.PNG;*.JPG;*|All files (*.*)|*.*";
             if (UploadDialog.ShowDialog() == DialogResult.OK && UploadDialog.FileName != null)
             {
                 UploadBox.ImageLocation = UploadDialog.FileName;
-                string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
-                File.Copy(UploadDialog.FileName, TargetPath, true);
             }
         }
     }

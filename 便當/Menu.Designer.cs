@@ -514,6 +514,7 @@
             this.DrinkCount_button.TabIndex = 63;
             this.DrinkCount_button.Text = "飲料數量與便當一致";
             this.DrinkCount_button.UseVisualStyleBackColor = true;
+            this.DrinkCount_button.Visible = false;
             this.DrinkCount_button.Click += new System.EventHandler(this.DrinkCount_button_Click);
             // 
             // Menu

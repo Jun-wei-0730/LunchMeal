@@ -39,7 +39,7 @@ namespace 便當
                 }
             }
         }
-        public void UpdateConn(string command ,List<string> ParaList,List<string> ValueList)
+        public void UpdateConn(string command, List<string> ParaList, List<string> ValueList)
         {
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connstr))

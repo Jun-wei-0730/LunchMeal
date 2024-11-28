@@ -32,7 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuDataGridView = new System.Windows.Forms.DataGridView();
             this.ChangeUpload = new System.Windows.Forms.Button();
-            this.DeleteRowBtn = new System.Windows.Forms.Button();
             this.Logout1 = new System.Windows.Forms.Label();
             this.UserNameLabel = new System.Windows.Forms.Label();
             this.MealIDBox = new System.Windows.Forms.TextBox();
@@ -147,17 +146,6 @@
             this.ChangeUpload.UseVisualStyleBackColor = true;
             this.ChangeUpload.Visible = false;
             this.ChangeUpload.Click += new System.EventHandler(this.ChangeUpload_Click);
-            // 
-            // DeleteRowBtn
-            // 
-            this.DeleteRowBtn.Location = new System.Drawing.Point(124, 404);
-            this.DeleteRowBtn.Name = "DeleteRowBtn";
-            this.DeleteRowBtn.Size = new System.Drawing.Size(75, 23);
-            this.DeleteRowBtn.TabIndex = 4;
-            this.DeleteRowBtn.Text = "刪除資料";
-            this.DeleteRowBtn.UseVisualStyleBackColor = true;
-            this.DeleteRowBtn.Visible = false;
-            this.DeleteRowBtn.Click += new System.EventHandler(this.DeleteRowBtn_Click);
             // 
             // Logout1
             // 
@@ -785,10 +773,11 @@
             // 
             // UploadBox
             // 
+            this.UploadBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.UploadBox.Enabled = false;
             this.UploadBox.Location = new System.Drawing.Point(5, 6);
             this.UploadBox.Name = "UploadBox";
-            this.UploadBox.Size = new System.Drawing.Size(184, 81);
+            this.UploadBox.Size = new System.Drawing.Size(184, 104);
             this.UploadBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.UploadBox.TabIndex = 30;
             this.UploadBox.TabStop = false;
@@ -810,7 +799,7 @@
             this.UploadPanel.Controls.Add(this.Uploadbtn);
             this.UploadPanel.Location = new System.Drawing.Point(551, 241);
             this.UploadPanel.Name = "UploadPanel";
-            this.UploadPanel.Size = new System.Drawing.Size(243, 92);
+            this.UploadPanel.Size = new System.Drawing.Size(247, 115);
             this.UploadPanel.TabIndex = 32;
             this.UploadPanel.Visible = false;
             // 
@@ -838,7 +827,6 @@
             this.Controls.Add(this.Addbtn);
             this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.Logout1);
-            this.Controls.Add(this.DeleteRowBtn);
             this.Controls.Add(this.ChangeUpload);
             this.Controls.Add(this.MealPanel);
             this.Controls.Add(this.MenuDataGridView);
@@ -867,7 +855,6 @@
 
         private System.Windows.Forms.DataGridView MenuDataGridView;
         private System.Windows.Forms.Button ChangeUpload;
-        private System.Windows.Forms.Button DeleteRowBtn;
         private System.Windows.Forms.Label Logout1;
         private System.Windows.Forms.Label UserNameLabel;
         private System.Windows.Forms.TextBox MealIDBox;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.IO;
 
 namespace 便當
 {
@@ -71,6 +71,7 @@ namespace 便當
 
         private void BeginOrderButton_Click(object sender, EventArgs e)
         {
+            DrinkCount();
             OrderInfo order = new OrderInfo();
             GetOrder();
             if (OrderResult.Items.Count != 0)
@@ -236,7 +237,7 @@ namespace 便當
             foreach (string img in ImageList)
             {
                 result = Location + img;
-                if (File.Exists(Location+img)) break; 
+                if (File.Exists(Location + img)) break;
             }
             return result;
         }
@@ -291,6 +292,27 @@ namespace 便當
             {
                 int MenuNum = (Convert.ToInt32(page.Text) - 1) * 9;
                 表單數量控制(菜單[NUDnum + MenuNum].便當名稱, NUD.Value);
+            }
+        }
+        public void DrinkCount()
+        {
+            var item = OrderResult.Items.OfType<ListViewItem>();
+            int Drink_count = 0;
+            foreach (var i in item)
+            {
+                String Order_name = i.SubItems[0].Text;
+                int Order_count = Convert.ToInt32(i.SubItems[1].Text);
+                if (Order_name != "白飯" && Order_name != "飲料")
+                    Drink_count += Order_count;
+            }
+            var Drink = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(rs => rs.SubItems[0].Text == "飲料");
+            if (Drink != null)
+                Drink.SubItems[1].Text = Drink_count.ToString();
+            else
+            {
+                Drink = new ListViewItem("飲料");
+                Drink.SubItems.Add(Drink_count.ToString());
+                OrderResult.Items.Add(Drink);
             }
         }
     }

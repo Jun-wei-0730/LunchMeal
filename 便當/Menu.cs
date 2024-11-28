@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
 
 namespace 便當
 {
@@ -224,13 +225,20 @@ namespace 便當
         {
             string Key = "";
             if (lbl_Text == "白飯")
-                Key = "Rice";
+                Key = "998";
             else if (lbl_Text == "飲料")
-                Key = "BlackTea";
+                Key = "999";
             else
                 Key = num.ToString();
-            string Location = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{Key}.jpg";
-            return Location;
+            string Location = $"C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic\\{Key}";
+            List<string> ImageList = new List<string> { ".jpg", ".png" };
+            string result = "";
+            foreach (string img in ImageList)
+            {
+                result = Location + img;
+                if (File.Exists(Location+img)) break; 
+            }
+            return result;
         }
 
         private void PageMenuGet(int page)

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
 
 namespace 便當
 {
@@ -27,6 +28,7 @@ namespace 便當
         }
         private void MainControl_Load(object sender, EventArgs e)
         {
+            DoubleBuffered = true;
             TableBox.Text = "菜單";
             UserNameLabel.Text = "使用者 : " + User.UserName;
             SQLconn MealConn = new SQLconn();
@@ -224,17 +226,17 @@ namespace 便當
                 switch (TableBox.Text)
                 {
                     case "使用者":
-                        Query(DTbaseUser, "名字"); NowPanellbl.Text = "User"; Addbtn.Visible = false;
-                        UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
+                        Query(DTbaseUser, "名字"); NowPanellbl.Text = "User"; Addbtn.Visible = false; UploadPanel.Visible = false;
+                        UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                     case "全部訂單":
-                        Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders"; Addbtn.Visible = false;
-                        OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
+                        Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders"; Addbtn.Visible = false; UploadPanel.Visible = false;
+                        OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                     case "餐點詳細":
-                        Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info"; Addbtn.Visible = false;
-                        InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
+                        Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info"; Addbtn.Visible = false; UploadPanel.Visible = false;
+                        InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                     default:
                         Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal"; Addbtn.Visible = true;
-                        MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); break;
+                        MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; break;
                 }
                 Addbtn.Enabled = true;
                 EditBtn.Enabled = true;
@@ -291,6 +293,7 @@ namespace 便當
             ConfirmChangebtn.Visible = false;
             EditBtn.Enabled = true;
             ConfirmAddbtn.Visible = false;
+            UploadPanel.Visible = false;
             if (!MenuChange && MenuDataGridView.CurrentRow != null)
             {
                 switch (TableBox.Text)
@@ -406,6 +409,10 @@ namespace 便當
             int NewSeq = Convert.ToInt32(MenuDataGridView.Rows[MenuDataGridView.Rows.Count - 3].Cells["品項ID"].Value);
             MealIDBox.Text = (NewSeq + 1).ToString();
             ConfirmAddbtn.Enabled = true;
+            UploadPanel.Visible = true;
+            UploadPanel.Enabled = true;
+            Uploadbtn.Enabled = true;
+            UploadBox.Visible = true;
         }
         private void EditBtn_Click(object sender, EventArgs e)
         {
@@ -414,6 +421,8 @@ namespace 便當
             BoxEvent = true;
             EditBtn.Enabled = false; 
             ConfirmChangebtn.Visible = true;
+            UploadPanel.Visible= true;
+            UploadPanel.Enabled = true;
         }
         private void PanelControl(string NowPanelName)
         {
@@ -436,19 +445,19 @@ namespace 便當
             {
                 string name = item.Name.Substring(0, item.Name.Length - 3);
                 GetText(name, panel);
-                Update(name, panel);
+                Update(panel);
             }
             foreach (ComboBox item in panel.Controls.OfType<ComboBox>())
             {
                 string name = item.Name.Substring(0, item.Name.Length - 3);
                 GetText(name, panel);
-                Update(name, panel);
+                Update(panel);
             }
             foreach (CheckBox item in panel.Controls.OfType<CheckBox>())
             {
                 string name = item.Name.Substring(0, item.Name.Length - 3);
                 GetText(name, panel);
-                Update(name, panel);
+                Update(panel);
             }
             panel.Enabled = false;
             EditBtn.Enabled = true;
@@ -465,7 +474,7 @@ namespace 便當
             if (BoxEvent)
                 ConfirmChangebtn.Enabled = true;
         }
-        private void Update(string name , Panel panel)
+        private void Update(Panel panel)
         {
             switch (panel.Name)
             {
@@ -544,6 +553,11 @@ namespace 便當
 
         private void ConfirmAddbtn_Click(object sender, EventArgs e)
         {
+            if (UploadDialog.FileName != null)
+            {
+                string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
+                File.Copy(UploadDialog.FileName, TargetPath, true);
+            }
             string InsertStr = "Insert into Meals (MealID, MealName, PricePerMeal, Enabled) values" +
                 "(@MealID, @MealName, @PricePerMeal, @Enabled)";
             List<string> ParaList = new List<string> { "@MealID", "@MealName", "@PricePerMeal", "@Enabled" };
@@ -556,12 +570,24 @@ namespace 便當
             string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
             DTbaseMeal = MealConn.conn(MealSelect);
             Query(DTbaseMeal, "品項");
+            
         }
 
         private void EnabledBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (EnabledBox.Text == "啟用") EnableColorlbl.BackColor = Color.LawnGreen;
             else EnableColorlbl.BackColor = Color.IndianRed;
+        }
+
+        private void Uploadbtn_Click(object sender, EventArgs e)
+        {
+            UploadDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*";
+            if (UploadDialog.ShowDialog() == DialogResult.OK && UploadDialog.FileName != null)
+            {
+                UploadBox.ImageLocation = UploadDialog.FileName;
+                string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
+                File.Copy(UploadDialog.FileName, TargetPath, true);
+            }
         }
     }
 }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuDataGridView = new System.Windows.Forms.DataGridView();
             this.ChangeUpload = new System.Windows.Forms.Button();
             this.DeleteRowBtn = new System.Windows.Forms.Button();
@@ -90,11 +90,17 @@
             this.NowPanellbl = new System.Windows.Forms.Label();
             this.ConfirmChangebtn = new System.Windows.Forms.Button();
             this.ConfirmAddbtn = new System.Windows.Forms.Button();
+            this.UploadBox = new System.Windows.Forms.PictureBox();
+            this.Uploadbtn = new System.Windows.Forms.Button();
+            this.UploadPanel = new System.Windows.Forms.Panel();
+            this.UploadDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).BeginInit();
             this.MealPanel.SuspendLayout();
             this.UserPanel.SuspendLayout();
             this.OrdersPanel.SuspendLayout();
             this.InfoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UploadBox)).BeginInit();
+            this.UploadPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuDataGridView
@@ -105,23 +111,23 @@
             this.MenuDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.MenuDataGridView.BackgroundColor = System.Drawing.Color.Teal;
             this.MenuDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.MenuDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.MenuDataGridView.Location = new System.Drawing.Point(12, 65);
             this.MenuDataGridView.Name = "MenuDataGridView";
             this.MenuDataGridView.ReadOnly = true;
@@ -144,12 +150,13 @@
             // 
             // DeleteRowBtn
             // 
-            this.DeleteRowBtn.Location = new System.Drawing.Point(17, 36);
+            this.DeleteRowBtn.Location = new System.Drawing.Point(124, 404);
             this.DeleteRowBtn.Name = "DeleteRowBtn";
             this.DeleteRowBtn.Size = new System.Drawing.Size(75, 23);
             this.DeleteRowBtn.TabIndex = 4;
             this.DeleteRowBtn.Text = "刪除資料";
             this.DeleteRowBtn.UseVisualStyleBackColor = true;
+            this.DeleteRowBtn.Visible = false;
             this.DeleteRowBtn.Click += new System.EventHandler(this.DeleteRowBtn_Click);
             // 
             // Logout1
@@ -286,6 +293,7 @@
             this.EditBtn.TabIndex = 18;
             this.EditBtn.Text = "修改";
             this.EditBtn.UseVisualStyleBackColor = true;
+            this.EditBtn.Visible = false;
             this.EditBtn.Click += new System.EventHandler(this.EditBtn_Click);
             // 
             // Menubtn
@@ -301,7 +309,7 @@
             // NameSearchBox
             // 
             this.NameSearchBox.ForeColor = System.Drawing.Color.Silver;
-            this.NameSearchBox.Location = new System.Drawing.Point(225, 36);
+            this.NameSearchBox.Location = new System.Drawing.Point(139, 35);
             this.NameSearchBox.Name = "NameSearchBox";
             this.NameSearchBox.Size = new System.Drawing.Size(151, 22);
             this.NameSearchBox.TabIndex = 21;
@@ -319,7 +327,7 @@
             "菜單",
             "全部訂單",
             "餐點詳細"});
-            this.TableBox.Location = new System.Drawing.Point(98, 36);
+            this.TableBox.Location = new System.Drawing.Point(12, 36);
             this.TableBox.Name = "TableBox";
             this.TableBox.Size = new System.Drawing.Size(121, 21);
             this.TableBox.TabIndex = 22;
@@ -338,7 +346,7 @@
             this.MealPanel.Controls.Add(this.Enabledlbl);
             this.MealPanel.Controls.Add(this.PricePerMeallbl);
             this.MealPanel.Enabled = false;
-            this.MealPanel.Location = new System.Drawing.Point(551, 134);
+            this.MealPanel.Location = new System.Drawing.Point(551, 65);
             this.MealPanel.Name = "MealPanel";
             this.MealPanel.Size = new System.Drawing.Size(247, 170);
             this.MealPanel.TabIndex = 23;
@@ -775,12 +783,48 @@
             this.ConfirmAddbtn.Visible = false;
             this.ConfirmAddbtn.Click += new System.EventHandler(this.ConfirmAddbtn_Click);
             // 
+            // UploadBox
+            // 
+            this.UploadBox.Enabled = false;
+            this.UploadBox.Location = new System.Drawing.Point(5, 6);
+            this.UploadBox.Name = "UploadBox";
+            this.UploadBox.Size = new System.Drawing.Size(184, 81);
+            this.UploadBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.UploadBox.TabIndex = 30;
+            this.UploadBox.TabStop = false;
+            this.UploadBox.WaitOnLoad = true;
+            // 
+            // Uploadbtn
+            // 
+            this.Uploadbtn.Location = new System.Drawing.Point(195, 6);
+            this.Uploadbtn.Name = "Uploadbtn";
+            this.Uploadbtn.Size = new System.Drawing.Size(44, 24);
+            this.Uploadbtn.TabIndex = 31;
+            this.Uploadbtn.Text = "瀏覽";
+            this.Uploadbtn.UseVisualStyleBackColor = true;
+            this.Uploadbtn.Click += new System.EventHandler(this.Uploadbtn_Click);
+            // 
+            // UploadPanel
+            // 
+            this.UploadPanel.Controls.Add(this.UploadBox);
+            this.UploadPanel.Controls.Add(this.Uploadbtn);
+            this.UploadPanel.Location = new System.Drawing.Point(551, 241);
+            this.UploadPanel.Name = "UploadPanel";
+            this.UploadPanel.Size = new System.Drawing.Size(243, 92);
+            this.UploadPanel.TabIndex = 32;
+            this.UploadPanel.Visible = false;
+            // 
+            // UploadDialog
+            // 
+            this.UploadDialog.FileName = "openFileDialog1";
+            // 
             // MainControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.UploadPanel);
             this.Controls.Add(this.ConfirmAddbtn);
             this.Controls.Add(this.ConfirmChangebtn);
             this.Controls.Add(this.NowPanellbl);
@@ -812,6 +856,8 @@
             this.OrdersPanel.PerformLayout();
             this.InfoPanel.ResumeLayout(false);
             this.InfoPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UploadBox)).EndInit();
+            this.UploadPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -879,5 +925,9 @@
         private System.Windows.Forms.Button ConfirmChangebtn;
         private System.Windows.Forms.ComboBox AdminBox;
         private System.Windows.Forms.Button ConfirmAddbtn;
+        private System.Windows.Forms.PictureBox UploadBox;
+        private System.Windows.Forms.Button Uploadbtn;
+        private System.Windows.Forms.Panel UploadPanel;
+        private System.Windows.Forms.OpenFileDialog UploadDialog;
     }
 }

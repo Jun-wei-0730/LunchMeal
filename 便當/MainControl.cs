@@ -289,7 +289,7 @@ namespace 便當
             BoxEvent = false;
             ConfirmChangebtn.Enabled = false;
             EditBtn.Enabled = true;
-            if (!MenuChange)
+            if (!MenuChange && MenuDataGridView.CurrentRow != null)
             {
                 switch (TableBox.Text)
                 {
@@ -350,7 +350,7 @@ namespace 便當
             string lblName = Name + "lbl";
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
             var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
-            if (lbl != null && Box != null)
+            if (lbl != null && Box != null && MenuDataGridView.CurrentRow != null)
                 Box.Text = MenuDataGridView.CurrentRow.Cells[lbl.Text].Value.ToString().Trim();
             if (DateTime.TryParse(Box.Text, out DateTime dateValue))
             {
@@ -368,6 +368,7 @@ namespace 便當
             string lblName = Name + "lbl";
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
             var Combo = panel.Controls.OfType<ComboBox>().FirstOrDefault(rs => rs.Name == BoxName);
+            var Check = panel.Controls.OfType<CheckBox>().FirstOrDefault(rs => rs.Name == BoxName);
             var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
             if (lbl != null && Box != null)
                 MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = Box.Text;
@@ -387,6 +388,8 @@ namespace 便當
                         MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = Combo.Text; break;
                 }
             }
+            if (lbl != null && Check != null)
+                MenuDataGridView.CurrentRow.Cells[lbl.Text].Value = Check.Checked;
         }
         private void Addbtn_Click(object sender, EventArgs e)
         {
@@ -428,6 +431,12 @@ namespace 便當
                 GetText(name, panel);
                 Update(name, panel);
             }
+            foreach (CheckBox item in panel.Controls.OfType<CheckBox>())
+            {
+                string name = item.Name.Substring(0, item.Name.Length - 3);
+                GetText(name, panel);
+                Update(name, panel);
+            }
             panel.Enabled = false;
             EditBtn.Enabled = true;
             MessageBox.Show("更改已保存！");
@@ -445,12 +454,6 @@ namespace 便當
         }
         private void Update(string name , Panel panel)
         {
-            var row = MenuDataGridView.CurrentRow;
-            string BoxName = Name + "Box";
-            string lblName = Name + "lbl";
-            var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
-            var Combo = panel.Controls.OfType<ComboBox>().FirstOrDefault(rs => rs.Name == BoxName);
-            var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
             switch (panel.Name)
             {
                 case "UserPanel": 
@@ -497,6 +500,7 @@ namespace 便當
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
+                            Console.WriteLine(item);
                             if (DateTime.TryParse(item, out DateTime dateValue))
                                 item = dateValue.ToString("yyyy-MM-dd HH:mm");
                             ValueList.Add(item);

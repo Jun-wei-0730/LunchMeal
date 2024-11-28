@@ -582,6 +582,14 @@ namespace 便當
 
                 }
             }
+            else
+            {
+                string DeleteCommand = "Delete from Meals where MealID = @MealID;";
+                CWPconn.ParameterCommandByOne(DeleteCommand, "@MealID", MealID);
+                MessageBox.Show("品項已刪除");
+                GetSQL();
+                Query(DTbaseMeal, "品項");
+            }
         }
     }
 }

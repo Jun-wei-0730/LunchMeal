@@ -518,6 +518,7 @@
             // 
             // CustomerNameBox
             // 
+            this.CustomerNameBox.Enabled = false;
             this.CustomerNameBox.Location = new System.Drawing.Point(80, 48);
             this.CustomerNameBox.Name = "CustomerNameBox";
             this.CustomerNameBox.Size = new System.Drawing.Size(157, 22);
@@ -683,6 +684,7 @@
             // 
             // MealNameInfoBox
             // 
+            this.MealNameInfoBox.Enabled = false;
             this.MealNameInfoBox.Location = new System.Drawing.Point(94, 40);
             this.MealNameInfoBox.Name = "MealNameInfoBox";
             this.MealNameInfoBox.Size = new System.Drawing.Size(149, 22);

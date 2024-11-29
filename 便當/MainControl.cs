@@ -388,6 +388,7 @@ namespace 便當
             }
             panel.Enabled = false;
             EditBtn.Enabled = true;
+            GetSQL();
             MessageBox.Show("更改已保存！");
         }
 
@@ -584,11 +585,15 @@ namespace 便當
             }
             else
             {
-                string DeleteCommand = "Delete from Meals where MealID = @MealID;";
-                CWPconn.ParameterCommandByOne(DeleteCommand, "@MealID", MealID);
-                MessageBox.Show("品項已刪除");
-                GetSQL();
-                Query(DTbaseMeal, "品項");
+                var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+                if (Warning == DialogResult.OK)
+                {
+                    string DeleteCommand = "Delete from Meals where MealID = @MealID;";
+                    CWPconn.ParameterCommandByOne(DeleteCommand, "@MealID", MealID);
+                    MessageBox.Show("品項已刪除");
+                    GetSQL();
+                    Query(DTbaseMeal, "品項");
+                }
             }
         }
     }

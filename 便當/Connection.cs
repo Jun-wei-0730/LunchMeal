@@ -19,7 +19,8 @@ namespace 便當
                 {
                     cmd.Parameters.AddWithValue("@ID", ID);
                     SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
+                    if (!reader.HasRows) return null;
+                    else
                     {
                         while (reader.Read())
                         {
@@ -28,13 +29,7 @@ namespace 便當
                                 ResultList.Add(reader.GetValue(i).ToString());
                             }
                         }
-                        // conn.Close();
                         return ResultList;
-                    }
-                    else
-                    {
-                        // conn.Close();
-                        return null;
                     }
                 }
             }
@@ -116,7 +111,7 @@ namespace 便當
                 Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(command, conn))
                 {
-                    commandobj.ExecuteNonQuery();  // 執行 SQL 命令
+                    commandobj.ExecuteNonQuery();  // 執行 SQL 命令 
                     Console.WriteLine("執行成功");
                 }
                 conn.Close();
@@ -141,23 +136,5 @@ namespace 便當
                 Console.WriteLine("關閉連線");
             }
         }
-        public void CleanTable(string ParentTable, string ChildTable, string ID)
-        {
-            string CleanupCommand = $"DELETE FROM {ParentTable} WHERE {ID} NOT IN (SELECT DISTINCT {ID} FROM {ChildTable});";
-            using (SqlConnection conn = new SqlConnection(connstr))
-            {
-                conn.Open();
-                Console.WriteLine("已連線");
-                using (SqlCommand commandobj = new SqlCommand(CleanupCommand, conn))
-                {
-                    commandobj.ExecuteNonQuery();
-                    Console.WriteLine("執行成功");
-                }
-                conn.Close();
-                Console.WriteLine("關閉連線");
-            }
-
-        }
-
     }
 }

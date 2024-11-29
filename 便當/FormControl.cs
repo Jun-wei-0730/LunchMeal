@@ -13,10 +13,7 @@ namespace 便當
                 string caption = "關閉提醒";
                 var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
-                if (result == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
+                if (result == DialogResult.No) e.Cancel = true;
             }
         }
     }

@@ -121,7 +121,9 @@ namespace 便當
 
         private void NameSearchBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode != Keys.Enter) 
+                return;
+            else
             {
                 switch (TableBox.Text)
                 {
@@ -194,7 +196,9 @@ namespace 便當
             EditBtn.Enabled = true;
             ConfirmAddbtn.Visible = false;
             UploadPanel.Visible = false;
-            if (!MenuChange && MenuDataGridView.CurrentRow != null)
+            if (MenuChange || MenuDataGridView.CurrentRow == null) 
+                MenuChange = false;
+            else
             {
                 switch (TableBox.Text)
                 {
@@ -245,7 +249,6 @@ namespace 便當
                         break;
                 }
             }
-            else MenuChange = false;
         }
         private void SetText(string Name, Panel panel)
         {
@@ -259,8 +262,7 @@ namespace 便當
             {
                 if (panel == UserPanel)
                     Box.Text = dateValue.ToString("yyyy-MM-dd").Trim();
-                else
-                    if (BoxName == "OrderTimeBox")
+                else if (BoxName == "OrderTimeBox")
                     Box.Text = dateValue.ToString("yyyy-MM-dd HH:mm").Trim();
                 else Box.Text = dateValue.ToString("HH:mm").Trim();
             }
@@ -537,7 +539,19 @@ namespace 便當
             string MealID = MealIDBox.Text;
             var reader = CWPconn.ParameterSelectByOne(CheckCommand, "@MealID", MealID);
             int result = reader.Count;
-            if (result != 0)
+            if (result == 0)
+            {
+                var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+                if (Warning == DialogResult.OK)
+                {
+                    string DeleteCommand = "Delete from Meals where MealID = @MealID;";
+                    CWPconn.ParameterCommandByOne(DeleteCommand, "@MealID", MealID);
+                    MessageBox.Show("品項已刪除");
+                    GetSQL();
+                    Query(DTbaseMeal, "品項");
+                }
+            }
+            else
             {
                 var rs = MessageBox.Show("此品項尚有訂單，要全部一起刪除嗎？", "警告", MessageBoxButtons.OKCancel);
                 if (rs == DialogResult.OK)
@@ -562,18 +576,6 @@ namespace 便當
                         Query(DTbaseMeal, "品項");
                     }
 
-                }
-            }
-            else
-            {
-                var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
-                if (Warning == DialogResult.OK)
-                {
-                    string DeleteCommand = "Delete from Meals where MealID = @MealID;";
-                    CWPconn.ParameterCommandByOne(DeleteCommand, "@MealID", MealID);
-                    MessageBox.Show("品項已刪除");
-                    GetSQL();
-                    Query(DTbaseMeal, "品項");
                 }
             }
         }

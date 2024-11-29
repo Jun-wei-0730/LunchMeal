@@ -16,61 +16,9 @@ namespace 便當
         {
             ConnectionWithParameter customerID = new ConnectionWithParameter();
             string ID = UserNameInput.Text;
-            if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
-            {
-                List<string> Query_result = customerID.CustomerIDConn(ID);
-                if (customerID.CustomerIDConn(ID) != null)
-                {
-                    User.User_Seq = Convert.ToInt32(Query_result[0]);
-                    User.User_ID = Query_result[1];
-                    User.UserName = Query_result[2];
-                    User.User_Birth = Query_result[3];
-                    User.User_Carrier = Query_result[4].ToString();
-                    User.User_Admin = Convert.ToBoolean(Query_result[5]);
-                    if (User.User_Admin)
-                    {
-                        MainControl menuEdit = new MainControl();
-                        this.Hide();
-                        menuEdit.Show();
-                    }
-                    else
-                    {
-                        this.Hide();
-                        Menu menu = new Menu();
-                        menu.Show();
-                    }
-                }
-                else
-                    MessageBox.Show("查詢不到該使用者!");
-            }
-            else
+            if (string.IsNullOrEmpty(ID) || !Login_query(ID))
                 MessageBox.Show("ID格式不對!");
-        }
-
-        private void LoginPage_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void LoginPage_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            FormControl Login = new FormControl();
-            Login.Form_Close(sender, e);
-        }
-        private string Login_query(string ID)
-        {
-            Regex IDRe = new Regex("\\s$");
-            Match IDMatch = IDRe.Match(ID);
-            if (IDMatch.Success)
-                return "0";
-            else return "1";
-        }
-
-
-        private void MenuChange_Click(object sender, EventArgs e)
-        {
-            ConnectionWithParameter customerID = new ConnectionWithParameter();
-            string ID = UserNameInput.Text;
-            if (!string.IsNullOrEmpty(ID) && Login_query(ID) != "0")
+            else
             {
                 List<string> Query_result = customerID.CustomerIDConn(ID);
                 if (customerID.CustomerIDConn(ID) != null)
@@ -83,27 +31,42 @@ namespace 便當
                     User.User_Admin = Convert.ToBoolean(Query_result[5]);
                     if (User.User_Admin)
                     {
-                        MainControl menuEdit = new MainControl();
+                        MainControl MainControl = new MainControl();
                         this.Hide();
-                        menuEdit.Show();
+                        MainControl.Show();
                     }
-                    else MessageBox.Show("只有管理員可以修改菜單!");
+                    else
+                    {
+                        this.Hide();
+                        Menu menu = new Menu();
+                        menu.Show();
+                    }
                 }
-                else
-                    MessageBox.Show("查詢不到該使用者!");
+                else MessageBox.Show("查詢不到該使用者!");
             }
-            else
-                MessageBox.Show("ID格式不對!");
+        }
+
+        private void LoginPage_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void LoginPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FormControl Login = new FormControl();
+            Login.Form_Close(sender, e);
+        }
+        private bool Login_query(string ID)
+        {
+            Regex IDRe = new Regex("^[A-Za-z0-9]{6,8}$");
+            Match IDMatch = IDRe.Match(ID);
+            return IDMatch.Success;
         }
 
         private void NewUser_Click(object sender, EventArgs e)
         {
             this.Hide();
             NewCustomer newID = new NewCustomer();
-            if (newID.ShowDialog() == DialogResult.OK)
-            {
-
-            }
+            newID.ShowDialog();
         }
 
         private void UserNameInput_KeyDown(object sender, KeyEventArgs e)

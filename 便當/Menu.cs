@@ -19,7 +19,7 @@ namespace 便當
         }
 
 
-        List<便當> 菜單 = new List<便當>();
+        readonly List<便當> 菜單 = new List<便當>();
 
         public Menu()
         {
@@ -224,7 +224,7 @@ namespace 便當
         }
         private string ImgUrlGet(string lbl_Text, int num)
         {
-            string Key = "";
+            string Key;
             if (lbl_Text == "白飯")
                 Key = "998";
             else if (lbl_Text == "飲料")

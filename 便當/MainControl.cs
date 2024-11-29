@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -578,6 +576,14 @@ namespace 便當
                     Query(DTbaseMeal, "品項");
                 }
             }
+        }
+
+        private void MenuDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // e.CellStyle.BackColor = Color.White;
+
+            // TODO static method 產生 EventAtgs
+            // EventArgs.Empty
         }
     }
 }

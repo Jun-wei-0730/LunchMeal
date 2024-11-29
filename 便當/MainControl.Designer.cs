@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuDataGridView = new System.Windows.Forms.DataGridView();
             this.Logout1 = new System.Windows.Forms.Label();
             this.UserNameLabel = new System.Windows.Forms.Label();
@@ -78,13 +78,6 @@
             this.OrderTimelbl = new System.Windows.Forms.Label();
             this.CustomerNamelbl = new System.Windows.Forms.Label();
             this.OrderIDlbl = new System.Windows.Forms.Label();
-            this.InfoPanel = new System.Windows.Forms.Panel();
-            this.OrderCountBox = new System.Windows.Forms.TextBox();
-            this.MealNameInfoBox = new System.Windows.Forms.TextBox();
-            this.OrderInfoIDBox = new System.Windows.Forms.TextBox();
-            this.OrderCountlbl = new System.Windows.Forms.Label();
-            this.MealNameInfolbl = new System.Windows.Forms.Label();
-            this.OrderInfoIDlbl = new System.Windows.Forms.Label();
             this.NowPanellbl = new System.Windows.Forms.Label();
             this.ConfirmChangebtn = new System.Windows.Forms.Button();
             this.ConfirmAddbtn = new System.Windows.Forms.Button();
@@ -94,13 +87,20 @@
             this.UploadDialog = new System.Windows.Forms.OpenFileDialog();
             this.DeleteThisOrderbtn = new System.Windows.Forms.Button();
             this.DeleteThisMealbtn = new System.Windows.Forms.Button();
+            this.OrderInfoIDlbl = new System.Windows.Forms.Label();
+            this.MealNameInfolbl = new System.Windows.Forms.Label();
+            this.OrderCountlbl = new System.Windows.Forms.Label();
+            this.OrderInfoIDBox = new System.Windows.Forms.TextBox();
+            this.MealNameInfoBox = new System.Windows.Forms.TextBox();
+            this.OrderCountBox = new System.Windows.Forms.TextBox();
+            this.InfoPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.MenuDataGridView)).BeginInit();
             this.MealPanel.SuspendLayout();
             this.UserPanel.SuspendLayout();
             this.OrdersPanel.SuspendLayout();
-            this.InfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UploadBox)).BeginInit();
             this.UploadPanel.SuspendLayout();
+            this.InfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuDataGridView
@@ -111,29 +111,30 @@
             this.MenuDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.MenuDataGridView.BackgroundColor = System.Drawing.Color.Teal;
             this.MenuDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenuDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.MenuDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MenuDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.MenuDataGridView.Location = new System.Drawing.Point(12, 65);
             this.MenuDataGridView.Name = "MenuDataGridView";
             this.MenuDataGridView.ReadOnly = true;
             this.MenuDataGridView.RowTemplate.Height = 24;
             this.MenuDataGridView.Size = new System.Drawing.Size(533, 373);
             this.MenuDataGridView.TabIndex = 0;
+            this.MenuDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.MenuDataGridView_CellFormatting);
             this.MenuDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.MenuDataGridView_DataError);
             this.MenuDataGridView.SelectionChanged += new System.EventHandler(this.MenuDataGridView_SelectionChanged);
             // 
@@ -660,74 +661,6 @@
             this.OrderIDlbl.TabIndex = 0;
             this.OrderIDlbl.Text = "訂單編號";
             // 
-            // InfoPanel
-            // 
-            this.InfoPanel.Controls.Add(this.OrderCountBox);
-            this.InfoPanel.Controls.Add(this.MealNameInfoBox);
-            this.InfoPanel.Controls.Add(this.OrderInfoIDBox);
-            this.InfoPanel.Controls.Add(this.OrderCountlbl);
-            this.InfoPanel.Controls.Add(this.MealNameInfolbl);
-            this.InfoPanel.Controls.Add(this.OrderInfoIDlbl);
-            this.InfoPanel.Enabled = false;
-            this.InfoPanel.Location = new System.Drawing.Point(286, 74);
-            this.InfoPanel.Name = "InfoPanel";
-            this.InfoPanel.Size = new System.Drawing.Size(247, 110);
-            this.InfoPanel.TabIndex = 26;
-            this.InfoPanel.Visible = false;
-            // 
-            // OrderCountBox
-            // 
-            this.OrderCountBox.Location = new System.Drawing.Point(94, 70);
-            this.OrderCountBox.Name = "OrderCountBox";
-            this.OrderCountBox.Size = new System.Drawing.Size(149, 22);
-            this.OrderCountBox.TabIndex = 20;
-            // 
-            // MealNameInfoBox
-            // 
-            this.MealNameInfoBox.Enabled = false;
-            this.MealNameInfoBox.Location = new System.Drawing.Point(94, 40);
-            this.MealNameInfoBox.Name = "MealNameInfoBox";
-            this.MealNameInfoBox.Size = new System.Drawing.Size(149, 22);
-            this.MealNameInfoBox.TabIndex = 19;
-            // 
-            // OrderInfoIDBox
-            // 
-            this.OrderInfoIDBox.Enabled = false;
-            this.OrderInfoIDBox.Location = new System.Drawing.Point(94, 10);
-            this.OrderInfoIDBox.Name = "OrderInfoIDBox";
-            this.OrderInfoIDBox.Size = new System.Drawing.Size(149, 22);
-            this.OrderInfoIDBox.TabIndex = 18;
-            // 
-            // OrderCountlbl
-            // 
-            this.OrderCountlbl.AutoSize = true;
-            this.OrderCountlbl.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.OrderCountlbl.Location = new System.Drawing.Point(3, 70);
-            this.OrderCountlbl.Name = "OrderCountlbl";
-            this.OrderCountlbl.Size = new System.Drawing.Size(85, 19);
-            this.OrderCountlbl.TabIndex = 2;
-            this.OrderCountlbl.Text = "餐點數量";
-            // 
-            // MealNameInfolbl
-            // 
-            this.MealNameInfolbl.AutoSize = true;
-            this.MealNameInfolbl.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.MealNameInfolbl.Location = new System.Drawing.Point(3, 40);
-            this.MealNameInfolbl.Name = "MealNameInfolbl";
-            this.MealNameInfolbl.Size = new System.Drawing.Size(47, 19);
-            this.MealNameInfolbl.TabIndex = 1;
-            this.MealNameInfolbl.Text = "品項";
-            // 
-            // OrderInfoIDlbl
-            // 
-            this.OrderInfoIDlbl.AutoSize = true;
-            this.OrderInfoIDlbl.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.OrderInfoIDlbl.Location = new System.Drawing.Point(3, 10);
-            this.OrderInfoIDlbl.Name = "OrderInfoIDlbl";
-            this.OrderInfoIDlbl.Size = new System.Drawing.Size(85, 19);
-            this.OrderInfoIDlbl.TabIndex = 0;
-            this.OrderInfoIDlbl.Text = "訂單編號";
-            // 
             // NowPanellbl
             // 
             this.NowPanellbl.AutoSize = true;
@@ -820,6 +753,74 @@
             this.DeleteThisMealbtn.Visible = false;
             this.DeleteThisMealbtn.Click += new System.EventHandler(this.DeleteThisMealbtn_Click);
             // 
+            // OrderInfoIDlbl
+            // 
+            this.OrderInfoIDlbl.AutoSize = true;
+            this.OrderInfoIDlbl.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.OrderInfoIDlbl.Location = new System.Drawing.Point(3, 10);
+            this.OrderInfoIDlbl.Name = "OrderInfoIDlbl";
+            this.OrderInfoIDlbl.Size = new System.Drawing.Size(85, 19);
+            this.OrderInfoIDlbl.TabIndex = 0;
+            this.OrderInfoIDlbl.Text = "訂單編號";
+            // 
+            // MealNameInfolbl
+            // 
+            this.MealNameInfolbl.AutoSize = true;
+            this.MealNameInfolbl.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.MealNameInfolbl.Location = new System.Drawing.Point(3, 40);
+            this.MealNameInfolbl.Name = "MealNameInfolbl";
+            this.MealNameInfolbl.Size = new System.Drawing.Size(47, 19);
+            this.MealNameInfolbl.TabIndex = 1;
+            this.MealNameInfolbl.Text = "品項";
+            // 
+            // OrderCountlbl
+            // 
+            this.OrderCountlbl.AutoSize = true;
+            this.OrderCountlbl.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.OrderCountlbl.Location = new System.Drawing.Point(3, 70);
+            this.OrderCountlbl.Name = "OrderCountlbl";
+            this.OrderCountlbl.Size = new System.Drawing.Size(85, 19);
+            this.OrderCountlbl.TabIndex = 2;
+            this.OrderCountlbl.Text = "餐點數量";
+            // 
+            // OrderInfoIDBox
+            // 
+            this.OrderInfoIDBox.Enabled = false;
+            this.OrderInfoIDBox.Location = new System.Drawing.Point(94, 10);
+            this.OrderInfoIDBox.Name = "OrderInfoIDBox";
+            this.OrderInfoIDBox.Size = new System.Drawing.Size(149, 22);
+            this.OrderInfoIDBox.TabIndex = 18;
+            // 
+            // MealNameInfoBox
+            // 
+            this.MealNameInfoBox.Enabled = false;
+            this.MealNameInfoBox.Location = new System.Drawing.Point(94, 40);
+            this.MealNameInfoBox.Name = "MealNameInfoBox";
+            this.MealNameInfoBox.Size = new System.Drawing.Size(149, 22);
+            this.MealNameInfoBox.TabIndex = 19;
+            // 
+            // OrderCountBox
+            // 
+            this.OrderCountBox.Location = new System.Drawing.Point(94, 70);
+            this.OrderCountBox.Name = "OrderCountBox";
+            this.OrderCountBox.Size = new System.Drawing.Size(149, 22);
+            this.OrderCountBox.TabIndex = 20;
+            // 
+            // InfoPanel
+            // 
+            this.InfoPanel.Controls.Add(this.OrderCountBox);
+            this.InfoPanel.Controls.Add(this.MealNameInfoBox);
+            this.InfoPanel.Controls.Add(this.OrderInfoIDBox);
+            this.InfoPanel.Controls.Add(this.OrderCountlbl);
+            this.InfoPanel.Controls.Add(this.MealNameInfolbl);
+            this.InfoPanel.Controls.Add(this.OrderInfoIDlbl);
+            this.InfoPanel.Enabled = false;
+            this.InfoPanel.Location = new System.Drawing.Point(286, 74);
+            this.InfoPanel.Name = "InfoPanel";
+            this.InfoPanel.Size = new System.Drawing.Size(247, 110);
+            this.InfoPanel.TabIndex = 26;
+            this.InfoPanel.Visible = false;
+            // 
             // MainControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -856,10 +857,10 @@
             this.UserPanel.PerformLayout();
             this.OrdersPanel.ResumeLayout(false);
             this.OrdersPanel.PerformLayout();
-            this.InfoPanel.ResumeLayout(false);
-            this.InfoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UploadBox)).EndInit();
             this.UploadPanel.ResumeLayout(false);
+            this.InfoPanel.ResumeLayout(false);
+            this.InfoPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -896,7 +897,6 @@
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.TextBox AccountBox;
         private System.Windows.Forms.Panel OrdersPanel;
-        private System.Windows.Forms.Panel InfoPanel;
         private System.Windows.Forms.Label OrderTimelbl;
         private System.Windows.Forms.Label CustomerNamelbl;
         private System.Windows.Forms.Label OrderIDlbl;
@@ -915,12 +915,6 @@
         private System.Windows.Forms.TextBox OrderPriceBox;
         private System.Windows.Forms.TextBox OrderTimeBox;
         private System.Windows.Forms.TextBox CustomerNameBox;
-        private System.Windows.Forms.Label OrderCountlbl;
-        private System.Windows.Forms.Label MealNameInfolbl;
-        private System.Windows.Forms.Label OrderInfoIDlbl;
-        private System.Windows.Forms.TextBox OrderInfoIDBox;
-        private System.Windows.Forms.TextBox OrderCountBox;
-        private System.Windows.Forms.TextBox MealNameInfoBox;
         private System.Windows.Forms.Label NowPanellbl;
         private System.Windows.Forms.Button ConfirmChangebtn;
         private System.Windows.Forms.ComboBox AdminBox;
@@ -931,5 +925,12 @@
         private System.Windows.Forms.OpenFileDialog UploadDialog;
         private System.Windows.Forms.Button DeleteThisOrderbtn;
         private System.Windows.Forms.Button DeleteThisMealbtn;
+        private System.Windows.Forms.Label OrderInfoIDlbl;
+        private System.Windows.Forms.Label MealNameInfolbl;
+        private System.Windows.Forms.Label OrderCountlbl;
+        private System.Windows.Forms.TextBox OrderInfoIDBox;
+        private System.Windows.Forms.TextBox MealNameInfoBox;
+        private System.Windows.Forms.TextBox OrderCountBox;
+        private System.Windows.Forms.Panel InfoPanel;
     }
 }

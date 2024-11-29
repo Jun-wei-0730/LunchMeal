@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -19,9 +20,10 @@ namespace 便當
 
         private void CustomerInfoConfirm_Click(object sender, EventArgs e)
         {
-            if (AllOk())
+            if (!AllOk()) MessageBox.Show("資料有誤，請再次檢查!"); 
+            else
             {
-                string Birth = BirthPicker.Value.ToString("yyyyMMdd");
+                var Birth = BirthPicker.Value;
                 string ConnStr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
                 string CmdStr = "Insert Into Customers values (Next Value For CustomerSeq, @ID, @Name, @Birth, NULL, 0)";
                 string ID = NewCustomerIDInput.Text;
@@ -40,8 +42,6 @@ namespace 便當
                 MessageBox.Show("資料已儲存");
                 this.Close();
             }
-            else
-                MessageBox.Show("資料有誤，請再次檢查!");
         }
 
         private void IDCancel_Click(object sender, EventArgs e)
@@ -64,20 +64,25 @@ namespace 便當
                 else
                     IDWarning.Text = "ID格式不對!";
                 IDWarning.Visible = true;
+                IDCheck.Visible = false;
             }
             else if (list.Contains(NewCustomerIDInput.Text))
             {
                 IDWarning.Text = "ID重複!";
                 IDWarning.Visible = true;
+                IDCheck.Visible = false;
             }
             else { IDWarning.Visible = false; IDCheck.Visible = true; }
         }
 
         private void NewCustomer_Load(object sender, EventArgs e)
         {
+            //string strDemo = 0;
+            //int intDemo;
+
             SQLconn conn = new SQLconn();
             list = new List<string>();
-            string SelectStr = "select * from Customers";
+            string SelectStr = "select CustomerID, CustomerName from Customers";
             IDTable = conn.conn(SelectStr);
             foreach (DataRow row in IDTable.Rows)
             {
@@ -89,16 +94,16 @@ namespace 便當
         private void NewCustomerNameInput_TextChanged(object sender, EventArgs e)
         {
             if (NewCustomerNameInput.Text.Length == 0)
-            { NameWarning.Text = "名稱不得為空!"; NameWarning.Visible = true; }
+            { NameWarning.Text = "名稱不得為空!"; NameWarning.Visible = true; NameCheck.Visible = false;}
             else if (list.Contains(NewCustomerNameInput.Text))
-            { NameWarning.Text = "名稱重複!"; NameWarning.Visible = true; }
+            { NameWarning.Text = "名稱重複!"; NameWarning.Visible = true; NameCheck.Visible = false;}
             else { NameWarning.Visible = false; NameCheck.Visible = true; }
         }
 
         private void BirthPicker_ValueChanged(object sender, EventArgs e)
         {
-            if (BirthPicker.Value > DateTime.Now)
-            { DateWarning.Text = "時間不對!"; DateWarning.Visible = true; }
+            if (BirthPicker.Value > DateTime.Today)
+            { DateWarning.Text = "日期不對!"; DateWarning.Visible = true; }
             else { DateWarning.Visible = false; DateCheck.Visible = true; }
         }
         private bool AllOk()

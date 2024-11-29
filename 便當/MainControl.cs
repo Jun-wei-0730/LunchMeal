@@ -14,13 +14,12 @@ namespace 便當
 
     public partial class MainControl : Form
     {
-        readonly List<int> list = new List<int>();
         DataTable DTbaseMeal = new DataTable();
         DataTable DTbaseUser = new DataTable();
         DataTable DTbaseOrders = new DataTable();
         DataTable DTbaseInfo = new DataTable();
         bool MenuChange = false;
-        bool BoxEvent = false;
+        bool BoxEvent = false; // 判斷是否是手動輸入修改變更欄位文字
 
         public MainControl()
         {
@@ -36,7 +35,7 @@ namespace 便當
             {
                 foreach (Control control in panel.Controls)
                 {
-                    control.TextChanged += AllowSaveChange;
+                    control.TextChanged += AllowSaveChange; //當手動輸入修改變更(不是切換資料行時的變更)開啟保存變更按鈕
                 }
                 foreach (CheckBox box in panel.Controls.OfType<CheckBox>())
                 {
@@ -73,22 +72,6 @@ namespace 便當
                 }
             }
         }
-        private void SortID()
-        {
-            foreach (DataGridViewRow Row in MenuDataGridView.Rows)
-            {
-                if (!Row.IsNewRow)
-                {
-                    if (Row.Cells["MealName"].Value.ToString() == "白飯")
-                        Row.Cells["MealID"].Value = 998;
-                    else if (Row.Cells["MealName"].Value.ToString() == "飲料")
-                        Row.Cells["MealID"].Value = 999;
-                }
-            }
-            var ColumnMealID = MenuDataGridView.Columns.OfType<DataGridViewColumn>().First(rs => rs.HeaderText == "MealID");
-            MenuDataGridView.Sort(ColumnMealID, ListSortDirection.Ascending);
-        }
-
         private void MenuDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             //MessageBox.Show("數據格式錯誤!");
@@ -315,7 +298,7 @@ namespace 便當
         }
         private void Addbtn_Click(object sender, EventArgs e)
         {
-            var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
+            var panel = Controls.OfType<Panel>().First(rs => rs.Name == NowPanellbl.Text + "Panel");
             panel.Enabled = true;
             ConfirmAddbtn.Visible = true;
             ConfirmAddbtn.Enabled = false;
@@ -333,13 +316,14 @@ namespace 便當
         }
         private void EditBtn_Click(object sender, EventArgs e)
         {
-            var panel = Controls.OfType<Panel>().First(rs => rs.Visible == true);
+            var panel = Controls.OfType<Panel>().First(rs => rs.Name == NowPanellbl.Text + "Panel");
             panel.Enabled = true;
             BoxEvent = true;
             EditBtn.Enabled = false;
             ConfirmChangebtn.Visible = true;
             if (panel.Name == "MealPanel")
-            {UploadPanel.Visible = true;
+            {
+                UploadPanel.Visible = true;
                 UploadPanel.Enabled = true;
             }
         }
@@ -490,7 +474,6 @@ namespace 便當
             List<string> ValueList = new List<string> { MealIDBox.Text, MealNameBox.Text, PricePerMealBox.Text, Enable.ToString() };
             ConnectionWithParameter conn = new ConnectionWithParameter();
             conn.ParameterByList(InsertStr, ParaList, ValueList);
-            SQLconn MealConn = new SQLconn();
             GetSQL();
             Query(DTbaseMeal, "品項");
 

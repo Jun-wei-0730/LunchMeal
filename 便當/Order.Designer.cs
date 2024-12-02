@@ -30,7 +30,7 @@
         {
             this.UserNameLabel = new System.Windows.Forms.Label();
             this.CompleteOrderButton = new System.Windows.Forms.Button();
-            this.Logout1 = new System.Windows.Forms.Label();
+            this.Logout = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.plasticBagcheck = new System.Windows.Forms.CheckBox();
@@ -74,18 +74,18 @@
             this.CompleteOrderButton.UseVisualStyleBackColor = false;
             this.CompleteOrderButton.Click += new System.EventHandler(this.CompleteOrderButton_Click);
             // 
-            // Logout1
+            // Logout
             // 
-            this.Logout1.AutoSize = true;
-            this.Logout1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Logout1.ForeColor = System.Drawing.Color.Black;
-            this.Logout1.Location = new System.Drawing.Point(759, 18);
-            this.Logout1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Logout1.Name = "Logout1";
-            this.Logout1.Size = new System.Drawing.Size(31, 16);
-            this.Logout1.TabIndex = 7;
-            this.Logout1.Text = "登出";
-            this.Logout1.Click += new System.EventHandler(this.Logout1_Click);
+            this.Logout.AutoSize = true;
+            this.Logout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Logout.ForeColor = System.Drawing.Color.Black;
+            this.Logout.Location = new System.Drawing.Point(759, 18);
+            this.Logout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Logout.Name = "Logout";
+            this.Logout.Size = new System.Drawing.Size(31, 16);
+            this.Logout.TabIndex = 7;
+            this.Logout.Text = "登出";
+            this.Logout.Click += new System.EventHandler(this.Logout_Click);
             // 
             // button1
             // 
@@ -284,7 +284,7 @@
             this.Controls.Add(this.plasticBagcheck);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.Logout1);
+            this.Controls.Add(this.Logout);
             this.Controls.Add(this.CompleteOrderButton);
             this.Controls.Add(this.UserNameLabel);
             this.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -304,7 +304,7 @@
         #endregion
         private System.Windows.Forms.Label UserNameLabel;
         private System.Windows.Forms.Button CompleteOrderButton;
-        private System.Windows.Forms.Label Logout1;
+        private System.Windows.Forms.Label Logout;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.CheckBox plasticBagcheck;

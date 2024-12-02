@@ -264,7 +264,7 @@ namespace 便當
                 }
                 else
                     qty.Visible = true;
-
+                
                 qty.Enabled = false;
                 if (item != null)
                     qty.Value = Convert.ToDecimal(item.SubItems[1].Text);
@@ -287,7 +287,7 @@ namespace 便當
             int Drink_count = 0;
             foreach (var i in item)
             {
-                String Order_name = i.SubItems[0].Text;
+                string Order_name = i.SubItems[0].Text;
                 int Order_count = Convert.ToInt32(i.SubItems[1].Text);
                 if (Order_name != "白飯" && Order_name != "飲料")
                     Drink_count += Order_count;

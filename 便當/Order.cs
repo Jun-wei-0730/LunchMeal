@@ -11,13 +11,12 @@ namespace 便當
         decimal Total;
         private readonly BindingSource bindingSource1 = new BindingSource();
         bool programclose = false;
-        // List<MealData> SortedOrder;
         public OrderInfo()
         {
             InitializeComponent();
         }
 
-        private void Logout1_Click(object sender, EventArgs e)
+        private void Logout_Click(object sender, EventArgs e)
         {
             LogOutCheck CheckWindow = new LogOutCheck();
             if (CheckWindow.ShowDialog() == DialogResult.Yes)
@@ -33,8 +32,6 @@ namespace 便當
             bindingSource1.Clear();
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
-            // 排序未生效
-            //dataGridView1.Sort(new RowComparer(SortOrder.Descending));
             OrderData(orders.Orders);
             dataGridView1.DataSource = bindingSource1;
             if (dataGridView1.Columns["便當名稱"] != null)
@@ -44,8 +41,7 @@ namespace 便當
                 dataGridView1.Columns["數量"].DisplayIndex = 2;
                 dataGridView1.Columns["小計"].DisplayIndex = 3;
                 dataGridView1.Columns["便當ID"].Visible = false;
-            }
-            ;
+            };
             Total_lbl.Text = Total.ToString();
             getMealTime_box.Text = (DateTime.Now.AddMinutes(20).ToString("HH:mm"));
             DateTime fixedTime = DateTime.Today.AddHours(14);
@@ -96,7 +92,6 @@ namespace 便當
                 Total += Convert.ToDecimal(item.小計);
             }
             bindingSource1.DataSource = UnsortedData;
-            //return UnsortedData;
         }
 
 
@@ -115,18 +110,14 @@ namespace 便當
                 carrierrm_check.Checked = true;
                 Regex carrierRe = new Regex("^\\/[A-Za-z0-9]{7}$");
                 Match carrierMatch = carrierRe.Match(carrier.Text);
-                if (!carrierMatch.Success)
-                    carrier_warning.Visible = true;
-                else carrier_warning.Visible = false;
+                carrier_warning.Visible = (!carrierMatch.Success);
             }
         }
         private void carrier_TextChanged(object sender, EventArgs e)
         {
             Regex carrierRe = new Regex("^\\/[A-Za-z0-9]{7}$");
             Match carrierMatch = carrierRe.Match(carrier.Text);
-            if (!carrierMatch.Success)
-                carrier_warning.Visible = true;
-            else carrier_warning.Visible = false;
+            carrier_warning.Visible = (!carrierMatch.Success);
         }
 
         private void carrier_MouseClick(object sender, MouseEventArgs e)
@@ -142,17 +133,7 @@ namespace 便當
 
         private void plasticBagcheck_CheckedChanged(object sender, EventArgs e)
         {
-            if (plasticBagcheck.Checked)
-            {
-                Total += 1;
-                Total_lbl.Text = Total.ToString();
-            }
-            else
-            {
-                Total -= 1;
-                Total_lbl.Text = Total.ToString();
-            }
-
+            Total_lbl.Text = (plasticBagcheck.Checked ? Total += 1 : Total -= 1).ToString();
         }
         private void PS_MouseClick(object sender, MouseEventArgs e)
         {

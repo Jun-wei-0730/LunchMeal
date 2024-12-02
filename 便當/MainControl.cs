@@ -33,7 +33,7 @@ namespace 便當
             {
                 foreach (Control control in panel.Controls)
                 {
-                    control.TextChanged += AllowSaveChange; //當手動輸入修改變更(不是切換資料行時的變更)開啟保存變更按鈕
+                    control.TextChanged += AllowSaveChange; //當手動輸入修改變更 (不是切換資料行時的變更) 開啟保存變更按鈕
                 }
                 foreach (CheckBox box in panel.Controls.OfType<CheckBox>())
                 {
@@ -48,7 +48,7 @@ namespace 便當
         private void MenuEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!ConfirmChangebtn.Visible)
-            {
+            {   
                 FormControl MenuEdit = new FormControl();
                 MenuEdit.Form_Close(sender, e);
             }
@@ -72,18 +72,8 @@ namespace 便當
         }
         private void MenuDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            //MessageBox.Show("數據格式錯誤!");
             MessageBox.Show(e.Exception.ToString());
         }
-        private void ParameterAdd(SqlCommand cmd, DataGridViewRow Row)
-        {
-            cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@ID", Row.Cells["MealID"].Value.ToString());
-            cmd.Parameters.AddWithValue("@Name", Row.Cells["MealName"].Value.ToString());
-            cmd.Parameters.AddWithValue("@Price", Convert.ToDecimal(Row.Cells["PricePerMeal"].Value));
-            cmd.Parameters.AddWithValue("@Enable", Convert.ToBoolean(Row.Cells["Enabled"].Value));
-        }
-
         private void Logout1_Click(object sender, EventArgs e)
         {
             LogOutCheck CheckWindow = new LogOutCheck();
@@ -94,24 +84,6 @@ namespace 便當
                 LoginPage.Show();
             }
         }
-        public void UploadConfirm(SqlCommand cmd, string InsertCmd, SqlConnection connection)
-        {
-            foreach (DataGridViewRow Row in MenuDataGridView.Rows)
-            {
-
-                ParameterAdd(cmd, Row);
-                int rs = cmd.ExecuteNonQuery();
-                if (rs == 0)
-                {
-                    using (SqlCommand Insertcmd = new SqlCommand(InsertCmd, connection))
-                    {
-                        ParameterAdd(Insertcmd, Row);
-                        Insertcmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
         private void Menubtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -121,7 +93,7 @@ namespace 便當
 
         private void NameSearchBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter) 
+            if (e.KeyCode != Keys.Enter)
                 return;
             else
             {
@@ -178,14 +150,7 @@ namespace 便當
             var query = from rows in DTbase.AsEnumerable()
                         where rows[ColumnName].ToString().Contains(SearchStr)
                         select rows;
-
-            if (query.Count() > 0)
-                MenuDataGridView.DataSource = query.CopyToDataTable();
-
-            else
-            {
-                MenuDataGridView.DataSource = null;
-            }
+            MenuDataGridView.DataSource = (query.Count() > 0) ? query.CopyToDataTable() : null;
         }
 
         private void MenuDataGridView_SelectionChanged(object sender, EventArgs e)
@@ -196,7 +161,7 @@ namespace 便當
             EditBtn.Enabled = true;
             ConfirmAddbtn.Visible = false;
             UploadPanel.Visible = false;
-            if (MenuChange || MenuDataGridView.CurrentRow == null) 
+            if (MenuChange || MenuDataGridView.CurrentRow == null)
                 MenuChange = false;
             else
             {

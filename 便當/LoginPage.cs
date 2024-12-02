@@ -14,14 +14,16 @@ namespace 便當
 
         public void loginButton_Click(object sender, EventArgs e)
         {
-            ConnectionWithParameter customerID = new ConnectionWithParameter();
-            string ID = UserNameInput.Text;
+            ConnectionWithParameter CustomerID = new ConnectionWithParameter();
+            string ID = CustomerIDInput.Text;
             if (string.IsNullOrEmpty(ID) || !Login_query(ID))
                 MessageBox.Show("ID格式不對!");
             else
             {
-                List<string> Query_result = customerID.CustomerIDConn(ID);
-                if (customerID.CustomerIDConn(ID) != null)
+                List<string> Query_result = CustomerID.CustomerIDConn(ID);
+                if (CustomerID.CustomerIDConn(ID) == null) 
+                    MessageBox.Show("查詢不到該使用者!");
+                else
                 {
                     User.User_Seq = Convert.ToInt32(Query_result[0]);
                     User.User_ID = Query_result[1];
@@ -42,7 +44,6 @@ namespace 便當
                         menu.Show();
                     }
                 }
-                else MessageBox.Show("查詢不到該使用者!");
             }
         }
 
@@ -62,14 +63,14 @@ namespace 便當
             return IDMatch.Success;
         }
 
-        private void NewUser_Click(object sender, EventArgs e)
+        private void NewCustomer_Click(object sender, EventArgs e)
         {
             this.Hide();
             NewCustomer newID = new NewCustomer();
             newID.ShowDialog();
         }
 
-        private void UserNameInput_KeyDown(object sender, KeyEventArgs e)
+        private void CustomerIDInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {

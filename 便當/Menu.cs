@@ -9,7 +9,6 @@ namespace 便當
 {
     public partial class Menu : Form
     {
-        // nameof
         public class 便當
         {
             public string 便當名稱 { get; set; }
@@ -17,7 +16,6 @@ namespace 便當
             public int 便當ID { get; set; }
 
         }
-
 
         readonly List<便當> 菜單 = new List<便當>();
 
@@ -30,12 +28,23 @@ namespace 便當
             DataRow[] data = result.Select();
             for (int i = 0; i < data.Length; i++)
             {
-                if (Convert.ToInt32(data[i]["MealID"]) != 998 && Convert.ToInt32(data[i]["MealID"]) != 999 && Convert.ToInt32(data[i]["Enabled"]) == 1)
-                    菜單.Add(new 便當() { 便當名稱 = data[i]["MealName"].ToString(), 價格 = data[i]["PricePerMeal"].ToString(), 便當ID = Convert.ToInt32(data[i]["MealID"]) });
-                if (Convert.ToInt32(data[i]["MealID"]) == 998 && Convert.ToInt32(data[i]["Enabled"]) == 1)
-                    菜單.Add(new 便當() { 便當名稱 = "白飯", 價格 = "10", 便當ID = 998 });
-                else if (Convert.ToInt32(data[i]["MealID"]) == 999 && Convert.ToInt32(data[i]["Enabled"]) == 1)
-                    菜單.Add(new 便當() { 便當名稱 = "飲料", 價格 = "0", 便當ID = 999 });
+                if (Convert.ToInt32(data[i]["Enabled"]) == 1)
+                    {
+                    switch (Convert.ToInt32(data[i]["MealID"]))
+                    {
+                        case 998:
+                            菜單.Add(new 便當() { 便當名稱 = "白飯", 價格 = "10", 便當ID = 998 }); break;
+                        case 999:
+                            菜單.Add(new 便當() { 便當名稱 = "飲料", 價格 = "0", 便當ID = 999 }); break;
+                        default:
+                            菜單.Add(new 便當()
+                            {
+                                便當名稱 = data[i]["MealName"].ToString(),
+                                價格 = data[i]["PricePerMeal"].ToString(),
+                                便當ID = Convert.ToInt32(data[i]["MealID"])
+                            }); break;
+                    }
+                    }
             }
             for (int i = 0; i <= 8; i++)
             {
@@ -50,7 +59,6 @@ namespace 便當
                 pic.ImageLocation = ImgUrlGet(lbl.Text, 菜單[i].便當ID);
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -58,7 +66,7 @@ namespace 便當
             UserNameLabel.Text = "使用者 : " + User.UserName;
         }
 
-        private void Logout1_Click(object sender, EventArgs e)
+        private void Logout_Click(object sender, EventArgs e)
         {
             LogOutCheck CheckWindow = new LogOutCheck();
             if (CheckWindow.ShowDialog() == DialogResult.Yes)
@@ -71,13 +79,13 @@ namespace 便當
 
         private void BeginOrderButton_Click(object sender, EventArgs e)
         {
-            DrinkCount();
+            DrinkCount(); // 將飲料數量設定為便當總數
             OrderInfo order = new OrderInfo();
             GetOrder();
             if (OrderResult.Items.Count != 0)
             {
-                this.Hide();//this.Visible = false;
-                if (order.ShowDialog() == DialogResult.Yes)
+                this.Hide();
+                if (order.ShowDialog() == DialogResult.Yes) // 綁在Order表單的回上頁按鈕上
                     this.Show();
             }
             else { MessageBox.Show("訂單是空的!"); }

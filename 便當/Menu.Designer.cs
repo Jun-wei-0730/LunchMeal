@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.BeginOrderButton = new System.Windows.Forms.Button();
-            this.Logout1 = new System.Windows.Forms.Label();
+            this.Logout = new System.Windows.Forms.Label();
             this.UserNameLabel = new System.Windows.Forms.Label();
             this.itempic1 = new System.Windows.Forms.PictureBox();
             this.itempic3 = new System.Windows.Forms.PictureBox();
@@ -107,17 +107,17 @@
             this.BeginOrderButton.UseVisualStyleBackColor = false;
             this.BeginOrderButton.Click += new System.EventHandler(this.BeginOrderButton_Click);
             // 
-            // Logout1
+            // Logout
             // 
-            this.Logout1.AutoSize = true;
-            this.Logout1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Logout1.ForeColor = System.Drawing.Color.Black;
-            this.Logout1.Location = new System.Drawing.Point(759, 18);
-            this.Logout1.Name = "Logout1";
-            this.Logout1.Size = new System.Drawing.Size(29, 12);
-            this.Logout1.TabIndex = 3;
-            this.Logout1.Text = "登出";
-            this.Logout1.Click += new System.EventHandler(this.Logout1_Click);
+            this.Logout.AutoSize = true;
+            this.Logout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Logout.ForeColor = System.Drawing.Color.Black;
+            this.Logout.Location = new System.Drawing.Point(759, 18);
+            this.Logout.Name = "Logout";
+            this.Logout.Size = new System.Drawing.Size(29, 12);
+            this.Logout.TabIndex = 3;
+            this.Logout.Text = "登出";
+            this.Logout.Click += new System.EventHandler(this.Logout_Click);
             // 
             // UserNameLabel
             // 
@@ -565,7 +565,7 @@
             this.Controls.Add(this.itempic3);
             this.Controls.Add(this.itempic1);
             this.Controls.Add(this.UserNameLabel);
-            this.Controls.Add(this.Logout1);
+            this.Controls.Add(this.Logout);
             this.Controls.Add(this.BeginOrderButton);
             this.MaximizeBox = false;
             this.Name = "Menu";
@@ -599,7 +599,7 @@
         #endregion
 
         private System.Windows.Forms.Button BeginOrderButton;
-        private System.Windows.Forms.Label Logout1;
+        private System.Windows.Forms.Label Logout;
         private System.Windows.Forms.Label UserNameLabel;
         private System.Windows.Forms.PictureBox itempic1;
         private System.Windows.Forms.PictureBox itempic3;

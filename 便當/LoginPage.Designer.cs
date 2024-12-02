@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.UserNameInput = new System.Windows.Forms.TextBox();
+            this.CustomerIDInput = new System.Windows.Forms.TextBox();
             this.Test = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.loginButton = new System.Windows.Forms.Button();
@@ -37,13 +37,13 @@
             // 
             // UserNameInput
             // 
-            this.UserNameInput.BackColor = System.Drawing.SystemColors.Window;
-            this.UserNameInput.Font = new System.Drawing.Font("微軟正黑體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.UserNameInput.Location = new System.Drawing.Point(211, 237);
-            this.UserNameInput.Name = "UserNameInput";
-            this.UserNameInput.Size = new System.Drawing.Size(370, 50);
-            this.UserNameInput.TabIndex = 0;
-            this.UserNameInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UserNameInput_KeyDown);
+            this.CustomerIDInput.BackColor = System.Drawing.SystemColors.Window;
+            this.CustomerIDInput.Font = new System.Drawing.Font("微軟正黑體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.CustomerIDInput.Location = new System.Drawing.Point(211, 237);
+            this.CustomerIDInput.Name = "UserNameInput";
+            this.CustomerIDInput.Size = new System.Drawing.Size(370, 50);
+            this.CustomerIDInput.TabIndex = 0;
+            this.CustomerIDInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CustomerIDInput_KeyDown);
             // 
             // Test
             // 
@@ -88,7 +88,7 @@
             this.NewUser.TabIndex = 5;
             this.NewUser.Text = "創建新使用者";
             this.NewUser.UseVisualStyleBackColor = true;
-            this.NewUser.Click += new System.EventHandler(this.NewUser_Click);
+            this.NewUser.Click += new System.EventHandler(this.NewCustomer_Click);
             // 
             // LoginPage
             // 
@@ -100,7 +100,7 @@
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Test);
-            this.Controls.Add(this.UserNameInput);
+            this.Controls.Add(this.CustomerIDInput);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "LoginPage";
@@ -115,7 +115,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox UserNameInput;
+        private System.Windows.Forms.TextBox CustomerIDInput;
         private System.Windows.Forms.Label Test;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button loginButton;

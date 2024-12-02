@@ -171,10 +171,9 @@ namespace 便當
                 Orderconn.connOrder(insertstrOrder);
                 for (int i = 0; i <= orders.Orders.Count - 1; i++)
                 {
-                    if (i == orders.Orders.Count - 1)
-                        str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量})";
-                    else
-                        str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量}),";
+                    str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量})";
+                    if (i != orders.Orders.Count - 1)
+                        str += ",";
                 }
                 string insertstrInfo = $"Insert into OrderInfo values{str};";
                 Orderconn.connOrder(insertstrInfo);

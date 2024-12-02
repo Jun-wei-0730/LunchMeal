@@ -73,7 +73,6 @@
             this.NextPage = new System.Windows.Forms.Button();
             this.page = new System.Windows.Forms.Label();
             this.PrePage = new System.Windows.Forms.Button();
-            this.DrinkCount_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itempic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic4)).BeginInit();
@@ -506,24 +505,12 @@
             this.PrePage.Visible = false;
             this.PrePage.Click += new System.EventHandler(this.PrePageBtn);
             // 
-            // DrinkCount_button
-            // 
-            this.DrinkCount_button.Location = new System.Drawing.Point(642, 367);
-            this.DrinkCount_button.Name = "DrinkCount_button";
-            this.DrinkCount_button.Size = new System.Drawing.Size(146, 30);
-            this.DrinkCount_button.TabIndex = 63;
-            this.DrinkCount_button.Text = "飲料數量與便當一致";
-            this.DrinkCount_button.UseVisualStyleBackColor = true;
-            this.DrinkCount_button.Visible = false;
-            this.DrinkCount_button.Click += new System.EventHandler(this.DrinkCount_button_Click);
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
-            this.Controls.Add(this.DrinkCount_button);
             this.Controls.Add(this.PrePage);
             this.Controls.Add(this.page);
             this.Controls.Add(this.NextPage);
@@ -643,6 +630,5 @@
         private System.Windows.Forms.Button NextPage;
         private System.Windows.Forms.Label page;
         private System.Windows.Forms.Button PrePage;
-        private System.Windows.Forms.Button DrinkCount_button;
     }
 }

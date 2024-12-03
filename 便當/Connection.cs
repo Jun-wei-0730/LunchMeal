@@ -107,14 +107,11 @@ namespace 便當
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();
-                Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(command, conn))
                 {
                     commandobj.ExecuteNonQuery();  // 執行 SQL 命令 
-                    Console.WriteLine("執行成功");
                 }
                 conn.Close();
-                Console.WriteLine("關閉連線");
             }
         }
         public void BackupDB()
@@ -124,15 +121,12 @@ namespace 便當
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();
-                Console.WriteLine("已連線");
                 using (SqlCommand commandobj = new SqlCommand(BackupCommand, conn))
                 {
                     commandobj.Parameters.AddWithValue("@DB", "MealDB");
                     commandobj.ExecuteNonQuery();
-                    Console.WriteLine("執行成功");
                 }
                 conn.Close();
-                Console.WriteLine("關閉連線");
             }
         }
     }

@@ -20,6 +20,7 @@ namespace 便當
         bool MenuChange = false;
         bool BoxEvent = false; // 判斷是否是手動輸入修改變更欄位文字
 
+
         public MainControl()
         {
             InitializeComponent();
@@ -102,16 +103,16 @@ namespace 便當
                 {
                     case "使用者":
                         Query(DTbaseUser, "名字"); NowPanellbl.Text = "User"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = false;
-                        UserPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
+                        UserPanel.Location = new Point(551, 65); PanelControl(); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
                     case "全部訂單":
                         Query(DTbaseOrders, "訂餐者"); NowPanellbl.Text = "Orders"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = true;
-                        OrdersPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
+                        OrdersPanel.Location = new Point(551, 65); PanelControl(); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
                     case "餐點詳細":
                         Query(DTbaseInfo, "訂單編號"); NowPanellbl.Text = "Info"; Addbtn.Visible = false; UploadPanel.Visible = false; DeleteThisOrderbtn.Visible = false;
-                        InfoPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
+                        InfoPanel.Location = new Point(551, 65); PanelControl(); EditBtn.Visible = true; DeleteThisMealbtn.Visible = false; break;
                     default:
                         Query(DTbaseMeal, "品項"); NowPanellbl.Text = "Meal"; Addbtn.Visible = true; UploadPanel.Visible = true; DeleteThisOrderbtn.Visible = false;
-                        MealPanel.Location = new Point(551, 65); PanelControl(NowPanellbl.Text); EditBtn.Visible = true; DeleteThisMealbtn.Visible = true; break;
+                        MealPanel.Location = new Point(551, 65); PanelControl(); EditBtn.Visible = true; DeleteThisMealbtn.Visible = true; break;
                 }
                 Addbtn.Enabled = true;
                 EditBtn.Enabled = true;
@@ -136,11 +137,15 @@ namespace 便當
             MenuChange = true;
         }
 
-        private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void TableBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            int index = TableBox.SelectedIndex;
-            List<string> item = new List<string> { "按Enter查詢使用者名", "按Enter查詢品項", "按Enter查詢訂單者名字", "按Enter查詢訂單編號" };
-            NameSearchBox.Text = item[index].ToString();
+            string index = TableBox.Text;
+            Dictionary<string,string> item = new Dictionary<string,string>();
+            item.Add("使用者", "按Enter查詢使用者名");
+            item.Add("菜單", "按Enter查詢品項");
+            item.Add("全部訂單", "按Enter查詢訂餐者名字");
+            item.Add("餐點詳細", "按Enter查詢訂單編號");
+            NameSearchBox.Text = item[$"{index}"];
             NameSearchBox.ForeColor = Color.Silver;
         }
         private void Query(DataTable DTbase, string ColumnName)
@@ -215,8 +220,8 @@ namespace 便當
         private void SetText(TextBox box, Panel panel)
         {
             string Name = box.Name.Substring(0, box.Name.Length - 3);
-            string BoxName = Name + "Box";
-            string lblName = Name + "lbl";
+            string BoxName = GetBoxName(Name);
+            string lblName = GetlblName(Name);
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
             var lbl = panel.Controls.OfType<Label>().FirstOrDefault(rs => rs.Name == lblName);
             if (lbl != null && Box != null && MenuDataGridView.CurrentRow != null)
@@ -233,8 +238,8 @@ namespace 便當
         private void GetText(Control item, Panel panel)
         {
             string Name = item.Name.Substring(0, item.Name.Length - 3);
-            string BoxName = Name + "Box";
-            string lblName = Name + "lbl";
+            string BoxName = GetBoxName(Name);
+            string lblName = GetlblName(Name);
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
             var Combo = panel.Controls.OfType<ComboBox>().FirstOrDefault(rs => rs.Name == BoxName);
             var Check = panel.Controls.OfType<CheckBox>().FirstOrDefault(rs => rs.Name == BoxName);
@@ -262,7 +267,8 @@ namespace 便當
         }
         private void Addbtn_Click(object sender, EventArgs e)
         {
-            var panel = Controls.OfType<Panel>().First(rs => rs.Name == NowPanellbl.Text + "Panel");
+            string PanelName = GetPanelName();
+            var panel = Controls.OfType<Panel>().First(rs => rs.Name == PanelName);
             panel.Enabled = true;
             ConfirmAddbtn.Visible = true;
             ConfirmAddbtn.Enabled = false;
@@ -280,7 +286,8 @@ namespace 便當
         }
         private void EditBtn_Click(object sender, EventArgs e)
         {
-            var panel = Controls.OfType<Panel>().First(rs => rs.Name == NowPanellbl.Text + "Panel");
+            string NowPanelName = GetPanelName();
+            var panel = GetNowPanel(NowPanelName);
             panel.Enabled = true;
             BoxEvent = true;
             EditBtn.Enabled = false;
@@ -291,10 +298,10 @@ namespace 便當
                 UploadPanel.Enabled = true;
             }
         }
-        private void PanelControl(string NowPanelName)
+        private void PanelControl()
         {
             // 判斷現在顯示的資料面板並關閉其他
-            string PanelName = NowPanelName + "Panel";
+            string PanelName = GetPanelName();
             foreach (Panel panel in Controls.OfType<Panel>())
             {
                 if (panel.Name != PanelName)
@@ -307,8 +314,8 @@ namespace 便當
         {
             ConfirmChangebtn.Visible = false;
             ConfirmChangebtn.Enabled = false;
-            string PanelName = NowPanellbl.Text + "Panel";
-            Panel panel = Controls.OfType<Panel>().FirstOrDefault(rs => rs.Name == PanelName);
+            string PanelName = GetPanelName();
+            Panel panel = GetNowPanel(PanelName);
             foreach (TextBox item in panel.Controls.OfType<TextBox>())
             {
                 GetText(item, panel);
@@ -533,11 +540,17 @@ namespace 便當
                         GetSQL();
                         Query(DTbaseMeal, "品項");
                     }
-
                 }
             }
         }
-
+        private string GetPanelName()
+        { return NowPanellbl.Text + "Panel"; }
+        private Panel GetNowPanel(string PanelName)
+        { return Controls.OfType<Panel>().First(rs => rs.Name == PanelName); }
+        private string GetBoxName(string Name)
+        { return Name + "Box"; }
+        private string GetlblName(string Name)
+        { return Name + "lbl"; }
         private void MenuDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // e.CellStyle.BackColor = Color.White;

@@ -310,7 +310,7 @@
             this.TableBox.Name = "TableBox";
             this.TableBox.Size = new System.Drawing.Size(121, 21);
             this.TableBox.TabIndex = 22;
-            this.TableBox.SelectedIndexChanged += new System.EventHandler(this.TableBox_SelectedIndexChanged);
+            this.TableBox.SelectionChangeCommitted += new System.EventHandler(this.TableBox_SelectionChangeCommitted);
             // 
             // MealPanel
             // 

@@ -59,11 +59,7 @@ namespace 便當
                 if (MessageBox.Show("還有更改未保存，確定要關閉嗎？", "警告", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning) == DialogResult.OK)
                 {
-
-                    FormControl MenuEdit = new FormControl
-                    {
-                        ClosingCheck = true
-                    };
+                    FormControl MenuEdit = new FormControl();
                     MenuEdit.Form_Close(sender, e);
                 }
                 else
@@ -219,7 +215,7 @@ namespace 便當
         }
         private void SetText(TextBox box, Panel panel)
         {
-            string Name = box.Name.Substring(0, box.Name.Length - 3);
+            string Name = GetItemName(box);
             string BoxName = GetBoxName(Name);
             string lblName = GetlblName(Name);
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
@@ -237,7 +233,7 @@ namespace 便當
         }
         private void GetText(Control item, Panel panel)
         {
-            string Name = item.Name.Substring(0, item.Name.Length - 3);
+            string Name = GetItemName(item);
             string BoxName = GetBoxName(Name);
             string lblName = GetlblName(Name);
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
@@ -268,7 +264,7 @@ namespace 便當
         private void Addbtn_Click(object sender, EventArgs e)
         {
             string PanelName = GetPanelName();
-            var panel = Controls.OfType<Panel>().First(rs => rs.Name == PanelName);
+            var panel = GetNowPanel(PanelName);
             panel.Enabled = true;
             ConfirmAddbtn.Visible = true;
             ConfirmAddbtn.Enabled = false;
@@ -332,7 +328,7 @@ namespace 便當
                 Update(panel);
             }
 
-            if (UploadDialog.FileName != null)
+            if (!String.IsNullOrEmpty(UploadDialog.FileName))
             {
                 string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
                 if (File.Exists(UploadDialog.FileName))
@@ -366,7 +362,7 @@ namespace 便當
                                 item = dateValue.ToString("yyyy-MM-dd");
                             ValueList.Add(item);
                         }
-                        ConnectionWithParameter conn = new ConnectionWithParameter();
+                        Connection conn = new Connection();
                         conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
@@ -381,7 +377,7 @@ namespace 便當
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             ValueList.Add(item);
                         }
-                        ConnectionWithParameter conn = new ConnectionWithParameter();
+                        Connection conn = new Connection();
                         conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
@@ -402,7 +398,7 @@ namespace 便當
                                 item = dateValue.ToString("yyyy-MM-dd HH:mm");
                             ValueList.Add(item);
                         }
-                        ConnectionWithParameter conn = new ConnectionWithParameter();
+                        Connection conn = new Connection();
                         conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
@@ -418,7 +414,7 @@ namespace 便當
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             ValueList.Add(item);
                         }
-                        ConnectionWithParameter conn = new ConnectionWithParameter();
+                        Connection conn = new Connection();
                         conn.ParameterByList(UpdateStr, ParaList, ValueList);
                         break;
                     }
@@ -428,7 +424,7 @@ namespace 便當
 
         private void ConfirmAddbtn_Click(object sender, EventArgs e)
         {
-            if (UploadDialog.FileName != null)
+            if (!String.IsNullOrEmpty(UploadDialog.FileName))
             {
                 string TargetPath = Path.Combine("C:\\Users\\junwei\\source\\repos\\便當\\便當\\便當\\pic", $"{MealIDBox.Text}.png");
                 if (File.Exists(UploadDialog.FileName))
@@ -440,7 +436,7 @@ namespace 便當
             bool Enable;
             if (EnabledBox.Text == "啟用") Enable = true; else Enable = false;
             List<string> ValueList = new List<string> { MealIDBox.Text, MealNameBox.Text, PricePerMealBox.Text, Enable.ToString() };
-            ConnectionWithParameter conn = new ConnectionWithParameter();
+            Connection conn = new Connection();
             conn.ParameterByList(InsertStr, ParaList, ValueList);
             GetSQL();
             Query(DTbaseMeal, "品項");
@@ -457,7 +453,7 @@ namespace 便當
         {
             UploadDialog.AddExtension = true;
             UploadDialog.Filter = "Image Files(*.PNG;*.JPG;*)|*.PNG;*.JPG;*|All files (*.*)|*.*";
-            if (UploadDialog.ShowDialog() == DialogResult.OK && UploadDialog.FileName != null)
+            if (UploadDialog.ShowDialog() == DialogResult.OK && !String.IsNullOrEmpty(UploadDialog.FileName))
             {
                 UploadBox.ImageLocation = UploadDialog.FileName;
             }
@@ -465,12 +461,12 @@ namespace 便當
 
         private void DeleteThisOrderbtn_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+            var result = DeleteWarning();
             if (result == DialogResult.OK)
             {
-                SQLconn conn = new SQLconn();
+                Connection conn = new Connection();
                 conn.BackupDB();
-                ConnectionWithParameter CWPconn = new ConnectionWithParameter();
+                Connection CWPconn = new Connection();
                 string command = "Delete from OrderInfo where OrderID = @OrderID;";
                 string OrderID = OrderIDBox.Text;
                 Console.WriteLine(OrderID);
@@ -485,7 +481,7 @@ namespace 便當
         }
         private void GetSQL()
         {
-            SQLconn Conn = new SQLconn();
+            Connection Conn = new Connection();
             string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
             DTbaseMeal = Conn.conn(MealSelect);
             string UserSelect = "select CustomerID as 帳號, CustomerName as 名字, Birth as 生日, Carrier as 載具, Admin as 權限 from Customers;";
@@ -500,13 +496,13 @@ namespace 便當
         private void DeleteThisMealbtn_Click(object sender, EventArgs e)
         {
             string CheckCommand = "select OrderID from OrderInfo where MealID in (select MealID from OrderInfo) and MealID = @MealID;";
-            ConnectionWithParameter CWPconn = new ConnectionWithParameter();
+            Connection CWPconn = new Connection();
             string MealID = MealIDBox.Text;
             var reader = CWPconn.ParameterSelectByOne(CheckCommand, "@MealID", MealID);
             int result = reader.Count;
             if (result == 0)
             {
-                var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+                var Warning = DeleteWarning();
                 if (Warning == DialogResult.OK)
                 {
                     string DeleteCommand = "Delete from Meals where MealID = @MealID;";
@@ -521,10 +517,10 @@ namespace 便當
                 var rs = MessageBox.Show("此品項尚有訂單，要全部一起刪除嗎？", "警告", MessageBoxButtons.OKCancel);
                 if (rs == DialogResult.OK)
                 {
-                    var Warning = MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+                    var Warning = DeleteWarning();
                     if (Warning == DialogResult.OK)
                     {
-                        SQLconn conn = new SQLconn();
+                        Connection conn = new Connection();
                         conn.BackupDB();
                         for (int i = 0; i < reader.Count; i++)
                         {
@@ -551,6 +547,13 @@ namespace 便當
         { return Name + "Box"; }
         private string GetlblName(string Name)
         { return Name + "lbl"; }
+        private string GetItemName(Control item)
+        {
+            Name = item.Name.Substring(0, item.Name.Length - 3);
+            return Name;
+        }
+        private DialogResult DeleteWarning()
+        { return MessageBox.Show("刪除後無法復原！真的要刪除嗎？", "警告", MessageBoxButtons.OKCancel); }
         private void MenuDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // e.CellStyle.BackColor = Color.White;

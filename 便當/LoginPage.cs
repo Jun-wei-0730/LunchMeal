@@ -14,7 +14,7 @@ namespace 便當
 
         public void loginButton_Click(object sender, EventArgs e)
         {
-            ConnectionWithParameter CustomerID = new ConnectionWithParameter();
+            Connection CustomerID = new Connection();
             string ID = CustomerIDInput.Text;
             if (string.IsNullOrEmpty(ID) || !Login_query(ID))
                 MessageBox.Show("ID格式不對!");

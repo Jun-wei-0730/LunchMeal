@@ -80,7 +80,7 @@ namespace 便當
             //string strDemo = 0;
             //int intDemo;
 
-            SQLconn conn = new SQLconn();
+            Connection conn = new Connection();
             list = new List<string>();
             string SelectStr = "select CustomerID, CustomerName from Customers";
             IDTable = conn.conn(SelectStr);

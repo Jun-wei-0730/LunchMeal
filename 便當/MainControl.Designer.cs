@@ -845,6 +845,7 @@
             this.Controls.Add(this.MealPanel);
             this.Controls.Add(this.MenuDataGridView);
             this.Controls.Add(this.ConfirmAddbtn);
+            this.DoubleBuffered = true;
             this.Name = "MainControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "主控台";

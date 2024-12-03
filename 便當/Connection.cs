@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace 便當
 {
-    public class ConnectionWithParameter
+    public class Connection
     {
         public List<string> CustomerIDConn(string ID)
         {
@@ -87,10 +87,6 @@ namespace 便當
                 }
             }
         }
-    }
-    public class SQLconn
-    {
-        
         public string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
         public DataTable conn(string command)
         {
@@ -101,7 +97,7 @@ namespace 便當
                 using (SqlCommand commandobj = new SqlCommand(command, conn))
                 {
                     using (SqlDataReader reader = commandobj.ExecuteReader())
-                        {dataTable.Load(reader);}
+                    { dataTable.Load(reader); }
                 }
             }
             return dataTable;

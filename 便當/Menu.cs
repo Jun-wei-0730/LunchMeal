@@ -22,7 +22,7 @@ namespace 便當
         public Menu()
         {
             InitializeComponent();
-            SQLconn conn = new SQLconn();
+            Connection conn = new Connection();
             string selectstr = $"select * from Meals";
             DataTable result = conn.conn(selectstr);
             DataRow[] data = result.Select();

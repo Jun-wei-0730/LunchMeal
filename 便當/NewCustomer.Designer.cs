@@ -212,6 +212,7 @@
             this.Controls.Add(this.NewNamelbl);
             this.Controls.Add(this.NewCustomerIDInput);
             this.Controls.Add(this.NewIDlbl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "NewCustomer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

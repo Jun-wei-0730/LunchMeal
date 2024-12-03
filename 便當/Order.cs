@@ -154,7 +154,7 @@ namespace 便當
             }
             else
             {
-                SQLconn Orderconn = new SQLconn();
+                Connection Orderconn = new Connection();
                 DateTime UnsortedOrderTime = DateTime.Now;
                 string UserID_fixed = User.User_ID.Substring(User.User_ID.Length - 4);
                 string OrderTime_fixed = UnsortedOrderTime.ToString("yyMMddHHmms");
@@ -199,9 +199,7 @@ namespace 便當
         }
         public int check(CheckBox Box)
         {
-            if (!Box.Checked)
-                return 0;
-            else return 1;
+            return (Box.Checked ? 1 : 0);
         }
         // IComparer 做了發現沒有排序，先換別的方法
 

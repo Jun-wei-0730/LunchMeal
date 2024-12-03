@@ -354,16 +354,16 @@ namespace 便當
                         string UpdateStr = "Update Customers set CustomerName = @CustomerName" +
                             ",Birth = @Birth,Carrier = @Carrier,Admin = @Admin where CustomerID = @CustomerID";
                         List<string> ParaList = new List<string> { "@CustomerID", "@CustomerName", "@Birth", "@Carrier", "@Admin" };
-                        List<string> ValueList = new List<string>();
+                        Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             if (DateTime.TryParse(item, out DateTime dateValue))
                                 item = dateValue.ToString("yyyy-MM-dd");
-                            ValueList.Add(item);
+                            ParaPairs.Add(ParaList[i],item);
                         }
                         Connection conn = new Connection();
-                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaPairs);
                         break;
                     }
                 case "MealPanel":
@@ -371,14 +371,14 @@ namespace 便當
                         string UpdateStr = "Update Meals set MealName = @MealName, PricePerMeal = @PricePerMeal, Enabled = @Enabled " +
                             "where MealID = @MealID";
                         List<string> ParaList = new List<string> { "@MealID", "@MealName", "@PricePerMeal", "@Enabled" };
-                        List<string> ValueList = new List<string>();
+                        Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
-                            ValueList.Add(item);
+                            ParaPairs.Add(ParaList[i], item);
                         }
                         Connection conn = new Connection();
-                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaPairs);
                         break;
                     }
                 case "OrdersPanel":
@@ -389,17 +389,17 @@ namespace 便當
                             ",TableWare = @TableWare, PlasticBag = @PlasticBag, GetMeal = @GetMeal , GetMealTime = @GetMealTime" +
                             ",note = @note where OrderID = @OrderID";
                         List<string> ParaList = new List<string> { "@OrderID", "@CustomerName", "@OrderTime", "@OrderPrice", "@TableWare", "@PlasticBag", "@GetMeal", "@GetMealTime", "@note" };
-                        List<string> ValueList = new List<string>();
+                        Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             Console.WriteLine(item);
                             if (DateTime.TryParse(item, out DateTime dateValue))
                                 item = dateValue.ToString("yyyy-MM-dd HH:mm");
-                            ValueList.Add(item);
+                            ParaPairs.Add(ParaList[i], item);
                         }
                         Connection conn = new Connection();
-                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaPairs);
                         break;
                     }
                 case "InfoPanel":
@@ -408,14 +408,14 @@ namespace 便當
                             "select @MealID = MealID from Meals where MealName = @MealName;" +
                             "Update OrderInfo set MealCount = @MealCount where MealID = @MealID and OrderID = @OrderID";
                         List<string> ParaList = new List<string> { "@OrderID", "@MealName", "@MealCount" };
-                        List<string> ValueList = new List<string>();
+                        Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
                         {
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
-                            ValueList.Add(item);
+                            ParaPairs.Add(ParaList[i], item);
                         }
                         Connection conn = new Connection();
-                        conn.ParameterByList(UpdateStr, ParaList, ValueList);
+                        conn.ParameterByList(UpdateStr, ParaPairs);
                         break;
                     }
             }
@@ -432,12 +432,17 @@ namespace 便當
             }
             string InsertStr = "Insert into Meals (MealID, MealName, PricePerMeal, Enabled) values" +
                 "(@MealID, @MealName, @PricePerMeal, @Enabled)";
-            List<string> ParaList = new List<string> { "@MealID", "@MealName", "@PricePerMeal", "@Enabled" };
             bool Enable;
             if (EnabledBox.Text == "啟用") Enable = true; else Enable = false;
-            List<string> ValueList = new List<string> { MealIDBox.Text, MealNameBox.Text, PricePerMealBox.Text, Enable.ToString() };
+            Dictionary<string,string> ParaPairs = new Dictionary<string, string>
+            {
+                { "@MealID", MealIDBox.Text },
+                { "@MealName", MealNameBox.Text },
+                { "@PricePerMeal", PricePerMealBox.Text},
+                { "@Enabled", Enable.ToString() }
+            };
             Connection conn = new Connection();
-            conn.ParameterByList(InsertStr, ParaList, ValueList);
+            conn.ParameterByList(InsertStr, ParaPairs);
             GetSQL();
             Query(DTbaseMeal, "品項");
 

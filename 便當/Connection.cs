@@ -34,7 +34,7 @@ namespace 便當
                 }
             }
         }
-        public void ParameterByList(string command, List<string> ParaList, List<string> ValueList)
+        public void ParameterByList(string command, Dictionary<string,string>ParaPairs)
         {
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connstr))
@@ -42,9 +42,9 @@ namespace 便當
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(command, conn))
                 {
-                    for (int j = 0; j < ParaList.Count; j++)
+                    foreach (var pairs in ParaPairs)
                     {
-                        cmd.Parameters.AddWithValue(ParaList[j], ValueList[j]);
+                        cmd.Parameters.AddWithValue(pairs.Key, pairs.Value);
                     }
                     cmd.ExecuteNonQuery();
                 }

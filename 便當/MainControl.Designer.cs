@@ -288,7 +288,7 @@
             // NameSearchBox
             // 
             this.NameSearchBox.ForeColor = System.Drawing.Color.Silver;
-            this.NameSearchBox.Location = new System.Drawing.Point(139, 35);
+            this.NameSearchBox.Location = new System.Drawing.Point(139, 36);
             this.NameSearchBox.Name = "NameSearchBox";
             this.NameSearchBox.Size = new System.Drawing.Size(151, 22);
             this.NameSearchBox.TabIndex = 21;

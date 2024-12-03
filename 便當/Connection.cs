@@ -90,17 +90,20 @@ namespace 便當
     }
     public class SQLconn
     {
-        readonly DataTable dataTable = new DataTable();
+        
         public string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
         public DataTable conn(string command)
         {
-            SqlConnection conn = new SqlConnection(connstr);
-            conn.Open();
-            string selectstr = command;
-            SqlCommand commandobj = new SqlCommand(selectstr, conn);
-            SqlDataReader reader = commandobj.ExecuteReader();
-            dataTable.Load(reader);
-            conn.Close();
+            DataTable dataTable = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                using (SqlCommand commandobj = new SqlCommand(command, conn))
+                {
+                    using (SqlDataReader reader = commandobj.ExecuteReader())
+                        {dataTable.Load(reader);}
+                }
+            }
             return dataTable;
         }
         public void connOrder(string command)

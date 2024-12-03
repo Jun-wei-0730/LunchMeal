@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace 便當
 {
@@ -148,8 +149,8 @@ namespace 便當
             DataTable dt = new DataTable();
             string SearchStr = NameSearchBox.Text;
             var query = from rows in DTbase.AsEnumerable()
-                        where rows[ColumnName].ToString().Contains(SearchStr)
-                        select rows;
+                                                 where rows[ColumnName].ToString().Contains(SearchStr)
+                                                 select rows;
             MenuDataGridView.DataSource = (query.Count() > 0) ? query.CopyToDataTable() : null;
         }
 
@@ -170,8 +171,7 @@ namespace 便當
                     case "使用者":
                         foreach (TextBox box in UserPanel.Controls.OfType<TextBox>())
                         {
-                            string name = box.Name.Substring(0, box.Name.Length - 3);
-                            SetText(name, UserPanel);
+                            SetText(box, UserPanel);
                         }
                         UserPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[Adminlbl.Text].Value.ToString() == "True")
@@ -181,8 +181,7 @@ namespace 便當
                     case "全部訂單":
                         foreach (TextBox box in OrdersPanel.Controls.OfType<TextBox>())
                         {
-                            string name = box.Name.Substring(0, box.Name.Length - 3);
-                            SetText(name, OrdersPanel);
+                            SetText(box, OrdersPanel);
                         }
                         OrdersPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[TableWarelbl.Text].Value.ToString() == "True")
@@ -196,16 +195,14 @@ namespace 便當
                     case "餐點詳細":
                         foreach (TextBox box in InfoPanel.Controls.OfType<TextBox>())
                         {
-                            string name = box.Name.Substring(0, box.Name.Length - 3);
-                            SetText(name, InfoPanel);
+                            SetText(box, InfoPanel);
                         }
                         InfoPanel.Enabled = false;
                         break;
                     default:
                         foreach (TextBox box in MealPanel.Controls.OfType<TextBox>())
                         {
-                            string name = box.Name.Substring(0, box.Name.Length - 3);
-                            SetText(name, MealPanel);
+                            SetText(box, MealPanel);
                         }
                         MealPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[Enabledlbl.Text].Value.ToString() == "True")
@@ -215,8 +212,9 @@ namespace 便當
                 }
             }
         }
-        private void SetText(string Name, Panel panel)
+        private void SetText(TextBox box, Panel panel)
         {
+            string Name = box.Name.Substring(0, box.Name.Length - 3);
             string BoxName = Name + "Box";
             string lblName = Name + "lbl";
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
@@ -232,8 +230,9 @@ namespace 便當
                 else Box.Text = dateValue.ToString("HH:mm").Trim();
             }
         }
-        private void GetText(string Name, Panel panel)
+        private void GetText(Control item, Panel panel)
         {
+            string Name = item.Name.Substring(0, item.Name.Length - 3);
             string BoxName = Name + "Box";
             string lblName = Name + "lbl";
             var Box = panel.Controls.OfType<TextBox>().FirstOrDefault(rs => rs.Name == BoxName);
@@ -312,20 +311,17 @@ namespace 便當
             Panel panel = Controls.OfType<Panel>().FirstOrDefault(rs => rs.Name == PanelName);
             foreach (TextBox item in panel.Controls.OfType<TextBox>())
             {
-                string name = item.Name.Substring(0, item.Name.Length - 3);
-                GetText(name, panel);
+                GetText(item, panel);
                 Update(panel);
             }
             foreach (ComboBox item in panel.Controls.OfType<ComboBox>())
             {
-                string name = item.Name.Substring(0, item.Name.Length - 3);
-                GetText(name, panel);
+                GetText(item, panel);
                 Update(panel);
             }
             foreach (CheckBox item in panel.Controls.OfType<CheckBox>())
             {
-                string name = item.Name.Substring(0, item.Name.Length - 3);
-                GetText(name, panel);
+                GetText(item, panel);
                 Update(panel);
             }
 
@@ -482,19 +478,16 @@ namespace 便當
         }
         private void GetSQL()
         {
-            SQLconn MealConn = new SQLconn();
+            SQLconn Conn = new SQLconn();
             string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
-            DTbaseMeal = MealConn.conn(MealSelect);
-            SQLconn UserConn = new SQLconn();
+            DTbaseMeal = Conn.conn(MealSelect);
             string UserSelect = "select CustomerID as 帳號, CustomerName as 名字, Birth as 生日, Carrier as 載具, Admin as 權限 from Customers;";
-            DTbaseUser = UserConn.conn(UserSelect);
-            SQLconn OrderConn = new SQLconn();
+            DTbaseUser = Conn.conn(UserSelect);
             string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 訂單總價, " +
                 "TableWare as 餐具,PlasticBag as 塑膠袋, GetMeal as 取餐方式, GetMealtime as 取餐時間, Note as 備註 from Orders inner join Customers on Orders.CustomerSeq = Customers.CustomerSeq;";
-            DTbaseOrders = OrderConn.conn(OrderSelect);
-            SQLconn InfoConn = new SQLconn();
+            DTbaseOrders = Conn.conn(OrderSelect);
             string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
-            DTbaseInfo = InfoConn.conn(InfoSelect);
+            DTbaseInfo = Conn.conn(InfoSelect);
         }
 
         private void DeleteThisMealbtn_Click(object sender, EventArgs e)

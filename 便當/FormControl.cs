@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace 便當
 {
@@ -8,6 +9,7 @@ namespace 便當
         {
             string message = "是否關閉程式？";
             string caption = "關閉提醒";
+            Console.WriteLine(e.CloseReason);
             var result = MessageBox.Show
                 (message, caption, 
                 MessageBoxButtons.YesNo,

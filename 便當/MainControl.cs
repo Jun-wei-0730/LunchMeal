@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace 便當
 {
@@ -50,7 +48,7 @@ namespace 便當
         private void MenuEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!ConfirmChangebtn.Visible)
-            {   
+            {
                 FormControl MenuEdit = new FormControl();
                 MenuEdit.Form_Close(sender, e);
             }
@@ -136,7 +134,7 @@ namespace 便當
         private void TableBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             string index = TableBox.Text;
-            Dictionary<string,string> item = new Dictionary<string,string>();
+            Dictionary<string, string> item = new Dictionary<string, string>();
             item.Add("使用者", "按Enter查詢使用者名");
             item.Add("菜單", "按Enter查詢品項");
             item.Add("全部訂單", "按Enter查詢訂餐者名字");
@@ -150,8 +148,8 @@ namespace 便當
             DataTable dt = new DataTable();
             string SearchStr = NameSearchBox.Text;
             var query = from rows in DTbase.AsEnumerable()
-                                                 where rows[ColumnName].ToString().Contains(SearchStr)
-                                                 select rows;
+                        where rows[ColumnName].ToString().Contains(SearchStr)
+                        select rows;
             MenuDataGridView.DataSource = (query.Count() > 0) ? query.CopyToDataTable() : null;
         }
 
@@ -360,7 +358,7 @@ namespace 便當
                             string item = MenuDataGridView.CurrentRow.Cells[i].Value.ToString();
                             if (DateTime.TryParse(item, out DateTime dateValue))
                                 item = dateValue.ToString("yyyy-MM-dd");
-                            ParaPairs.Add(ParaList[i],item);
+                            ParaPairs.Add(ParaList[i], item);
                         }
                         Connection conn = new Connection();
                         conn.ParameterByList(UpdateStr, ParaPairs);
@@ -434,7 +432,7 @@ namespace 便當
                 "(@MealID, @MealName, @PricePerMeal, @Enabled)";
             bool Enable;
             if (EnabledBox.Text == "啟用") Enable = true; else Enable = false;
-            Dictionary<string,string> ParaPairs = new Dictionary<string, string>
+            Dictionary<string, string> ParaPairs = new Dictionary<string, string>
             {
                 { "@MealID", MealIDBox.Text },
                 { "@MealName", MealNameBox.Text },
@@ -548,10 +546,20 @@ namespace 便當
         { return NowPanellbl.Text + "Panel"; }
         private Panel GetNowPanel(string PanelName)
         { return Controls.OfType<Panel>().First(rs => rs.Name == PanelName); }
+
         private string GetBoxName(string Name)
-        { return Name + "Box"; }
+        {
+            return Name + "Box";
+        }
+
         private string GetlblName(string Name)
-        { return Name + "lbl"; }
+        {
+            return Name + "lbl";
+        }
+
+
+
+
         private string GetItemName(Control item)
         {
             Name = item.Name.Substring(0, item.Name.Length - 3);
@@ -565,6 +573,11 @@ namespace 便當
 
             // TODO static method 產生 EventAtgs
             // EventArgs.Empty
+        }
+
+        private void TableBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

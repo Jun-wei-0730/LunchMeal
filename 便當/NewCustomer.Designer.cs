@@ -42,6 +42,7 @@
             this.IDCheck = new System.Windows.Forms.Label();
             this.NameCheck = new System.Windows.Forms.Label();
             this.DateCheck = new System.Windows.Forms.Label();
+            this.ROCYearbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // NewIDlbl
@@ -192,12 +193,20 @@
             this.DateCheck.Text = "✓";
             this.DateCheck.Visible = false;
             // 
+            // ROCYearbox
+            // 
+            this.ROCYearbox.Location = new System.Drawing.Point(297, 168);
+            this.ROCYearbox.Name = "ROCYearbox";
+            this.ROCYearbox.Size = new System.Drawing.Size(100, 22);
+            this.ROCYearbox.TabIndex = 14;
+            // 
             // NewCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(337, 268);
+            this.ClientSize = new System.Drawing.Size(417, 267);
+            this.Controls.Add(this.ROCYearbox);
             this.Controls.Add(this.DateCheck);
             this.Controls.Add(this.NameCheck);
             this.Controls.Add(this.IDCheck);
@@ -239,5 +248,6 @@
         private System.Windows.Forms.Label IDCheck;
         private System.Windows.Forms.Label NameCheck;
         private System.Windows.Forms.Label DateCheck;
+        private System.Windows.Forms.TextBox ROCYearbox;
     }
 }

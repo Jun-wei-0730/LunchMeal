@@ -34,7 +34,7 @@ namespace 便當
                 }
             }
         }
-        public void ParameterByList(string command, Dictionary<string,string>ParaPairs)
+        public void ParameterByList(string command, Dictionary<string, string> ParaPairs)
         {
             string connstr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connstr))
@@ -72,14 +72,15 @@ namespace 便當
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(command, conn))
                 {
-                    cmd.Parameters.AddWithValue(Para,Value);
+                    cmd.Parameters.AddWithValue(Para, Value);
                     Console.WriteLine(command);
-                    var reader =  cmd.ExecuteReader();
+                    var reader = cmd.ExecuteReader();
                     List<string> ReadList = new List<string>();
                     while (reader.Read())
                     {
                         for (int i = 0; i < reader.FieldCount; i++)
-                            {Console.WriteLine(reader[i].ToString());
+                        {
+                            Console.WriteLine(reader[i].ToString());
                             ReadList.Add(reader.GetString(i));
                         }
                     }
@@ -91,15 +92,16 @@ namespace 便當
         public DataTable conn(string command)
         {
             DataTable dataTable = new DataTable();
+
             using (SqlConnection conn = new SqlConnection(connstr))
+            using (SqlCommand commandobj = new SqlCommand(command, conn))
             {
                 conn.Open();
-                using (SqlCommand commandobj = new SqlCommand(command, conn))
-                {
-                    using (SqlDataReader reader = commandobj.ExecuteReader())
-                    { dataTable.Load(reader); }
-                }
+
+                using (SqlDataReader reader = commandobj.ExecuteReader())
+                    dataTable.Load(reader);
             }
+
             return dataTable;
         }
         public void connOrder(string command)

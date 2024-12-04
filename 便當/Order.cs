@@ -171,7 +171,7 @@ namespace 便當
                 Orderconn.connOrder(insertstrOrder);
                 for (int i = 0; i <= orders.Orders.Count - 1; i++)
                 {
-                    str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量})";
+                    str += $"('{OrderID}',{orders.Orders[i].便當ID}, {orders.Orders[i].數量},{orders.Orders[i].便當價格})";
                     if (i != orders.Orders.Count - 1)
                         str += ",";
                 }
@@ -190,12 +190,15 @@ namespace 便當
 
         private void OrderInfo_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
+
             Console.WriteLine(e.CloseReason);
             if (e.CloseReason == CloseReason.UserClosing && programclose == false)
             {
                 FormControl Order = new FormControl();
                 Order.Form_Close(sender, e);
             }
+
         }
         public int check(CheckBox Box)
         {

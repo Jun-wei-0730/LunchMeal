@@ -190,7 +190,7 @@ namespace 便當
 
         private void OrderInfo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
 
             Console.WriteLine(e.CloseReason);
             if (e.CloseReason == CloseReason.UserClosing && programclose == false)

@@ -21,7 +21,7 @@ namespace 便當
             else
             {
                 List<string> Query_result = CustomerID.CustomerIDConn(ID);
-                if (CustomerID.CustomerIDConn(ID) == null) 
+                if (CustomerID.CustomerIDConn(ID) == null)
                     MessageBox.Show("查詢不到該使用者!");
                 else
                 {

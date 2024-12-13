@@ -174,8 +174,8 @@ namespace 便當
                         }
                         UserPanel.Enabled = false;
                         if (MenuDataGridView.CurrentRow.Cells[Adminlbl.Text].Value.ToString() == "True")
-                        { AdminBox.Text = "管理員"; }
-                        else { AdminBox.Text = "一般用戶"; }
+                        { AdminBox.Text = "管理員"; return; }
+                        AdminBox.Text = "一般用戶";
                         break;
                     case "全部訂單":
                         foreach (TextBox box in OrdersPanel.Controls.OfType<TextBox>())
@@ -349,8 +349,12 @@ namespace 便當
             {
                 case "UserPanel":
                     {
-                        string UpdateStr = "Update Customers set CustomerName = @CustomerName" +
-                            ",Birth = @Birth,Carrier = @Carrier,Admin = @Admin where CustomerID = @CustomerID";
+                        string UpdateStr = @"Update Customers set 
+                                           CustomerName = @CustomerName,
+                                           Birth = @Birth,
+                                           Carrier = @Carrier,
+                                           Admin = @Admin 
+                                           where CustomerID = @CustomerID";
                         List<string> ParaList = new List<string> { "@CustomerID", "@CustomerName", "@Birth", "@Carrier", "@Admin" };
                         Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
@@ -366,8 +370,11 @@ namespace 便當
                     }
                 case "MealPanel":
                     {
-                        string UpdateStr = "Update Meals set MealName = @MealName, PricePerMeal = @PricePerMeal, Enabled = @Enabled " +
-                            "where MealID = @MealID";
+                        string UpdateStr = @"Update Meals set 
+                                            MealName = @MealName, 
+                                            PricePerMeal = @PricePerMeal, 
+                                            Enabled = @Enabled 
+                                            where MealID = @MealID";
                         List<string> ParaList = new List<string> { "@MealID", "@MealName", "@PricePerMeal", "@Enabled" };
                         Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
@@ -381,11 +388,15 @@ namespace 便當
                     }
                 case "OrdersPanel":
                     {
-                        string UpdateStr = "declare @CustomerSeq int;" +
-                            "select @CustomerSeq = CustomerSeq from Customers where CustomerName = @CustomerName;" +
-                            "Update Orders set CustomerSeq = @CustomerSeq, OrderTime = @OrderTime, OrderPrice = @OrderPrice" +
-                            ",TableWare = @TableWare, PlasticBag = @PlasticBag, GetMeal = @GetMeal , GetMealTime = @GetMealTime" +
-                            ",note = @note where OrderID = @OrderID";
+                        string UpdateStr = @"declare @CustomerSeq int;
+                                             select @CustomerSeq = CustomerSeq from Customers 
+                                             where CustomerName = @CustomerName; 
+                                             Update Orders set CustomerSeq = @CustomerSeq, 
+                                             OrderTime = @OrderTime, OrderPrice = @OrderPrice,
+                                             TableWare = @TableWare, PlasticBag = @PlasticBag, 
+                                             GetMeal = @GetMeal , GetMealTime = @GetMealTime,
+                                             note = @note 
+                                             where OrderID = @OrderID";
                         List<string> ParaList = new List<string> { "@OrderID", "@CustomerName", "@OrderTime", "@OrderPrice", "@TableWare", "@PlasticBag", "@GetMeal", "@GetMealTime", "@note" };
                         Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
@@ -402,9 +413,12 @@ namespace 便當
                     }
                 case "InfoPanel":
                     {
-                        string UpdateStr = "declare @MealID int;" +
-                            "select @MealID = MealID from Meals where MealName = @MealName;" +
-                            "Update OrderInfo set MealCount = @MealCount where MealID = @MealID and OrderID = @OrderID";
+                        string UpdateStr = @"declare @MealID int;
+                                             select @MealID = MealID from Meals 
+                                             where MealName = @MealName;
+                                             Update OrderInfo set 
+                                             MealCount = @MealCount 
+                                             where MealID = @MealID and OrderID = @OrderID";
                         List<string> ParaList = new List<string> { "@OrderID", "@MealName", "@MealCount" };
                         Dictionary<string, string> ParaPairs = new Dictionary<string, string>();
                         for (int i = 0; i < MenuDataGridView.Columns.Count; i++)
@@ -428,8 +442,9 @@ namespace 便當
                 if (File.Exists(UploadDialog.FileName))
                     File.Copy(UploadDialog.FileName, TargetPath, true);
             }
-            string InsertStr = "Insert into Meals (MealID, MealName, PricePerMeal, Enabled) values" +
-                "(@MealID, @MealName, @PricePerMeal, @Enabled)";
+            string InsertStr = @"Insert into Meals 
+                                 (MealID, MealName, PricePerMeal, Enabled) values
+                                 (@MealID, @MealName, @PricePerMeal, @Enabled)";
             bool Enable;
             if (EnabledBox.Text == "啟用") Enable = true; else Enable = false;
             Dictionary<string, string> ParaPairs = new Dictionary<string, string>
@@ -485,24 +500,48 @@ namespace 便當
         private void GetSQL()
         {
             Connection Conn = new Connection();
-            string MealSelect = "select MealID as 品項ID,MealName as 品項,PricePerMeal as 價格,Enabled as 狀態 from Meals;";
+            string MealSelect = @"select MealID as 品項ID,
+                                  MealName as 品項,
+                                  PricePerMeal as 價格,
+                                  Enabled as 狀態 from Meals;";
             DTbaseMeal = Conn.conn(MealSelect);
-            string UserSelect = "select CustomerID as 帳號, CustomerName as 名字, Birth as 生日, Carrier as 載具, Admin as 權限 from Customers;";
+            string UserSelect = @"select CustomerID as 帳號, 
+                                  CustomerName as 名字, 
+                                  Birth as 生日, 
+                                  Carrier as 載具, 
+                                  Admin as 權限 from Customers;";
             DTbaseUser = Conn.conn(UserSelect);
-            string OrderSelect = "select OrderID as 訂單編號,Customers.CustomerName as 訂餐者,OrderTime as 訂餐時間,OrderPrice as 訂單總價, " +
-                "TableWare as 餐具,PlasticBag as 塑膠袋, GetMeal as 取餐方式, GetMealtime as 取餐時間, Note as 備註 from Orders inner join Customers on Orders.CustomerSeq = Customers.CustomerSeq;";
+            string OrderSelect = @"select OrderID as 訂單編號,
+                                   Customers.CustomerName as 訂餐者,
+                                   OrderTime as 訂餐時間,
+                                   OrderPrice as 訂單總價,
+                                   TableWare as 餐具,
+                                   PlasticBag as 塑膠袋, 
+                                   GetMeal as 取餐方式, 
+                                   GetMealtime as 取餐時間, 
+                                   Note as 備註 
+                                   from Orders inner join Customers 
+                                   on Orders.CustomerSeq = Customers.CustomerSeq;";
             DTbaseOrders = Conn.conn(OrderSelect);
-            string InfoSelect = "select OrderID as 訂單編號, Meals.MealName as 品項,MealCount as 餐點數量 from OrderInfo inner join Meals on OrderInfo.MealID = Meals.MealID;";
+            string InfoSelect = @"select OrderID as 訂單編號, 
+                                  Meals.MealName as 品項,
+                                  MealCount as 餐點數量 
+                                  from OrderInfo inner join Meals 
+                                  on OrderInfo.MealID = Meals.MealID;";
             DTbaseInfo = Conn.conn(InfoSelect);
         }
 
         private void DeleteThisMealbtn_Click(object sender, EventArgs e)
         {
-            string CheckCommand = "select OrderID from OrderInfo where MealID in (select MealID from OrderInfo) and MealID = @MealID;";
+            string CheckCommand = @"select OrderID from OrderInfo 
+                                    where MealID = @MealID;";
             Connection CWPconn = new Connection();
             string MealID = MealIDBox.Text;
             var reader = CWPconn.ParameterSelectByOne(CheckCommand, "@MealID", MealID);
             int result = reader.Count;
+            string OrderID = string.Join(",", reader);
+            // for 迴圈
+
             if (result == 0)
             {
                 var Warning = DeleteWarning();
@@ -513,32 +552,39 @@ namespace 便當
                     MessageBox.Show("品項已刪除");
                     GetSQL();
                     Query(DTbaseMeal, "品項");
+                    return;
                 }
             }
-            else
+            var rs = MessageBox.Show("此品項尚有訂單，要全部一起刪除嗎？", "警告", MessageBoxButtons.OKCancel);
+            if (rs == DialogResult.OK)
             {
-                var rs = MessageBox.Show("此品項尚有訂單，要全部一起刪除嗎？", "警告", MessageBoxButtons.OKCancel);
-                if (rs == DialogResult.OK)
+                var Warning = DeleteWarning();
+                if (Warning == DialogResult.OK)
                 {
-                    var Warning = DeleteWarning();
-                    if (Warning == DialogResult.OK)
+                    Connection conn = new Connection();
+                    conn.BackupDB();
+
+                    // TSQL string_split
+
+                    string DeleteCommand = $@"Delete From OrderInfo
+                                             Where OrderID in (
+                                             Select OrderID
+                                             From OrderInfo
+                                             Where MealID = 13);
+                                             Delete From Orders
+                                             Where OrderID in 
+                                             (select value as OrderID from string_split(@OrderID,','))
+                                             Delete From Meals
+                                             Where MealID = 13;";
+                    Dictionary<string, string> ParaPairs= new Dictionary<string, string>
                     {
-                        Connection conn = new Connection();
-                        conn.BackupDB();
-                        for (int i = 0; i < reader.Count; i++)
-                        {
-                            string OrderID = reader[i];
-                            string command = "Delete from OrderInfo where OrderID = @OrderID;";
-                            CWPconn.ParameterCommandByOne(command, "@OrderID", OrderID);
-                            command = "Delete from Orders where OrderID = @OrderID;";
-                            CWPconn.ParameterCommandByOne(command, "@OrderID", OrderID);
-                        }
-                        string DeleteCommand = "Delete from Meals where MealID = @MealID;";
-                        CWPconn.ParameterCommandByOne(DeleteCommand, "@MealID", MealID);
-                        MessageBox.Show("品項已刪除");
-                        GetSQL();
-                        Query(DTbaseMeal, "品項");
-                    }
+                        { "@MealID", MealID },
+                        { "@OrderID", OrderID }
+                    };
+                    CWPconn.ParameterByList(DeleteCommand, ParaPairs);
+                    MessageBox.Show("品項已刪除");
+                    GetSQL();
+                    Query(DTbaseMeal, "品項");
                 }
             }
         }

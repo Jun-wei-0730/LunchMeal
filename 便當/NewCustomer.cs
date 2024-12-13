@@ -28,52 +28,51 @@ namespace 便當
 
             DateTime Birth = BirthPicker.Value;
             string ConnStr = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
-            string SelectStr = 
-                "select COUNT(CustomerID) as 計數 from Customers where CustomerID = @ID " +
-                "union all " +
-                "select Count(customerName) as 計數 from Customers where CustomerName = @Name";
+
+            string SelectIDStr = "select CustomerID from Customers where CustomerID = @ID";
+            string SelectNameStr = "select customerName from Customers where CustomerName = @Name";
             string CmdStr = "Insert Into Customers values (Next Value For CustomerSeq, @ID, @Name, @Birth, NULL, 0)";
             string ID = NewCustomerIDInput.Text;
             string Name = NewCustomerNameInput.Text;
+
             using (SqlConnection conn = new SqlConnection(ConnStr))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(SelectStr, conn))
+                using (SqlCommand cmd = new SqlCommand(SelectIDStr, conn))
                 {
                     cmd.Parameters.AddWithValue("@ID", ID);
-                    cmd.Parameters.AddWithValue("@Name", Name);
                     List<int> result = new List<int>();
                     var reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                       result.Add(reader.GetInt32(0));
-                    }
-                    reader.Close();
-                    if (result[0] == 0 && result[1] == 0)
-                    {
-                        using (SqlCommand cmd2 = new SqlCommand(CmdStr, conn))
-                        {
-                            cmd2.Parameters.AddWithValue("@ID", ID);
-                            cmd2.Parameters.AddWithValue("@Name", Name);
-                            cmd2.Parameters.AddWithValue("@Birth", Birth); //因資料庫資料格式為date 傳入字串會出錯
-                            cmd2.ExecuteNonQuery();
-                            MessageBox.Show("資料已儲存");
-                            this.Close();
-                            return;
-                        }
-                    }
-                    if (result[0] != 0)
+                    if (reader.HasRows)
                     {
                         MessageBox.Show("ID重複!");
+                        reader.Close();
                         return;
                     }
-                    if (result[1] != 0)
+                    reader.Close();
+                }
+                using (SqlCommand cmd = new SqlCommand(SelectNameStr, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Name", Name);
+                    var reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
                         MessageBox.Show("名稱重複!");
+                        reader.Close();
                         return;
                     }
+                    reader.Close();
                 }
-            } 
+                using (SqlCommand InsertCmd = new SqlCommand(CmdStr, conn))
+                {
+                    InsertCmd.Parameters.AddWithValue("@ID", ID);
+                    InsertCmd.Parameters.AddWithValue("@Name", Name);
+                    InsertCmd.Parameters.AddWithValue("@Birth", Birth); //因資料庫資料格式為date 傳入字串會出錯
+                    InsertCmd.ExecuteNonQuery();
+                    MessageBox.Show("資料已儲存");
+                    this.Close();
+                }
+            }
         }
 
         private void IDCancel_Click(object sender, EventArgs e)
@@ -95,15 +94,15 @@ namespace 便當
             }
 
             if (NewCustomerIDInput.Text.Length > 8)
-            { 
-                IDWarning.Text = "ID太長!"; 
-                return; 
+            {
+                IDWarning.Text = "ID太長!";
+                return;
             }
 
             if (NewCustomerIDInput.Text.Length < 6)
-            { 
-                IDWarning.Text = "ID太短"; 
-                return; 
+            {
+                IDWarning.Text = "ID太短";
+                return;
             }
 
             IDWarning.Text = "ID格式不對!";
@@ -138,7 +137,11 @@ namespace 便當
             var ROCYear = new TaiwanCalendar();
             var info = new CultureInfo("zh-TW");
             info.DateTimeFormat.Calendar = ROCYear;
-            ROCYearbox.Text = BirthPicker.Value.ToString("D",info);
+
+            ROCYear.GetYear(DateTime.Today);
+
+            ROCYearbox.Text = BirthPicker.Value.ToString("D", info);
+
             if (BirthPicker.Value < DateTime.Today)
             {
                 DateWarning.Visible = false;

@@ -29,7 +29,7 @@ namespace 便當
             for (int i = 0; i < data.Length; i++)
             {
                 if (Convert.ToInt32(data[i]["Enabled"]) == 1)
-                    {
+                {
                     switch (Convert.ToInt32(data[i]["MealID"]))
                     {
                         case 998:
@@ -44,7 +44,7 @@ namespace 便當
                                 便當ID = Convert.ToInt32(data[i]["MealID"])
                             }); break;
                     }
-                    }
+                }
             }
             for (int i = 0; i <= 8; i++)
             {
@@ -264,7 +264,7 @@ namespace 便當
                 }
                 else
                     qty.Visible = true;
-                
+
                 qty.Enabled = false;
                 if (item != null)
                     qty.Value = Convert.ToDecimal(item.SubItems[1].Text);

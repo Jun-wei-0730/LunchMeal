@@ -295,7 +295,7 @@ namespace 便當
         {
             if (NUD.Enabled == true)
             {
-                int MenuNum = (Convert.ToInt32(page.Text) - 1) * 9;
+                int MenuNum = (Convert.ToInt32(page.Text) - 1) * (int)DisplayPerPage.Value;
                 表單數量控制(菜單[NUDnum + MenuNum].便當名稱, NUD.Value);
             }
         }

@@ -528,7 +528,7 @@
             // page
             // 
             this.page.AutoSize = true;
-            this.page.Location = new System.Drawing.Point(649, 48);
+            this.page.Location = new System.Drawing.Point(12, 473);
             this.page.Name = "page";
             this.page.Size = new System.Drawing.Size(11, 12);
             this.page.TabIndex = 60;

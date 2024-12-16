@@ -76,6 +76,7 @@
             this.DisplayPerPage = new System.Windows.Forms.NumericUpDown();
             this.DisplayPerPagelbl = new System.Windows.Forms.Label();
             this.ClearOrder = new System.Windows.Forms.Button();
+            this.MenuFlow = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.itempic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic4)).BeginInit();
@@ -102,9 +103,9 @@
             this.BeginOrderButton.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.BeginOrderButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BeginOrderButton.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.BeginOrderButton.Location = new System.Drawing.Point(642, 433);
+            this.BeginOrderButton.Location = new System.Drawing.Point(615, 426);
             this.BeginOrderButton.Name = "BeginOrderButton";
-            this.BeginOrderButton.Size = new System.Drawing.Size(146, 49);
+            this.BeginOrderButton.Size = new System.Drawing.Size(173, 49);
             this.BeginOrderButton.TabIndex = 0;
             this.BeginOrderButton.Text = "訂購";
             this.BeginOrderButton.UseVisualStyleBackColor = false;
@@ -323,9 +324,9 @@
             this.listview_name,
             this.listview_qty});
             this.OrderResult.HideSelection = false;
-            this.OrderResult.Location = new System.Drawing.Point(642, 73);
+            this.OrderResult.Location = new System.Drawing.Point(615, 48);
             this.OrderResult.Name = "OrderResult";
-            this.OrderResult.Size = new System.Drawing.Size(146, 288);
+            this.OrderResult.Size = new System.Drawing.Size(173, 288);
             this.OrderResult.TabIndex = 42;
             this.OrderResult.UseCompatibleStateImageBehavior = false;
             this.OrderResult.View = System.Windows.Forms.View.Details;
@@ -571,13 +572,20 @@
             // 
             // ClearOrder
             // 
-            this.ClearOrder.Location = new System.Drawing.Point(713, 364);
+            this.ClearOrder.Location = new System.Drawing.Point(713, 340);
             this.ClearOrder.Name = "ClearOrder";
-            this.ClearOrder.Size = new System.Drawing.Size(75, 23);
+            this.ClearOrder.Size = new System.Drawing.Size(75, 31);
             this.ClearOrder.TabIndex = 64;
             this.ClearOrder.Text = "清空點餐";
             this.ClearOrder.UseVisualStyleBackColor = true;
             this.ClearOrder.Click += new System.EventHandler(this.ClearOrder_Click);
+            // 
+            // MenuFlow
+            // 
+            this.MenuFlow.Location = new System.Drawing.Point(29, 48);
+            this.MenuFlow.Name = "MenuFlow";
+            this.MenuFlow.Size = new System.Drawing.Size(580, 427);
+            this.MenuFlow.TabIndex = 65;
             // 
             // Menu
             // 
@@ -585,6 +593,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.OrderResult);
+            this.Controls.Add(this.MenuFlow);
             this.Controls.Add(this.ClearOrder);
             this.Controls.Add(this.DisplayPerPagelbl);
             this.Controls.Add(this.DisplayPerPage);
@@ -607,7 +617,6 @@
             this.Controls.Add(this.item1pricelbl);
             this.Controls.Add(this.lbl2);
             this.Controls.Add(this.lbl1);
-            this.Controls.Add(this.OrderResult);
             this.Controls.Add(this.item0pricelbl);
             this.Controls.Add(this.lbl0);
             this.Controls.Add(this.item6qty);
@@ -711,5 +720,6 @@
         private System.Windows.Forms.NumericUpDown DisplayPerPage;
         private System.Windows.Forms.Label DisplayPerPagelbl;
         private System.Windows.Forms.Button ClearOrder;
+        private System.Windows.Forms.FlowLayoutPanel MenuFlow;
     }
 }

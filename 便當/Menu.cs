@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,7 +19,7 @@ namespace 便當
         }
 
         readonly List<便當> 菜單 = new List<便當>();
-        
+
         public Menu()
         {
             InitializeComponent();
@@ -46,7 +47,7 @@ namespace 便當
                     }
                 }
             }
-            for (int i = 0; i <= DisplayPerPage.Value -1 ; i++)
+            for (int i = 0; i <= DisplayPerPage.Value - 1; i++)
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
@@ -70,6 +71,31 @@ namespace 便當
         private void Menu_Load(object sender, EventArgs e)
         {
             UserNameLabel.Text = "使用者 : " + User.UserName;
+            MenuFlow.FlowDirection = FlowDirection.LeftToRight;
+            MenuFlow.WrapContents = true;
+            MenuFlow.AutoScroll = true;
+            MenuFlow.Margin = new Padding(8, 10, 8, 10);
+
+            for (int i = 1; i <= DisplayPerPage.Value; i++)
+            {
+                Panel panel = new Panel();
+                panel.Size = new Size(180, 150);
+                panel.Controls.Add(new Label
+                {
+                    Text = 菜單[i - 1].便當名稱.ToString(),
+                    Font = new Font("新細明體", 12, FontStyle.Regular),
+                });
+                panel.Controls.Add(new PictureBox
+                {
+                    ImageLocation = ImgUrlGet(Text, 菜單[i-1].便當ID),
+                    Location = new Point(0, 25),
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Size = new Size(150, 85)
+                });
+                if (i % 3 == 0)
+                    MenuFlow.SetFlowBreak(panel, true); //控件換行
+                MenuFlow.Controls.Add(panel);
+            }
         }
 
         private void Logout_Click(object sender, EventArgs e)
@@ -238,7 +264,7 @@ namespace 便當
         private void PageMenuGet(int page)
         {
             int Menu_index = (page - 1) * (int)DisplayPerPage.Value;
-            for (int i = 0; i < 9 ; i++)
+            for (int i = 0; i < 9; i++)
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
@@ -246,6 +272,8 @@ namespace 便當
                 var lbl = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_name);
                 var lblP = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_price);
                 var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
+
+
 
                 if (i + Menu_index < 菜單.Count)
                 {
@@ -267,13 +295,14 @@ namespace 便當
                 string itemQty = "item" + i.ToString() + "qty";
                 var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
                 var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
-                if (lbl.Text == "" )
+                if (lbl.Text == "")
                 {
                     qty.Visible = false;
                     NextPage.Visible = false;
                 }
                 else
                     qty.Visible = true;
+
 
                 qty.Enabled = false;
                 if (item != null)
@@ -282,12 +311,12 @@ namespace 便當
                     qty.Value = 0;
                 qty.Enabled = true;
 
-                if (i + 1 > DisplayPerPage.Value )
+                if (i + 1 > DisplayPerPage.Value)
                 {
                     lbl.Visible = false;
                     lblP.Visible = false;
-                    pic.Visible= false;
-                    qty.Visible= false;
+                    pic.Visible = false;
+                    qty.Visible = false;
                 }
             }
         }
@@ -323,22 +352,48 @@ namespace 便當
 
         private void DisplayPerPage_ValueChanged(object sender, EventArgs e)
         {
-            if (DisplayPerPage.Value > 9)
-                DisplayPerPage.Value = 9;
+            if (DisplayPerPage.Value > 菜單.Count)
+                DisplayPerPage.Value = 菜單.Count;
             if (DisplayPerPage.Value < 1)
                 DisplayPerPage.Value = 1;
             page.Text = "1";
             PrePage.Visible = false;
             NextPage.Visible = true;
             PageMenuGet(Convert.ToInt32(page.Text));
+            MenuFlowUpdate();
         }
 
         private void ClearOrder_Click(object sender, EventArgs e)
         {
             OrderResult.Items.Clear();
-            foreach(NumericUpDown numericUpDown in Controls.OfType<NumericUpDown>())
+            foreach (NumericUpDown numericUpDown in Controls.OfType<NumericUpDown>())
                 if (numericUpDown.Name != "DisplayPerPage")
                     numericUpDown.Value = 0;
+        }
+
+        public void MenuFlowUpdate()
+        {
+            MenuFlow.Controls.Clear();
+            for (int i = 1; i <= DisplayPerPage.Value; i++)
+            {
+                Panel panel = new Panel();
+                panel.Size = new Size(180, 150);
+                panel.Controls.Add(new Label
+                {
+                    Text = 菜單[i - 1].便當名稱.ToString(),
+                    Font = new Font("新細明體", 12, FontStyle.Regular),
+                });
+                panel.Controls.Add(new PictureBox
+                {
+                    ImageLocation = ImgUrlGet(Text, 菜單[i - 1].便當ID),
+                    Location = new Point(0, 25),
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Size = new Size(150, 85)
+                });
+                if (i % 3 == 0)
+                    MenuFlow.SetFlowBreak(panel, true); //控件換行
+                MenuFlow.Controls.Add(panel);
+            }
         }
     }
 }

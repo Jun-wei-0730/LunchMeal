@@ -593,8 +593,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
-            this.Controls.Add(this.OrderResult);
             this.Controls.Add(this.MenuFlow);
+            this.Controls.Add(this.OrderResult);
             this.Controls.Add(this.ClearOrder);
             this.Controls.Add(this.DisplayPerPagelbl);
             this.Controls.Add(this.DisplayPerPage);

@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace 便當
@@ -23,6 +24,10 @@ namespace 便當
         public Menu()
         {
             InitializeComponent();
+            DisplayPerPage.MouseWheel += (sender, e) =>
+            {
+                ((HandledMouseEventArgs)e).Handled = true; // 禁止滾輪行為
+            };
             Connection conn = new Connection();
             string selectstr = $"select * from Meals";
             DataTable result = conn.conn(selectstr);
@@ -75,27 +80,7 @@ namespace 便當
             MenuFlow.WrapContents = true;
             MenuFlow.AutoScroll = true;
             MenuFlow.Margin = new Padding(8, 10, 8, 10);
-
-            for (int i = 1; i <= DisplayPerPage.Value; i++)
-            {
-                Panel panel = new Panel();
-                panel.Size = new Size(180, 150);
-                panel.Controls.Add(new Label
-                {
-                    Text = 菜單[i - 1].便當名稱.ToString(),
-                    Font = new Font("新細明體", 12, FontStyle.Regular),
-                });
-                panel.Controls.Add(new PictureBox
-                {
-                    ImageLocation = ImgUrlGet(Text, 菜單[i-1].便當ID),
-                    Location = new Point(0, 25),
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Size = new Size(150, 85)
-                });
-                if (i % 3 == 0)
-                    MenuFlow.SetFlowBreak(panel, true); //控件換行
-                MenuFlow.Controls.Add(panel);
-            }
+            MenuFlowUpdate(Convert.ToInt32(page.Text));
         }
 
         private void Logout_Click(object sender, EventArgs e)
@@ -203,8 +188,14 @@ namespace 便當
         {
             int _page = Convert.ToInt32(page.Text);
             page.Text = (_page + 1).ToString();
-            PageMenuGet(_page + 1);
+            if (DisplayPerPage.Value * (_page + 1) > 菜單.Count)
+            {
+                NextPage.Visible = false;
+            }
+            else { NextPage.Visible = true; }
             PrePage.Visible = true;
+            PageMenuGet(_page + 1);
+            MenuFlowUpdate(_page + 1);
         }
 
         private void PrePageBtn(object sender, EventArgs e)
@@ -213,11 +204,11 @@ namespace 便當
             int _page = Convert.ToInt32(page.Text);
             page.Text = (_page - 1).ToString();
             PageMenuGet(_page - 1);
-            if (_page == 2)
-            {
-                PrePage.Visible = false;
-            }
+            if (lbl0.Text != 菜單[0].便當名稱)
+            { PrePage.Visible = true; }
+            else { PrePage.Visible = false; }
             NextPage.Visible = true;
+            MenuFlowUpdate(_page -1);
         }
         private void GetOrder()
         {
@@ -298,7 +289,6 @@ namespace 便當
                 if (lbl.Text == "")
                 {
                     qty.Visible = false;
-                    NextPage.Visible = false;
                 }
                 else
                     qty.Visible = true;
@@ -354,13 +344,18 @@ namespace 便當
         {
             if (DisplayPerPage.Value > 菜單.Count)
                 DisplayPerPage.Value = 菜單.Count;
+            else { NextPage.Visible = true; }
             if (DisplayPerPage.Value < 1)
                 DisplayPerPage.Value = 1;
             page.Text = "1";
             PrePage.Visible = false;
             NextPage.Visible = true;
-            PageMenuGet(Convert.ToInt32(page.Text));
-            MenuFlowUpdate();
+            PageMenuGet(1);
+            MenuFlowUpdate(1);
+            if (DisplayPerPage.Value * 1 >= 菜單.Count)
+            {
+                NextPage.Visible = false;
+            }
         }
 
         private void ClearOrder_Click(object sender, EventArgs e)
@@ -369,27 +364,53 @@ namespace 便當
             foreach (NumericUpDown numericUpDown in Controls.OfType<NumericUpDown>())
                 if (numericUpDown.Name != "DisplayPerPage")
                     numericUpDown.Value = 0;
+            foreach (Panel panel in MenuFlow.Controls.OfType<Panel>())
+                foreach (NumericUpDown numeric in panel.Controls.OfType<NumericUpDown>())
+                    numeric.Value = 0;
         }
 
-        public void MenuFlowUpdate()
+        public void MenuFlowUpdate(int page)
         {
+            int num = (page - 1) * (int)DisplayPerPage.Value;
             MenuFlow.Controls.Clear();
             for (int i = 1; i <= DisplayPerPage.Value; i++)
             {
+                int CurrentNum = i;
+                int CurrentPosition = i - 1 + num;
                 Panel panel = new Panel();
                 panel.Size = new Size(180, 150);
-                panel.Controls.Add(new Label
+                if (CurrentPosition < 菜單.Count)
                 {
-                    Text = 菜單[i - 1].便當名稱.ToString(),
-                    Font = new Font("新細明體", 12, FontStyle.Regular),
-                });
-                panel.Controls.Add(new PictureBox
-                {
-                    ImageLocation = ImgUrlGet(Text, 菜單[i - 1].便當ID),
-                    Location = new Point(0, 25),
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Size = new Size(150, 85)
-                });
+                    var item = OrderResult.Items.OfType<ListViewItem>()
+                    .FirstOrDefault(lvi => lvi.Text.Trim() == 菜單[CurrentPosition].便當名稱.ToString().Trim());
+                    int ItemValue = (item == null) ? 0 : Convert.ToInt32(item.SubItems[1].Text);
+                    panel.Controls.Add(new Label
+                    {
+                        Text = 菜單[CurrentPosition].便當名稱.ToString(),
+                        Font = new Font("新細明體", 12, FontStyle.Regular),
+                    });
+                    panel.Controls.Add(new Label
+                    {
+                        Text = 菜單[CurrentPosition].價格.ToString(),
+                        Font = new Font("新細明體", 15, FontStyle.Regular),
+                        Location = new Point(100, 0)
+                    });
+                    panel.Controls.Add(new PictureBox
+                    {
+                        ImageLocation = ImgUrlGet(Text, 菜單[CurrentPosition].便當ID),
+                        Location = new Point(0, 25),
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        Size = new Size(150, 85)
+                    });
+                    NumericUpDown numericUpDown = new NumericUpDown
+                    {
+                        Value = ItemValue,
+                        Location = new Point(0, 120)
+                    };
+                    numericUpDown.ValueChanged += (sender, e) =>
+                        NumericControl(sender as NumericUpDown, CurrentNum - 1);
+                    panel.Controls.Add(numericUpDown);
+                }
                 if (i % 3 == 0)
                     MenuFlow.SetFlowBreak(panel, true); //控件換行
                 MenuFlow.Controls.Add(panel);

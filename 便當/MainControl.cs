@@ -565,17 +565,17 @@ namespace 便當
                     conn.BackupDB();
 
                     // TSQL string_split
-
+                    // TODO
                     string DeleteCommand = $@"Delete From OrderInfo
-                                             Where OrderID in (
+                                             Where OrderID in` (
                                              Select OrderID
                                              From OrderInfo
-                                             Where MealID = 13);
+                                             Where MealID = @MealID);
                                              Delete From Orders
                                              Where OrderID in 
                                              (select value as OrderID from string_split(@OrderID,','))
                                              Delete From Meals
-                                             Where MealID = 13;";
+                                             Where MealID = @MealID;";
                     Dictionary<string, string> ParaPairs= new Dictionary<string, string>
                     {
                         { "@MealID", MealID },

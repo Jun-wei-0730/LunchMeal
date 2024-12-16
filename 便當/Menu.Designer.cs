@@ -73,6 +73,9 @@
             this.NextPage = new System.Windows.Forms.Button();
             this.page = new System.Windows.Forms.Label();
             this.PrePage = new System.Windows.Forms.Button();
+            this.DisplayPerPage = new System.Windows.Forms.NumericUpDown();
+            this.DisplayPerPagelbl = new System.Windows.Forms.Label();
+            this.ClearOrder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itempic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itempic4)).BeginInit();
@@ -91,6 +94,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.item0qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item3qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item6qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayPerPage)).BeginInit();
             this.SuspendLayout();
             // 
             // BeginOrderButton
@@ -135,6 +139,7 @@
             this.itempic1.Size = new System.Drawing.Size(149, 83);
             this.itempic1.TabIndex = 6;
             this.itempic1.TabStop = false;
+            this.itempic1.Visible = false;
             // 
             // itempic3
             // 
@@ -143,6 +148,7 @@
             this.itempic3.Size = new System.Drawing.Size(149, 83);
             this.itempic3.TabIndex = 7;
             this.itempic3.TabStop = false;
+            this.itempic3.Visible = false;
             // 
             // itempic4
             // 
@@ -151,6 +157,7 @@
             this.itempic4.Size = new System.Drawing.Size(149, 83);
             this.itempic4.TabIndex = 8;
             this.itempic4.TabStop = false;
+            this.itempic4.Visible = false;
             // 
             // itempic6
             // 
@@ -159,6 +166,7 @@
             this.itempic6.Size = new System.Drawing.Size(149, 83);
             this.itempic6.TabIndex = 9;
             this.itempic6.TabStop = false;
+            this.itempic6.Visible = false;
             // 
             // itempic7
             // 
@@ -167,6 +175,7 @@
             this.itempic7.Size = new System.Drawing.Size(149, 83);
             this.itempic7.TabIndex = 10;
             this.itempic7.TabStop = false;
+            this.itempic7.Visible = false;
             // 
             // itempic8
             // 
@@ -175,6 +184,7 @@
             this.itempic8.Size = new System.Drawing.Size(149, 83);
             this.itempic8.TabIndex = 13;
             this.itempic8.TabStop = false;
+            this.itempic8.Visible = false;
             // 
             // itempic5
             // 
@@ -183,6 +193,7 @@
             this.itempic5.Size = new System.Drawing.Size(149, 83);
             this.itempic5.TabIndex = 12;
             this.itempic5.TabStop = false;
+            this.itempic5.Visible = false;
             // 
             // itempic2
             // 
@@ -191,6 +202,7 @@
             this.itempic2.Size = new System.Drawing.Size(149, 83);
             this.itempic2.TabIndex = 11;
             this.itempic2.TabStop = false;
+            this.itempic2.Visible = false;
             // 
             // itempic0
             // 
@@ -200,6 +212,7 @@
             this.itempic0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.itempic0.TabIndex = 5;
             this.itempic0.TabStop = false;
+            this.itempic0.Visible = false;
             // 
             // item2qty
             // 
@@ -207,6 +220,7 @@
             this.item2qty.Name = "item2qty";
             this.item2qty.Size = new System.Drawing.Size(54, 22);
             this.item2qty.TabIndex = 14;
+            this.item2qty.Visible = false;
             this.item2qty.ValueChanged += new System.EventHandler(this.item2數量控制);
             // 
             // item5qty
@@ -215,6 +229,7 @@
             this.item5qty.Name = "item5qty";
             this.item5qty.Size = new System.Drawing.Size(54, 22);
             this.item5qty.TabIndex = 15;
+            this.item5qty.Visible = false;
             this.item5qty.ValueChanged += new System.EventHandler(this.item5數量控制);
             // 
             // item8qty
@@ -223,6 +238,7 @@
             this.item8qty.Name = "item8qty";
             this.item8qty.Size = new System.Drawing.Size(54, 22);
             this.item8qty.TabIndex = 16;
+            this.item8qty.Visible = false;
             this.item8qty.ValueChanged += new System.EventHandler(this.item8數量控制);
             // 
             // item7qty
@@ -231,6 +247,7 @@
             this.item7qty.Name = "item7qty";
             this.item7qty.Size = new System.Drawing.Size(54, 22);
             this.item7qty.TabIndex = 17;
+            this.item7qty.Visible = false;
             this.item7qty.ValueChanged += new System.EventHandler(this.item7數量控制);
             // 
             // item4qty
@@ -239,6 +256,7 @@
             this.item4qty.Name = "item4qty";
             this.item4qty.Size = new System.Drawing.Size(54, 22);
             this.item4qty.TabIndex = 18;
+            this.item4qty.Visible = false;
             this.item4qty.ValueChanged += new System.EventHandler(this.item4數量控制);
             // 
             // item1qty
@@ -247,6 +265,7 @@
             this.item1qty.Name = "item1qty";
             this.item1qty.Size = new System.Drawing.Size(54, 22);
             this.item1qty.TabIndex = 19;
+            this.item1qty.Visible = false;
             this.item1qty.ValueChanged += new System.EventHandler(this.item1數量控制);
             // 
             // item0qty
@@ -255,6 +274,7 @@
             this.item0qty.Name = "item0qty";
             this.item0qty.Size = new System.Drawing.Size(54, 22);
             this.item0qty.TabIndex = 20;
+            this.item0qty.Visible = false;
             this.item0qty.ValueChanged += new System.EventHandler(this.item0數量控制);
             // 
             // item3qty
@@ -263,6 +283,7 @@
             this.item3qty.Name = "item3qty";
             this.item3qty.Size = new System.Drawing.Size(54, 22);
             this.item3qty.TabIndex = 21;
+            this.item3qty.Visible = false;
             this.item3qty.ValueChanged += new System.EventHandler(this.item3數量控制);
             // 
             // item6qty
@@ -271,6 +292,7 @@
             this.item6qty.Name = "item6qty";
             this.item6qty.Size = new System.Drawing.Size(54, 22);
             this.item6qty.TabIndex = 22;
+            this.item6qty.Visible = false;
             this.item6qty.ValueChanged += new System.EventHandler(this.item6數量控制);
             // 
             // lbl0
@@ -282,6 +304,7 @@
             this.lbl0.Size = new System.Drawing.Size(55, 16);
             this.lbl0.TabIndex = 24;
             this.lbl0.Text = "雞腿飯";
+            this.lbl0.Visible = false;
             // 
             // item0pricelbl
             // 
@@ -292,6 +315,7 @@
             this.item0pricelbl.Size = new System.Drawing.Size(43, 24);
             this.item0pricelbl.TabIndex = 33;
             this.item0pricelbl.Text = "100";
+            this.item0pricelbl.Visible = false;
             // 
             // OrderResult
             // 
@@ -324,6 +348,7 @@
             this.lbl1.Size = new System.Drawing.Size(55, 16);
             this.lbl1.TabIndex = 43;
             this.lbl1.Text = "排骨飯";
+            this.lbl1.Visible = false;
             // 
             // lbl2
             // 
@@ -334,6 +359,7 @@
             this.lbl2.Size = new System.Drawing.Size(55, 16);
             this.lbl2.TabIndex = 44;
             this.lbl2.Text = "焢肉飯";
+            this.lbl2.Visible = false;
             // 
             // item1pricelbl
             // 
@@ -344,6 +370,7 @@
             this.item1pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item1pricelbl.TabIndex = 45;
             this.item1pricelbl.Text = "80";
+            this.item1pricelbl.Visible = false;
             // 
             // item2pricelbl
             // 
@@ -354,6 +381,7 @@
             this.item2pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item2pricelbl.TabIndex = 46;
             this.item2pricelbl.Text = "80";
+            this.item2pricelbl.Visible = false;
             // 
             // lbl3
             // 
@@ -364,6 +392,7 @@
             this.lbl3.Size = new System.Drawing.Size(71, 16);
             this.lbl3.TabIndex = 47;
             this.lbl3.Text = "三杯雞飯";
+            this.lbl3.Visible = false;
             // 
             // lbl4
             // 
@@ -374,6 +403,7 @@
             this.lbl4.Size = new System.Drawing.Size(55, 16);
             this.lbl4.TabIndex = 48;
             this.lbl4.Text = "蝦排飯";
+            this.lbl4.Visible = false;
             // 
             // lbl5
             // 
@@ -384,6 +414,7 @@
             this.lbl5.Size = new System.Drawing.Size(55, 16);
             this.lbl5.TabIndex = 49;
             this.lbl5.Text = "雞排飯";
+            this.lbl5.Visible = false;
             // 
             // lbl6
             // 
@@ -394,6 +425,7 @@
             this.lbl6.Size = new System.Drawing.Size(55, 16);
             this.lbl6.TabIndex = 50;
             this.lbl6.Text = "香腸飯";
+            this.lbl6.Visible = false;
             // 
             // lbl7
             // 
@@ -404,6 +436,7 @@
             this.lbl7.Size = new System.Drawing.Size(55, 16);
             this.lbl7.TabIndex = 51;
             this.lbl7.Text = "燒肉飯";
+            this.lbl7.Visible = false;
             // 
             // lbl8
             // 
@@ -414,6 +447,7 @@
             this.lbl8.Size = new System.Drawing.Size(71, 16);
             this.lbl8.TabIndex = 52;
             this.lbl8.Text = "花枝排飯";
+            this.lbl8.Visible = false;
             // 
             // item3pricelbl
             // 
@@ -424,6 +458,7 @@
             this.item3pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item3pricelbl.TabIndex = 53;
             this.item3pricelbl.Text = "85";
+            this.item3pricelbl.Visible = false;
             // 
             // item4pricelbl
             // 
@@ -434,6 +469,7 @@
             this.item4pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item4pricelbl.TabIndex = 54;
             this.item4pricelbl.Text = "80";
+            this.item4pricelbl.Visible = false;
             // 
             // item5pricelbl
             // 
@@ -444,6 +480,7 @@
             this.item5pricelbl.Size = new System.Drawing.Size(43, 24);
             this.item5pricelbl.TabIndex = 55;
             this.item5pricelbl.Text = "100";
+            this.item5pricelbl.Visible = false;
             // 
             // item6pricelbl
             // 
@@ -454,6 +491,7 @@
             this.item6pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item6pricelbl.TabIndex = 56;
             this.item6pricelbl.Text = "80";
+            this.item6pricelbl.Visible = false;
             // 
             // item7pricelbl
             // 
@@ -464,6 +502,7 @@
             this.item7pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item7pricelbl.TabIndex = 57;
             this.item7pricelbl.Text = "80";
+            this.item7pricelbl.Visible = false;
             // 
             // item8pricelbl
             // 
@@ -474,6 +513,7 @@
             this.item8pricelbl.Size = new System.Drawing.Size(32, 24);
             this.item8pricelbl.TabIndex = 58;
             this.item8pricelbl.Text = "80";
+            this.item8pricelbl.Visible = false;
             // 
             // NextPage
             // 
@@ -505,12 +545,49 @@
             this.PrePage.Visible = false;
             this.PrePage.Click += new System.EventHandler(this.PrePageBtn);
             // 
+            // DisplayPerPage
+            // 
+            this.DisplayPerPage.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DisplayPerPage.Location = new System.Drawing.Point(514, 7);
+            this.DisplayPerPage.Name = "DisplayPerPage";
+            this.DisplayPerPage.Size = new System.Drawing.Size(41, 25);
+            this.DisplayPerPage.TabIndex = 62;
+            this.DisplayPerPage.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.DisplayPerPage.ValueChanged += new System.EventHandler(this.DisplayPerPage_ValueChanged);
+            // 
+            // DisplayPerPagelbl
+            // 
+            this.DisplayPerPagelbl.AutoSize = true;
+            this.DisplayPerPagelbl.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DisplayPerPagelbl.Location = new System.Drawing.Point(365, 14);
+            this.DisplayPerPagelbl.Name = "DisplayPerPagelbl";
+            this.DisplayPerPagelbl.Size = new System.Drawing.Size(143, 16);
+            this.DisplayPerPagelbl.TabIndex = 63;
+            this.DisplayPerPagelbl.Text = "品項最大顯示數量 :";
+            // 
+            // ClearOrder
+            // 
+            this.ClearOrder.Location = new System.Drawing.Point(713, 364);
+            this.ClearOrder.Name = "ClearOrder";
+            this.ClearOrder.Size = new System.Drawing.Size(75, 23);
+            this.ClearOrder.TabIndex = 64;
+            this.ClearOrder.Text = "清空點餐";
+            this.ClearOrder.UseVisualStyleBackColor = true;
+            this.ClearOrder.Click += new System.EventHandler(this.ClearOrder_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.ClearOrder);
+            this.Controls.Add(this.DisplayPerPagelbl);
+            this.Controls.Add(this.DisplayPerPage);
             this.Controls.Add(this.PrePage);
             this.Controls.Add(this.page);
             this.Controls.Add(this.NextPage);
@@ -578,6 +655,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.item0qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.item3qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.item6qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayPerPage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -630,5 +708,8 @@
         private System.Windows.Forms.Button NextPage;
         private System.Windows.Forms.Label page;
         private System.Windows.Forms.Button PrePage;
+        private System.Windows.Forms.NumericUpDown DisplayPerPage;
+        private System.Windows.Forms.Label DisplayPerPagelbl;
+        private System.Windows.Forms.Button ClearOrder;
     }
 }

@@ -51,8 +51,12 @@ namespace 便當
                     }
                     reader.Close();
                 }
+
+                // bool any = DbContext.Customer.Any(c =>c.CustomerID = customeID)
+
                 using (SqlCommand cmd = new SqlCommand(SelectNameStr, conn))
                 {
+                    // nvarchar(4000)
                     cmd.Parameters.AddWithValue("@Name", Name);
                     var reader = cmd.ExecuteReader();
                     if (reader.HasRows)
@@ -63,6 +67,7 @@ namespace 便當
                     }
                     reader.Close();
                 }
+
                 using (SqlCommand InsertCmd = new SqlCommand(CmdStr, conn))
                 {
                     InsertCmd.Parameters.AddWithValue("@ID", ID);

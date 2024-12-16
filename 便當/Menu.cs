@@ -18,7 +18,7 @@ namespace 便當
         }
 
         readonly List<便當> 菜單 = new List<便當>();
-
+        
         public Menu()
         {
             InitializeComponent();
@@ -46,18 +46,24 @@ namespace 便當
                     }
                 }
             }
-            for (int i = 0; i <= 8; i++)
+            for (int i = 0; i <= DisplayPerPage.Value -1 ; i++)
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
+                string lbl_qty = "item" + i.ToString() + "qty";
                 string pic_ = "itempic" + i.ToString();
                 var lbl = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_name);
                 var lblP = Controls.OfType<Label>().First(rs => rs.Name.Trim() == lbl_price);
                 var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
+                var lblQty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == lbl_qty);
                 lbl.Text = 菜單[i].便當名稱.ToString();
+                lbl.Visible = true;
                 lblP.Text = 菜單[i].價格.ToString();
+                lblP.Visible = true;
                 pic.ImageLocation = ImgUrlGet(lbl.Text, 菜單[i].便當ID);
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                pic.Visible = true;
+                lblQty.Visible = true;
             }
         }
 
@@ -231,8 +237,8 @@ namespace 便當
 
         private void PageMenuGet(int page)
         {
-            int Menu_index = (page - 1) * 9;
-            for (int i = 0; i <= 8; i++)
+            int Menu_index = (page - 1) * (int)DisplayPerPage.Value;
+            for (int i = 0; i < 9 ; i++)
             {
                 string lbl_name = "lbl" + i.ToString();
                 string lbl_price = "item" + i.ToString() + "pricelbl";
@@ -240,10 +246,13 @@ namespace 便當
                 var lbl = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_name);
                 var lblP = Controls.OfType<Label>().FirstOrDefault(rs => rs.Name.Trim() == lbl_price);
                 var pic = Controls.OfType<PictureBox>().First(rs => rs.Name.Trim() == pic_);
+
                 if (i + Menu_index < 菜單.Count)
                 {
                     lbl.Text = 菜單[i + Menu_index].便當名稱.ToString();
+                    lbl.Visible = true;
                     lblP.Text = 菜單[i + Menu_index].價格.ToString();
+                    lblP.Visible = true;
                     pic.ImageLocation = ImgUrlGet(lbl.Text, 菜單[i + Menu_index].便當ID);
                     pic.Visible = true;
                 }
@@ -254,10 +263,11 @@ namespace 便當
                     pic.ImageLocation = "";
                     pic.Visible = false;
                 }
+
                 string itemQty = "item" + i.ToString() + "qty";
                 var qty = Controls.OfType<NumericUpDown>().First(rs => rs.Name.Trim() == itemQty);
                 var item = OrderResult.Items.OfType<ListViewItem>().FirstOrDefault(lvi => lvi.Text.Trim() == lbl.Text.Trim());
-                if (lbl.Text == "")
+                if (lbl.Text == "" )
                 {
                     qty.Visible = false;
                     NextPage.Visible = false;
@@ -271,6 +281,14 @@ namespace 便當
                 else
                     qty.Value = 0;
                 qty.Enabled = true;
+
+                if (i + 1 > DisplayPerPage.Value )
+                {
+                    lbl.Visible = false;
+                    lblP.Visible = false;
+                    pic.Visible= false;
+                    qty.Visible= false;
+                }
             }
         }
         private void NumericControl(NumericUpDown NUD, int NUDnum)
@@ -301,6 +319,26 @@ namespace 便當
                 Drink.SubItems.Add(Drink_count.ToString());
                 OrderResult.Items.Add(Drink);
             }
+        }
+
+        private void DisplayPerPage_ValueChanged(object sender, EventArgs e)
+        {
+            if (DisplayPerPage.Value > 9)
+                DisplayPerPage.Value = 9;
+            if (DisplayPerPage.Value < 1)
+                DisplayPerPage.Value = 1;
+            page.Text = "1";
+            PrePage.Visible = false;
+            NextPage.Visible = true;
+            PageMenuGet(Convert.ToInt32(page.Text));
+        }
+
+        private void ClearOrder_Click(object sender, EventArgs e)
+        {
+            OrderResult.Items.Clear();
+            foreach(NumericUpDown numericUpDown in Controls.OfType<NumericUpDown>())
+                if (numericUpDown.Name != "DisplayPerPage")
+                    numericUpDown.Value = 0;
         }
     }
 }

@@ -377,49 +377,24 @@ namespace 便當
             {
                 int CurrentNum = i;
                 int CurrentPosition = i - 1 + num;
-
-                Panel panel = new Panel();
-                panel.Size = new Size(180, 150);
+                MenuController controller = new MenuController();
                 if (CurrentPosition < 菜單.Count)
                 {
                     var item = OrderResult.Items.OfType<ListViewItem>()
                     .FirstOrDefault(lvi => lvi.Text.Trim() == 菜單[CurrentPosition].便當名稱.ToString().Trim());
                     int ItemValue = (item == null) ? 0 : Convert.ToInt32(item.SubItems[1].Text);
-                    panel.Controls.Add(new Label
-                    {
-                        Text = 菜單[CurrentPosition].便當名稱.ToString(),
-                        Font = new Font("新細明體", 12, FontStyle.Regular),
-                    });
-                    panel.Controls.Add(new Label
-                    {
-                        Text = 菜單[CurrentPosition].價格.ToString(),
-                        Font = new Font("新細明體", 15, FontStyle.Regular),
-                        Location = new Point(100, 0)
-                    });
-                    panel.Controls.Add(new PictureBox
-                    {
-                        ImageLocation = ImgUrlGet(Text, 菜單[CurrentPosition].便當ID),
-                        Location = new Point(0, 25),
-                        SizeMode = PictureBoxSizeMode.StretchImage,
-                        Size = new Size(150, 85)
-                    });
-
-                    NumericUpDown numericUpDown = new NumericUpDown
-                    {
-                        Value = ItemValue,
-                        Location = new Point(0, 120)
-                    };
-
-                    numericUpDown.ValueChanged += (sender, e) =>
+                    controller.MealText = 菜單[CurrentPosition].便當名稱.ToString();
+                    controller.PriceText = 菜單[CurrentPosition].價格.ToString();
+                    controller.PicLocation = ImgUrlGet(Text, 菜單[CurrentPosition].便當ID);
+                    controller.Qty = ItemValue;
+                    controller.ControllerQtyNUD.ValueChanged += (sender, e) =>
                         NumericControl(sender as NumericUpDown, CurrentNum - 1);
-
-                    panel.Controls.Add(numericUpDown);
                 }
 
                 if (i % 3 == 0)
-                    MenuFlow.SetFlowBreak(panel, true); //控件換行
+                    MenuFlow.SetFlowBreak(controller, true); //控件換行
 
-                MenuFlow.Controls.Add(panel);
+                MenuFlow.Controls.Add(controller);
             }
         }
     }

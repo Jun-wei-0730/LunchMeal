@@ -11,8 +11,8 @@ namespace 便當
 {
     public partial class NewCustomer : Form
     {
-        DataTable IDTable;
-        List<string> list;
+        //DataTable IDTable;
+        //List<string> list;
         public NewCustomer()
         {
             InitializeComponent();

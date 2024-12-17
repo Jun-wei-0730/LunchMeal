@@ -59,7 +59,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.userControl11 = new 便當.UserControl1();
+            this.userControl11 = new 便當.MenuController();
             this.ucTextBox1 = new 便當.UCTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -325,7 +325,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage1;
-        private UserControl1 userControl11;
+        private MenuController userControl11;
         private UCTextBox ucTextBox1;
     }
 }

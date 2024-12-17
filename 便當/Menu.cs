@@ -377,6 +377,7 @@ namespace 便當
             {
                 int CurrentNum = i;
                 int CurrentPosition = i - 1 + num;
+
                 Panel panel = new Panel();
                 panel.Size = new Size(180, 150);
                 if (CurrentPosition < 菜單.Count)
@@ -402,17 +403,22 @@ namespace 便當
                         SizeMode = PictureBoxSizeMode.StretchImage,
                         Size = new Size(150, 85)
                     });
+
                     NumericUpDown numericUpDown = new NumericUpDown
                     {
                         Value = ItemValue,
                         Location = new Point(0, 120)
                     };
+
                     numericUpDown.ValueChanged += (sender, e) =>
                         NumericControl(sender as NumericUpDown, CurrentNum - 1);
+
                     panel.Controls.Add(numericUpDown);
                 }
+
                 if (i % 3 == 0)
                     MenuFlow.SetFlowBreak(panel, true); //控件換行
+
                 MenuFlow.Controls.Add(panel);
             }
         }
